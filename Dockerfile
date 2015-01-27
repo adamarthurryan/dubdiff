@@ -55,14 +55,22 @@ ENV MONGO_LOG $HOME/.mongodb.log
 RUN mkdir $MONGO_DB
 
 # launch mongo
+# this could be done as an entrypoint or whatever
 # RUN mongod --dbpath $MONGO_DB --logpath $MONGO_LOG --fork --journal
 
+# create a script for launching mongo
+RUN mkdir $HOME/bin 
+RUN echo 'mongod --dbpath $MONGO_DB --logpath $MONGO_LOG --fork --journal' > $HOME/bin/mongod-start
+RUN chmod +x $HOME/bin/mongod-start
+ENV PATH $PATH:$HOME/bin
 
-# add a volume from the current folder
-# ADD . /data
+# create a data volume
+VOLUME /data
 
 # expose the ports
 EXPOSE 8000
 EXPOSE 9000
 EXPOSE 3000
 EXPOSE 35729
+
+
