@@ -55,10 +55,12 @@ ENV MONGO_LOG $HOME/.mongodb.log
 RUN mkdir $MONGO_DB
 
 # launch mongo
-# this could be done as an entrypoint or whatever
-# RUN mongod --dbpath $MONGO_DB --logpath $MONGO_LOG --fork --journal
+# this just preps the database - it still needs to be launched inside the docker container
+RUN mongod --dbpath $MONGO_DB --logpath $MONGO_LOG --fork --journal
 
-# create a script for launching mongo
+# create a script for launching mongo from the docker container
+# this could go in .bashrc or something
+# perhaps mongo should use the /data volume for its database?
 RUN mkdir $HOME/bin 
 RUN echo 'mongod --dbpath $MONGO_DB --logpath $MONGO_LOG --fork --journal' > $HOME/bin/mongod-start
 RUN chmod +x $HOME/bin/mongod-start
