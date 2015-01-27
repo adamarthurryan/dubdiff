@@ -2,7 +2,7 @@
 A docker container for developing mean stack applications
 
 Useage
-######
+======
 
 Build the container with `sudo docker build -t 'tag name' .`
 
