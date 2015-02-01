@@ -76,3 +76,7 @@ EXPOSE 3000
 EXPOSE 35729
 
 
+# configure git
+git config --global push.default simple
+
+# !!! how to securely configure the username / password?
