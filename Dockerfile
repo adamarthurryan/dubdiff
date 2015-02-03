@@ -3,7 +3,6 @@ FROM ubuntu:14.04
 MAINTAINER Adam Brown "adamarthurryan@gmail.com"
 
 
-
 # update package sources
 # and get some basics
 RUN apt-get -y update && apt-get -y install \
