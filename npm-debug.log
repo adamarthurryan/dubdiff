@@ -1,0 +1,98 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '--save',
+1 verbose cli   'child_process' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.36
+4 verbose node symlink /usr/bin/node
+5 warn package.json fs@0.0.2 fs is also the name of a node core module.
+6 warn package.json fs@0.0.2 No description
+7 warn package.json fs@0.0.2 No repository field.
+8 warn package.json fs@0.0.2 No README data
+9 warn package.json karma-chrome-launcher@0.1.7 No README data
+10 warn package.json karma-coffee-preprocessor@0.2.1 No README data
+11 warn package.json karma-firefox-launcher@0.1.4 No README data
+12 warn package.json karma-phantomjs-launcher@0.1.4 No README data
+13 warn package.json passport-local@0.1.6 No README data
+14 verbose readDependencies using package.json deps
+15 verbose cache add [ 'child_process', null ]
+16 verbose cache add name=undefined spec="child_process" args=["child_process",null]
+17 verbose parsed url { protocol: null,
+17 verbose parsed url   slashes: null,
+17 verbose parsed url   auth: null,
+17 verbose parsed url   host: null,
+17 verbose parsed url   port: null,
+17 verbose parsed url   hostname: null,
+17 verbose parsed url   hash: null,
+17 verbose parsed url   search: null,
+17 verbose parsed url   query: null,
+17 verbose parsed url   pathname: 'child_process',
+17 verbose parsed url   path: 'child_process',
+17 verbose parsed url   href: 'child_process' }
+18 silly lockFile 4845fa97-child-process child_process
+19 verbose lock child_process /home/docker/.npm/4845fa97-child-process.lock
+20 silly lockFile 4845fa97-child-process child_process
+21 silly lockFile 4845fa97-child-process child_process
+22 verbose addNamed [ 'child_process', '' ]
+23 verbose addNamed [ null, '*' ]
+24 silly lockFile 512a7ef6-child-process child_process@
+25 verbose lock child_process@ /home/docker/.npm/512a7ef6-child-process.lock
+26 silly addNameRange { name: 'child_process', range: '*', hasData: false }
+27 verbose request where is /child_process
+28 verbose request registry https://registry.npmjs.org/
+29 verbose request id 64c0f71547b88d8b
+30 verbose url raw /child_process
+31 verbose url resolving [ 'https://registry.npmjs.org/', './child_process' ]
+32 verbose url resolved https://registry.npmjs.org/child_process
+33 verbose request where is https://registry.npmjs.org/child_process
+34 info trying registry request attempt 1 at 00:16:07
+35 http GET https://registry.npmjs.org/child_process
+36 http 404 https://registry.npmjs.org/child_process
+37 verbose headers { date: 'Thu, 05 Feb 2015 00:15:58 GMT',
+37 verbose headers   server: 'CouchDB/1.6.1 (Erlang OTP/R14B04)',
+37 verbose headers   'content-type': 'application/json',
+37 verbose headers   'cache-control': 'max-age=0',
+37 verbose headers   'content-length': '52',
+37 verbose headers   'accept-ranges': 'bytes',
+37 verbose headers   via: '1.1 varnish',
+37 verbose headers   age: '0',
+37 verbose headers   'x-served-by': 'cache-iad2144-IAD',
+37 verbose headers   'x-cache': 'MISS',
+37 verbose headers   'x-cache-hits': '0',
+37 verbose headers   'x-timer': 'S1423095358.512957,VS0,VE62',
+37 verbose headers   'keep-alive': 'timeout=10, max=50',
+37 verbose headers   connection: 'Keep-Alive' }
+38 silly registry.get cb [ 404,
+38 silly registry.get   { date: 'Thu, 05 Feb 2015 00:15:58 GMT',
+38 silly registry.get     server: 'CouchDB/1.6.1 (Erlang OTP/R14B04)',
+38 silly registry.get     'content-type': 'application/json',
+38 silly registry.get     'cache-control': 'max-age=0',
+38 silly registry.get     'content-length': '52',
+38 silly registry.get     'accept-ranges': 'bytes',
+38 silly registry.get     via: '1.1 varnish',
+38 silly registry.get     age: '0',
+38 silly registry.get     'x-served-by': 'cache-iad2144-IAD',
+38 silly registry.get     'x-cache': 'MISS',
+38 silly registry.get     'x-cache-hits': '0',
+38 silly registry.get     'x-timer': 'S1423095358.512957,VS0,VE62',
+38 silly registry.get     'keep-alive': 'timeout=10, max=50',
+38 silly registry.get     connection: 'Keep-Alive' } ]
+39 silly lockFile 512a7ef6-child-process child_process@
+40 silly lockFile 512a7ef6-child-process child_process@
+41 error 404 404 Not Found: child_process
+41 error 404
+41 error 404 'child_process' is not in the npm registry.
+41 error 404 You should bug the author to publish it
+41 error 404 It was specified as a dependency of 'markdown-format-wdiff'
+41 error 404
+41 error 404 Note that you can also install from a
+41 error 404 tarball, folder, or http url, or git url.
+42 error System Linux 3.13.0-32-generic
+43 error command "/usr/bin/node" "/usr/bin/npm" "install" "--save" "child_process"
+44 error cwd /data/markdown-format-wdiff
+45 error node -v v0.10.36
+46 error npm -v 1.4.28
+47 error code E404
+48 verbose exit [ 1, true ]

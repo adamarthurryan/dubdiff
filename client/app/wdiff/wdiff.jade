@@ -1,0 +1,52 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+header#banner.hero-unit
+  .container
+    h1 wdiff
+    
+.container
+  .row
+    .col-lg-3.col-sm-12
+    .col-lg-6.col-sm-12
+      div.diff-container
+        div(ng-bind='wdiff')
+    .col-lg-3.col-sm-12
+
+  .row
+    .col-lg-3.col-sm-12
+    .col-lg-6.col-sm-12
+      div.diff-container
+        div(btf-markdown='wdiffMarkdown')
+    .col-lg-3.col-sm-12
+
+  hr
+
+  form.row
+    .col-lg-12.form-group
+      div.checkbox
+        label
+          input(type='checkbox', ng-model='displayAsMarkdown') 
+          | Display as Markdown
+
+    .col-lg-12.form-group
+      div.btn-group.btn-group-justified(role='group')
+        a.btn.btn-primary(type='button', ng-click='compare()') compare
+
+    .col-lg-6.col-sm-12.form-group
+      label(for='docA')
+        | Document A
+      textarea.form-control(id='docA', ng-model='docA')
+
+    .col-lg-6.col-sm-12.form-group
+      label(for='docB')
+        | Document B
+      textarea.form-control(id='docB', ng-model='docB')
+
+ 
+footer.footer
+  .container
+    p
+      | Wdiff online
+      = ' | '
+      a(href='https://madanworb.com') Adam Brown
+      
