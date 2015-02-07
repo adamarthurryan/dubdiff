@@ -1,8 +1,6 @@
-div(ng-include='"components/navbar/navbar.html"')
+nav(ng-include='"components/navbar/navbar.html"')
 
-header#banner.hero-unit
-  .container
-    h1 wdiff
+nav(ng-include='"components/elements/header.html"', onload='title = "wdiff"')
     
 .container
   .row
@@ -43,10 +41,4 @@ header#banner.hero-unit
       textarea.form-control(id='docB', ng-model='docB')
 
  
-footer.footer
-  .container
-    p
-      | Wdiff online
-      = ' | '
-      a(href='https://madanworb.com') Adam Brown
-      
+footer(ng-include='"components/elements/footer.html"')

@@ -1,0 +1,28 @@
+nav(ng-include='"components/navbar/navbar.html"')
+
+nav(ng-include='"components/elements/header.html"', ng-onload='title = {{revision.created}}')
+    
+.container
+  .row
+    span(ng-show='isCurrent()')
+      | Current revision
+    a.btn.btn-primary(ng-hide='isCurrent()' href='/wdiff/{{revision._id}}/{{revision.document.currentRevision}}')
+      | wdiff current
+
+  .row
+    .col-lg-6.col-md-9.center-block
+      h4
+        {{revision.created}}
+      div
+        p
+          | State: 
+          {{revision.state}}
+        p
+          | Updated:
+          {{revision.created}}
+      div(btf-markdown='revision.content')
+      pre
+        {{json(revision)}}
+ 
+
+footer(ng-include='"components/elements/footer.html"')

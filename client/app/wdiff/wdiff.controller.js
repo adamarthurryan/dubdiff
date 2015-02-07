@@ -9,18 +9,13 @@ angular.module('markdownFormatWdiffApp')
     $scope.displayAsMarkdown = true;
 
     $scope.compare = function() {
-      $http.post('/api/wdiff', //+($scope.displayAsMarkdown ? '/markdown': ''), 
+      $http.post('/api/wdiff'+($scope.displayAsMarkdown ? '/markdown': ''), 
         { a: $scope.docA, b: $scope.docB }, 
         {headers:{"Content-Type":"application/json"}})
       .success(function (data) {
         if ($scope.displayAsMarkdown) {
-          var markdown = data.wdiff;
-          markdown = markdown.replace(/\[-/g, '<del>');
-          markdown = markdown.replace(/-\]/g, '</del>');
-          markdown = markdown.replace(/{\+/g, '<ins>');
-          markdown = markdown.replace(/\+}/g, '</ins>');
-
-          $scope.wdiffMarkdown = markdown; //data.markdown;
+         
+          $scope.wdiffMarkdown = data.markdown; //data.markdown;
           $scope.wdiff = '';
         }
         else {

@@ -5,45 +5,80 @@
 
 'use strict';
 
-var Thing = require('../api/thing/thing.model');
+var Document = require('../api/document/document.model');
+var Revision = require('../api/document/revision.model');
 var User = require('../api/user/user.model');
 
-Thing.find({}).remove(function() {
-  Thing.create({
-    name : 'Development Tools',
-    info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
-  }, {
-    name : 'Server and Client integration',
-    info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
-  }, {
-    name : 'Smart Build System',
-    info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
-  },  {
-    name : 'Modular Structure',
-    info : 'Best practice client and server structures allow for more code reusability and maximum scalability'
-  },  {
-    name : 'Optimized Build',
-    info : 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
-  },{
-    name : 'Deployment Ready',
-    info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
-  });
-});
 
-User.find({}).remove(function() {
-  User.create({
-    provider: 'local',
-    name: 'Test User',
-    email: 'test@test.com',
-    password: 'test'
-  }, {
-    provider: 'local',
-    role: 'admin',
-    name: 'Admin',
-    email: 'admin@admin.com',
-    password: 'admin'
-  }, function() {
-      console.log('finished populating users');
-    }
-  );
-});
+var oldUser;
+var testUser;
+var testDocument;
+var testRevisionIds = [];
+
+
+Document.find({owner:null}).remove();
+Revision.find({owner:null}).remove();
+
+
+User.findOne({email:'test@test.com'}).exec()
+  .then(function(user) {
+    oldUser = user;
+
+    console.log('removing test revisions');
+    Revision.find({owner: user}).remove().exec();
+    
+    console.log('removing test documents');
+    Document.find({owner: user}).remove().exec();
+
+    console.log('removing test user');
+    User.find({email:'test@test.com'}).remove().exec(); 
+  }, function (err) { console.log('err: '+err)})
+
+  .then(function() {
+    console.log('creating test user');
+    return User.create({
+      provider: 'local',
+      name: 'Test User',
+      email: 'test@test.com',
+      password: 'test'
+    });  
+  }, function (err) { console.log('err: '+err)})
+
+  .then(function(user) {
+    testUser = user;
+    console.log('creating test document');
+    return Document.create({
+      owner: testUser,
+      title: "test document",
+    });
+  }, function (err) { console.log('err: '+err)})
+
+  .then(function(document) {
+    testDocument = document;
+    console.log('creating test revisions');
+    return Revision.create({
+      owner: testUser,
+      state: "rough draft",
+      description: "test revision a",
+      content: "blah, blah, blah",
+      document: testDocument
+    }, {
+      owner: testUser,
+      state: "final draft",
+      description: "test revision b",
+      content: "Blah, blah, blah!",
+      document: testDocument      
+    }, function (err, revisionA, revisionB) {
+      console.log('updating document with revisions');
+      testRevisionIds = [revisionA, revisionB]; 
+      testDocument.currentRevision = revisionB;
+      testDocument.revisions.push(revisionA);
+      testDocument.revisions.push(revisionB);
+      return testDocument.save();
+    });
+  }, function (err) { console.log('err: '+err)})
+  
+  .then(function() {
+    console.log('finished seeding db');
+  }, function (err) { console.log('err: '+err)})
+  ;

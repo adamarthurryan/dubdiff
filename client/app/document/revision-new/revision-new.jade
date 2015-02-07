@@ -1,0 +1,26 @@
+nav(ng-include='"components/navbar/navbar.html"')
+
+nav(ng-include='"components/elements/header.html"', ng-onload='title = {{revision.created}}')
+    
+.container
+  .row
+    form.col-lg-9.col-md-12.center-block
+      h4
+        {{revision.document.title}} - {{revision.created}}  
+      .form-group
+        label(for='status-input')
+          | Status
+        input.form-control(type='text', id='status-input', ng-model='revision.status')
+      .form-group
+        label(for='content-input')
+          | Content
+        textarea.form-control(id='content-input', ng-model='revision.content')
+      button.btn.btn-default(ng-click='saveRevision()')
+        | Save
+
+  .row
+    pre.col-lg-9.col-md-12.center-block
+      {{json(revision)}}
+
+
+footer(ng-include='"components/elements/footer.html"')

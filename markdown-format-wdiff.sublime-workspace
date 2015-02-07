@@ -1,0 +1,1044 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"wdif",
+				"wdiffMarkdown"
+			],
+			[
+				"selected",
+				"selectedProviders"
+			],
+			[
+				"btn",
+				"btn-primary"
+			],
+			[
+				"definition",
+				"definition"
+			],
+			[
+				"tran",
+				"translateLanguage"
+			],
+			[
+				"exp",
+				"expressionSearch"
+			],
+			[
+				"define",
+				"defineMeaning"
+			],
+			[
+				"colo",
+				"colorFactor"
+			],
+			[
+				"dup",
+				"duplicate_user"
+			],
+			[
+				"import_exter",
+				"import_external_images_nonce"
+			],
+			[
+				"page-break",
+				"page-break-inside"
+			],
+			[
+				"array_key",
+				"array_key_exists"
+			],
+			[
+				"guess",
+				"guess"
+			],
+			[
+				"category",
+				"category_list"
+			],
+			[
+				"posts_",
+				"posts_to_fix"
+			],
+			[
+				"in",
+				"inline-block"
+			],
+			[
+				"text-",
+				"text-decoration"
+			],
+			[
+				"get_ca",
+				"get_cat_id"
+			],
+			[
+				"flatten",
+				"flatten"
+			],
+			[
+				"con",
+				"contains"
+			],
+			[
+				"add",
+				"addClass"
+			],
+			[
+				"h",
+				"hidden"
+			],
+			[
+				"page",
+				"page-break-before"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "client/app/wdiff/wdiff.controller.js",
+			"settings":
+			{
+				"buffer_size": 1167,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "server/api/wdiff/index.js",
+			"settings":
+			{
+				"buffer_size": 248,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "server/api/wdiff/wdiff.controller.js",
+			"settings":
+			{
+				"buffer_size": 2687,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/index.html",
+			"settings":
+			{
+				"buffer_size": 3904,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "bower.json",
+			"settings":
+			{
+				"buffer_size": 617,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/app/app.js",
+			"settings":
+			{
+				"buffer_size": 1515,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/app/wdiff/wdiff.js",
+			"settings":
+			{
+				"buffer_size": 224,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/app/wdiff/wdiff.jade",
+			"settings":
+			{
+				"buffer_size": 1122,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/app/wdiff/wdiff.scss",
+			"settings":
+			{
+				"buffer_size": 553,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "bin/markdown-format-wdiff",
+			"settings":
+			{
+				"buffer_size": 711,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "bin/markdown-git-changes",
+			"settings":
+			{
+				"buffer_size": 2724,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "'use strict';\n\nangular.module('markdownFormatWdiffApp')\n  .config(function ($routeProvider) {\n    $routeProvider\n      .when('/oldmain', {\n        templateUrl: 'app/main/main.html',\n        controller: 'MainCtrl'\n      });\n  });",
+			"file": "client/app/main/main.js",
+			"file_size": -1,
+			"file_write_time": -1,
+			"settings":
+			{
+				"buffer_size": 228,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 157.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"isntall",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 571.0
+	},
+	"console":
+	{
+		"height": 256.0,
+		"history":
+		[
+			"import urllib.request,os; pr='Preferences.sublime-settings'; ip='ignored_packages'; n='Package Control'; s=sublime.load_settings(pr); ig=s.get(ip); ig.append(n); s.set(ip,ig); sublime.save_settings('Preferences.sublime-settings'); pf=n+'.sublime-package'; urllib.request.install_opener(urllib.request.build_opener(urllib.request.ProxyHandler())); by=urllib.request.urlopen('https://packagecontrol.io/'+pf.replace(' ','%20')).read(); open(os.path.join(sublime.installed_packages_path(),pf),'wb').write(by); ig.remove(n); s.set(ip,ig); sublime.save_settings(pr); print('Package Control: 3.0.0 upgrade successful!')",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"Package Control: Install Package",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"alert(\"a\")",
+			"help"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": true,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Z/markdown-format-wdiff",
+		"/Z/markdown-format-wdiff/bin",
+		"/Z/markdown-format-wdiff/client",
+		"/Z/markdown-format-wdiff/client/app",
+		"/Z/markdown-format-wdiff/client/app/wdiff",
+		"/Z/markdown-format-wdiff/server",
+		"/Z/markdown-format-wdiff/server/api",
+		"/Z/markdown-format-wdiff/server/api/wdiff",
+		"/Z/markdown-format-wdiff/server/config",
+		"/Z/markdown-format-wdiff/server/config/environment"
+	],
+	"file_history":
+	[
+		"/Z/lookup-lists/Gruntfile.js",
+		"/Z/docker/data/lookup-lists/client/app/list/list/list.jade",
+		"/Z/docker/data/lookup-lists/client/app/list/list/list.controller.js",
+		"/Z/docker/data/lookup-lists/client/app/list/item/item.jade",
+		"/Z/docker/data/lookup-lists/server/api/lookup/index.js",
+		"/Z/docker/data/lookup-lists/server/components/lookup/index.js",
+		"/Z/docker/data/lookup-lists/server/components/lookup/omegawiki.js",
+		"/Z/docker/data/lookup-lists/server/components/lookup/openlibrary.js",
+		"/Z/docker/data/lookup-lists/server/components/lookup/dbpedia.js",
+		"/Z/docker/data/lookup-lists/client/app/list/list.js",
+		"/Z/docker/data/lookup-lists/client/app/list/item/item.scss",
+		"/Z/docker/data/lookup-lists/server/components/lookup/panlex.js",
+		"/Z/docker/data/lookup-lists/client/app/list/item/item.controller.js",
+		"/C/Users/adam/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/adam/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Z/docker/data/lookup-lists/client/app/list/index/index.jade",
+		"/Z/docker/data/lookup-lists/client/index.html",
+		"/Z/docker/data/lookup-lists/server/api/list/list.controller.js",
+		"/Z/docker/data/lookup-lists/server/api/lookup/controller.js",
+		"/Z/docker/data/lookup-lists/client/app/list/view/list.scss",
+		"/Z/docker/data/lookup-lists/client/app/list/edit/item.scss",
+		"/Z/docker/data/lookup-lists/server/config/express.js",
+		"/Z/docker/data/lookup-lists/client/app/list/edit/item.jade",
+		"/Z/docker/data/lookup-lists/client/app/list/edit/item.controller.js",
+		"/Z/docker/data/lookup-lists/server/config/environment/production.js",
+		"/Z/docker/data/lookup-lists/server/config/environment/test.js",
+		"/Z/docker/data/lookup-lists/server/config/environment/development.js",
+		"/Z/docker/data/lookup-lists/client/app/list/view/list.jade",
+		"/Z/docker/data/lookup-lists/server/api/list/index.js",
+		"/Z/docker/data/lookup-lists/client/app/list/view/list.controller.js",
+		"/Z/docker/docker-mean-dev/startup",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/Z/docker/data/lookup-lists/client/app/list/index/index.controller.js",
+		"/Z/docker/data/lookup-lists/client/app/list/edit/edit.controller.js",
+		"/Z/docker/data/lookup-lists/client/app/main/main.js",
+		"/Z/docker/data/lookup-lists/client/components/navbar/navbar.jade",
+		"/Z/docker/data/lookup-lists/client/app/app.scss",
+		"/Z/docker/data/lookup-lists/bower.json",
+		"/Z/docker/data/lookup-lists/client/app/lookup/lookup.jade",
+		"/Z/docker/data/lookup-lists/client/app/list/edit/edit.jade",
+		"/Z/docker/data/lookup-lists/client/app/list/index/username.filter.js",
+		"/Z/docker/data/lookup-lists/server/api/list/list.model.js",
+		"/Z/docker/data/lookup-lists/server/api/list/list.socket.js",
+		"/Z/docker/data/lookup-lists/client/components/navbar/navbar.controller.js",
+		"/Z/docker/data/lookup-lists/client/app/lists/lists.controller.js",
+		"/Z/docker/data/lookup-lists/client/app/lists/lists.jade",
+		"/Z/docker/data/lookup-lists/client/app/lists/lists.scss",
+		"/Z/docker/data/lookup-lists/client/app/lookup/lookup.js",
+		"/Z/docker/data/lookup-lists/server/config/local.env.js",
+		"/Z/docker/data/lookup-lists/server/config/seed.js",
+		"/Z/docker/data/lookup-lists/client/app/lists/lists.js",
+		"/Z/docker/data/lookup-lists/Gruntfile.js",
+		"/Z/docker/docker-mean-dev/Dockerfile",
+		"/Z/docker/docker-mean-dev/bootstrap.sh",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/server/api/lookup/index.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/client/index.html",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/client/app/lookup/lookup.controller.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/client/app/lookup/lookup.scss",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/client/app/lookup/lookup.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/package.json",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/server/routes.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/server/api/lookup/controller.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/client/app/lookup/lookup.jade",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/client/bower_components/angular-sanitize/angular-sanitize.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/Gruntfile.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/server/api/list/list.controller.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/server/components/lookup/omegawiki.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/server/components/lookup/index.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/client/bower_components/jquery/src/css/addGetHookIf.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/client/bower_components/jquery/src/wrap.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/server/api/lookup/omegawiki/index.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-lists/server/api/lookup/provider.js",
+		"/C/Users/adam/Google Drive/projects/contracts/2014 lieutenants pump/product/wireless network manifest.txt",
+		"/C/Users/adam/Desktop/vagrant/node/learning-sparql/app/views/sparql-query.jade",
+		"/C/Users/adam/Desktop/vagrant/node/learning-sparql/app/views/index.jade",
+		"/C/Users/adam/Desktop/vagrant/node/learning-sparql/config/seed.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-sparql/app/controllers/home.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-sparql/app/views/omegawiki.jade",
+		"/C/Users/adam/Desktop/vagrant/node/learning-sparql/app/controllers/sparql.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-sparql/app/controllers/omegawiki.js",
+		"/C/Users/adam/AppData/Local/Temp/Temp1_BabelNet-API-3.0.zip/BabelNet-API-3.0/licenses/README",
+		"/C/Users/adam/Desktop/vagrant/node/learning-sparql/app/views/sparql-results.jade",
+		"/C/Users/adam/Desktop/vagrant/node/learning-sparql/config/express.js",
+		"/C/Users/adam/Downloads/karl-foaf.xrdf",
+		"/C/Users/adam/Downloads/foaf.rdf",
+		"/C/Users/adam/Desktop/vagrant/node/learning-sparql/SPARQL examples.md",
+		"/C/Users/adam/Desktop/vagrant/node/learning-sparql/package.json",
+		"/C/Users/adam/Desktop/vagrant/node/learning-sparql/README.md",
+		"/C/Users/adam/Downloads/wibi-ver1.0/README.txt",
+		"/C/cygwin/home/adam/.profile",
+		"/C/cygwin/home/adam/.bash_profile",
+		"/C/cygwin/home/adam/.bashrc",
+		"/C/Users/adam/AppData/Local/Temp/Temp1_wn-wikt.zip/data/cldr/wn-cldr-eng.tab",
+		"/C/Users/adam/AppData/Local/Temp/Temp1_wn-wikt.zip/data/cldr/wn-cldr-afr.tab",
+		"/C/Users/adam/AppData/Local/Temp/Temp1_wn-wikt.zip/data/wikt/wn-wikt-kur.tab",
+		"/C/Users/adam/AppData/Local/Temp/Temp1_wn-wikt.zip/data/wikt/wn-wikt-ibl.tab",
+		"/C/Users/adam/AppData/Local/Temp/Temp1_wn-wikt.zip/data/wikt/wn-wikt-hrx.tab",
+		"/C/Users/adam/AppData/Local/Temp/Temp1_wn-wikt.zip/data/wikt/wn-wikt-dng.tab",
+		"/C/Users/adam/AppData/Local/Temp/Temp1_wn-wikt.zip/data/README",
+		"/C/Users/adam/Desktop/vagrant/node/language-learning-panlex/server/api/dictionary/language.model.js",
+		"/C/Users/adam/Desktop/vagrant/node/language-learning-panlex/server/api/dictionary/index.js",
+		"/C/Users/adam/Desktop/vagrant/node/language-learning-panlex/server/api/dictionary/dictionary.controller.js",
+		"/C/Users/adam/Desktop/vagrant/node/language-learning-panlex/.gitignore",
+		"/C/Users/adam/Desktop/vagrant/node/README.md",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-notes/.gitignore",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-hello/server/api/note/note.model.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-hello/server/routes.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-hello/server/api/user/user.model.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-hello/server/api/note/note.controller.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-hello/server/config/seed.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-hello/server/api/note/index.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-hello/Gruntfile.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-hello/package.json",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-hello/server/config/local.env.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-hello/server/views/404.jade",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-holmes/Gruntfile.js",
+		"/C/Users/adam/Desktop/vagrant/node/scripttest/Gruntfile.js",
+		"/C/Users/adam/Desktop/vagrant/node/scripttest/package.json",
+		"/C/Users/adam/Desktop/vagrant/node/angular-phonecat/app/index.html",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-holmes/package.json",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-holmes/app.js",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-holmes/bower.json",
+		"/C/Users/adam/Desktop/vagrant/node/learning-mean-holmes/bin/www",
+		"/C/Users/adam/Desktop/git/learning-nodejs-hello/README.md",
+		"/C/Users/adam/Desktop/git/learning-nodejs-passport/README.md",
+		"/C/Users/adam/Desktop/git/learning-nodejs-passport/test2/Gruntfile.js",
+		"/C/Users/adam/Desktop/git/learning-nodejs-passport/test.sh",
+		"/C/Users/adam/Desktop/git/learning-nodejs-passport/bootstrap-npm.sh"
+	],
+	"find":
+	{
+		"height": 43.0
+	},
+	"find_in_files":
+	{
+		"height": 117.0,
+		"where_history":
+		[
+			"C:\\Users\\adam\\Desktop\\vagrant\\node\\scripttest",
+			"C:\\Users\\adam\\Desktop\\git\\learning-nodejs-passport\\scripttest",
+			"<open folders>",
+			"C:\\Users\\adam\\Google Drive\\projects\\library-private\\website\\theme\\newlibrary-catalog-basic",
+			"C:\\Users\\adam\\Google Drive\\projects\\library-private\\website\\theme\\twentyfourteen",
+			"C:\\Users\\adam\\Google Drive\\projects\\library-public\\website\\theme\\twentyfourteen"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"livereload",
+			"35729",
+			"!!!",
+			"open",
+			"runt.task.run",
+			"open",
+			"xdg",
+			"git",
+			"  <",
+			"callback",
+			"ListViewCtrl",
+			"        console.log(\"found one!\");\n        console.log(resource);\n",
+			"isloggedin",
+			"user",
+			"!list.user == req.user",
+			"(!list.user == req.user)",
+			"open",
+			"xdg",
+			"fucks",
+			"main",
+			"open",
+			"wait",
+			"express",
+			"express:dev",
+			"aggregate",
+			"type",
+			"prop",
+			"promise",
+			"mongo",
+			"reload",
+			"signup",
+			"localhost",
+			"process.env.PORT",
+			"process.env",
+			"9000",
+			"serve:",
+			"local",
+			"127",
+			"local",
+			"TEMPLATE_DIRS",
+			"provision",
+			"[",
+			"python",
+			"flash",
+			"initializeCapture",
+			"elapsed",
+			"setupMouse",
+			"firebolt",
+			"h1",
+			"Owner",
+			"ruby",
+			"entry-footer",
+			"return_f",
+			" a ",
+			" a",
+			"h1",
+			"Alegreya Sans SC",
+			"entry-title",
+			"font-family",
+			"leto",
+			"script",
+			"font",
+			"newlibrary_catalog_basic_posted_on",
+			"date",
+			"newlibrary_catalog_basic_categorized_blog",
+			"thum",
+			"posts_to_fix",
+			"$html",
+			"external_image_options",
+			"add_media_page",
+			"menu",
+			"external_image_import_all_ajax",
+			"external_images_verify_permission",
+			"admin",
+			"json_encode",
+			"can",
+			"user_can",
+			"action",
+			"query",
+			"h3",
+			"h4",
+			"h5",
+			"        ",
+			"</a>",
+			"<a",
+			"<a>",
+			"</a>",
+			"<ul>",
+			"<a name=\".*\"></a>",
+			" style=\"color: #ffffff;\"",
+			"blockquote",
+			":before",
+			"nth",
+			"home",
+			"2.0",
+			"10.1",
+			"get_sidebar",
+			"content-",
+			"content:",
+			"content",
+			"10.0",
+			"entry-title",
+			"10.0",
+			"2.0",
+			"add_query",
+			"wp_register",
+			"wp_register_file",
+			"wp_register_style",
+			"font",
+			"Lato",
+			"link",
+			"Lato",
+			"link",
+			"Lato",
+			"font",
+			"nth-child",
+			"nth-of",
+			"downlo",
+			"type",
+			".post-thumbnail",
+			".post-image",
+			"absolute",
+			"entry-header",
+			"FEATURED-CONTENT",
+			"FEATURED-CONTENT-INNER",
+			"archive-header",
+			"entry-header",
+			"#767676"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"list.user != req.user",
+			"",
+			",",
+			"",
+			"\\n"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "client/app/wdiff/wdiff.controller.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1167,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								491,
+								491
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"default_dir": "Z:\\markdown-format-wdiff\\server\\api",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "server/api/wdiff/index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 248,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "server/api/wdiff/wdiff.controller.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2687,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2524,
+								2524
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1142.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "client/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3904,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2796,
+								2796
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 810.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "bower.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 617,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "client/app/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1515,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								302,
+								302
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "client/app/wdiff/wdiff.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 224,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								127,
+								127
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "client/app/wdiff/wdiff.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1122,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								417,
+								417
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 378.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "client/app/wdiff/wdiff.scss",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 553,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								106,
+								106
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Sass/Syntaxes/Sass.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "bin/markdown-format-wdiff",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 711,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								501,
+								501
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "bin/markdown-git-changes",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 2724,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "client/app/main/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 228,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								134,
+								134
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 207.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "markdown-format-wdiff.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"wait",
+				"client\\bower_components\\angular-sanitize\\angular-sanitize.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": false,
+	"side_bar_visible": true,
+	"side_bar_width": 321.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

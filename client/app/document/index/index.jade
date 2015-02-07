@@ -1,0 +1,32 @@
+nav(ng-include='"components/navbar/navbar.html"')
+
+nav(ng-include='"components/elements/header.html"', onload='title = "documents"')
+    
+.container
+  .row(ng-show='isLoggedIn()')
+    .col-lg-9.col-md-12.center-block
+      form.form-inline
+        .form-group
+          label(for='title-input')
+            | New Document
+          input.form-control(type='text', id='title-input', placeholder='title', ng-model='newDocumentTitle')
+        button.btn.btn-default(type='submit', ng-click='createDocument()')
+          | Create
+
+  .row
+    .col-lg-6.col-md-12(ng-repeat='document in documents | orderBy:"currentRevision.created":true' )
+      h4
+        a(href='/{{document._id}}')
+          {{document.title}}
+      div
+        p
+          | State: 
+          {{document.currentRevision.state}}
+        p
+          | Updated:
+          {{document.currentRevision.created}}
+      pre
+        {{json(document)}}
+ 
+
+footer(ng-include='"components/elements/footer.html"')

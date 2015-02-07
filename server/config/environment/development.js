@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://mongodb/markdownformatwdiff-dev'
   },
 
-  seedDB: false
+  seedDB: true
 };

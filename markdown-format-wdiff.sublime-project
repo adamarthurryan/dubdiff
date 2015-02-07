@@ -1,0 +1,17 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "client"
+		},
+    {
+      "follow_symlinks": true,
+      "path": "e2e"
+    },
+    {
+      "follow_symlinks": true,
+      "path": "server"
+    }
+	]
+}
