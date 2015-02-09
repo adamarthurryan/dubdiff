@@ -1,10 +1,10 @@
 nav(ng-include='"components/navbar/navbar.html"')
 
-nav(ng-include='"components/elements/header.html"', onload='title = "documents"')
+nav(ng-include='"components/elements/header.html"')
     
 .container
   .row(ng-show='isLoggedIn()')
-    .col-lg-9.col-md-12.center-block
+    .col-lg-9.col-md-12
       form.form-inline
         .form-group
           label(for='title-input')
@@ -15,17 +15,27 @@ nav(ng-include='"components/elements/header.html"', onload='title = "documents"'
 
   .row
     .col-lg-6.col-md-12(ng-repeat='document in documents | orderBy:"currentRevision.created":true' )
-      h4
+      h1
         a(href='/{{document._id}}')
           {{document.title}}
-      div
+      table.revisions
+        tr
+          th.state State
+          th.created revision
+        tr(ng-repeat='revision in document.revisions | orderBy:"created":true | limitTo:5' )
+          td.state {{revision.state}}
+          td.created 
+            h4
+              a(href='/{{document._id}}/revision/{{revision._id}}')
+                {{revision.created}}
+      //div
         p
           | State: 
           {{document.currentRevision.state}}
         p
           | Updated:
           {{document.currentRevision.created}}
-      pre
+      //pre
         {{json(document)}}
  
 

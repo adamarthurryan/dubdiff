@@ -1,6 +1,6 @@
 wdiff.jadenav(ng-include='"components/navbar/navbar.html"')
 
-nav(ng-include='"components/elements/header.html"', ng-onload='title = {{revision.created}}')
+nav(ng-include='"components/elements/header.html"')
     
 .container
   .row
@@ -8,11 +8,8 @@ nav(ng-include='"components/elements/header.html"', ng-onload='title = {{revisio
 
   .row
     .col-lg-6.col-md-9.center-block
-      h4
-        | wdiff {{a.created}} " -- " {{b.created}} 
-      div
       div(btf-markdown='wdiff')
-      pre
+      //pre
         {{json(result)}}
  
 

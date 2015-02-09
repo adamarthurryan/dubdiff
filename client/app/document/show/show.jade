@@ -1,26 +1,28 @@
 nav(ng-include='"components/navbar/navbar.html"')
 
-nav(ng-include='"components/elements/header.html"', ng-onload='title = {{document.title}}')
+nav(ng-include='"components/elements/header.html"')
     
 .container
   .row(ng-show='isOwner()')
-    form.col-lg-12
-      a.btn.btn-primary(href='/{{document._id}}/revision/new')
-        | New Revision
+    .col-lg-12
+      form
+          a.btn.btn-primary(href='/{{document._id}}/revision/new')
+            | New Revision
 
-  .row(ng-repeat='revision in document.revisions | orderBy:"created":true' )
+  .row
     .col-lg-6.col-md-9.center-block
-      h4
-        a(href='/{{document._id}}/revision/{{revision._id}}')
-          {{revision.created}}
-      div
-        p
-          | State: 
-          {{revision.state}}
-        p
-          | Updated:
-          {{revision.created}}
-      pre
+      
+      table.revisions
+        tr
+          th.state State
+          th.created revision
+        tr(ng-repeat='revision in document.revisions | orderBy:"created":true | limitTo:5' )
+          td.state {{revision.state}}
+          td.created 
+            h4
+              a(href='/{{document._id}}/revision/{{revision._id}}')
+                {{revision.created}}
+      //pre
         | {{json(revision)}}
  
 

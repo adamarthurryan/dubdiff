@@ -2,8 +2,10 @@
 
 angular.module('markdownFormatWdiffApp')
   .controller('DocumentIndexCtrl', function ($scope, $routeParams, $http, Auth, $location) {
+    $scope.title = 'Documents';
+
     $scope.documents = [];
-    $scope.newDocumentTitle;
+    $scope.newDocumentTitle = '';
 
     $scope.getCurrentUser = Auth.getCurrentUser; 
     $scope.isLoggedIn = Auth.isLoggedIn;  

@@ -2,7 +2,8 @@
 
 angular.module('markdownFormatWdiffApp')
   .controller('DocumentWdiffCtrl', function ($scope, $routeParams, $http, Auth) {
-    $scope.wdiff = "";
+    $scope.wdiff = '';
+    $scope.title = '';
     $scope.same = false;
     $scope.revisionA = {};
     $scope.revisionB = {};
@@ -33,6 +34,9 @@ angular.module('markdownFormatWdiffApp')
       $scope.wdiff = result.wdiff;
       $scope.revisionA = result.a;
       $scope.revisionB = result.b;
+
+      $scope.title = result.a.document.title;
+      $scope.subtitle = "wdiff: "+result.a.created + " / " + result.b.created;
     });
 
     $scope.json = function (object) { return JSON.stringify(object, null, "  "); };

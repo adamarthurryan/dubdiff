@@ -1,0 +1,20 @@
+#content-input { 
+  resize: vertical;
+  min-height: 200px;
+}
+
+
+@media (min-width: $screen-md-min) {
+    #content-input { 
+      resize: vertical;
+      min-height: 300px;
+    }
+}
+
+@media (min-width: $screen-lg-min) {
+    #content-input { 
+      resize: vertical;
+      min-height: 450px;
+    }
+}
+

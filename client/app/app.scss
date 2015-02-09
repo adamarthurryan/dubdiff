@@ -15,10 +15,21 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     padding: 0.2em 0;
 }
 
+table.revisions th, table.revisions td{
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+table.revisions .state {
+    width: 7em;
+}
+
 // Component styles are injected through grunt
 // injector
 @import 'account/login/login.scss';
 @import 'admin/admin.scss';
+@import 'document/document.scss';
+@import 'document/revision-new/revision-new.scss';
 @import 'wdiff/wdiff.scss';
 @import 'modal/modal.scss';
 // endinjector

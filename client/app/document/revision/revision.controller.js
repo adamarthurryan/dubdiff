@@ -4,6 +4,9 @@ angular.module('markdownFormatWdiffApp')
   .controller('DocumentRevisionCtrl', function ($scope, $routeParams, $http, Auth) {
     $scope.revision = {};
 
+    $scope.title = '';
+    $scope.subtitle = '';
+
     $scope.getCurrentUser = Auth.getCurrentUser;
     $scope.isLoggedIn = Auth.isLoggedIn; 
 
@@ -27,6 +30,8 @@ angular.module('markdownFormatWdiffApp')
     var path = '/api/documents/'+$routeParams.id+'/revisions/' + $routeParams.revisionid;
     $http.get(path).success(function(revision) {
       $scope.revision = revision;
+      $scope.title = revision.document.title;
+      $scope.subtitle = $scope.isCurrent() ? " (current)":(" ("+$scope.revision.created+")");
     });
 
     $scope.json = function (object) { return JSON.stringify(object, null, "  "); };

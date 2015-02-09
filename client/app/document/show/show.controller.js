@@ -3,6 +3,7 @@
 angular.module('markdownFormatWdiffApp')
   .controller('DocumentShowCtrl', function ($scope, $routeParams, $http, Auth) {
     $scope.document = {};
+    $scope.title = '';
 
     $scope.getCurrentUser = Auth.getCurrentUser;
     $scope.isLoggedIn = Auth.isLoggedIn; 
@@ -19,6 +20,7 @@ angular.module('markdownFormatWdiffApp')
     var path = '/api/documents/' + $routeParams.id;
     $http.get(path).success(function(document) {
       $scope.document = document;
+      $scope.title = document.title;
     });
 
     $scope.json = function (object) { return JSON.stringify(object, null, "  "); };

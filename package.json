@@ -14,6 +14,7 @@
     "express-session": "~1.0.2",
     "jade": "~1.2.0",
     "jsonwebtoken": "^0.3.0",
+    "lex": "^1.7.8",
     "lodash": "~2.4.1",
     "method-override": "~1.0.0",
     "mongoose": "~3.8.8",

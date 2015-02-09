@@ -22,6 +22,7 @@ exports.index = function(req, res) {
     .find()
     .populate('owner', '_id name')
     .populate('currentRevision', '_id state created')
+    .populate('revisions', '_id state created description')
     .exec(function (err, documents) {
       if(err) { return handleError(res, err); }
       return res.json(200, documents);
@@ -33,6 +34,7 @@ exports.indexForUser = function(req, res) {
   Document
     .find({owner: req.params.userid})
     .populate('owner', '_id name')
+    .populate('revisions', '_id state created description')
     .populate('currentRevision', '_id state created')
     .exec(function (err, documents) {
       if(err) { return handleError(res, err); }
@@ -189,21 +191,36 @@ exports.createRevision = function(req, res) {
   //and the date
   if (req.body.created) { delete req.body.created; }
 
+  //and the id!
+  if (req.body._id) { delete req.body._id; }
+
+  console.log(req.body);
+
   //get the record for the parent document
   Document.findById(req.params.id).exec(function(err, document){
-   if (err) { return handleError(res, err); }
+    if (err) { return handleError(res, err); }
     if(!document) { return res.send(404); }
 
     // require user authentication
     if (! mongoose.Types.ObjectId(document.owner).equals(req.user._id))
       {return res.send(401);}
 
+    console.log('---');
+    console.log(document);
+
     //set the owner and document fields for the revision
     var revision = _.merge(req.body, {owner: req.user, document: document});
+
+    console.log('---');
+    console.log(revision);
 
     //create the record
     Revision.create(revision, function (err, revision) {
       if(err) { return handleError(res, err); }
+      if (!revision) {return handleError(res, "Unknown error creating revision");}
+
+      console.log('---');
+      console.log(revision);
 
       //and update the document
       document.revisions.push(revision);
@@ -219,12 +236,18 @@ exports.createRevision = function(req, res) {
 
 //compares two revisions with wdiff
 exports.wdiff = function(req, res) {
-  Revision.findById(req.params.revisionida).exec(function (err, revisiona) {
+  Revision
+  .findById(req.params.revisionida)
+  .populate('document', 'title')
+  .exec(function (err, revisiona) {
     if(err) { return handleError(res, err); }
     if(!revisiona) { return res.send(404); }
 
 
-    Revision.findById(req.params.revisionidb).exec(function (err, revisionb) {
+    Revision
+    .findById(req.params.revisionidb)
+    .populate('document', 'title')
+    .exec(function (err, revisionb) {
       if(err) { return handleError(res, err); }
       if(!revisionb) { return res.send(404); }
 
