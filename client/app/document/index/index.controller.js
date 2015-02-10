@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('markdownFormatWdiffApp')
-  .controller('DocumentIndexCtrl', function ($scope, $routeParams, $http, Auth, $location) {
+  .controller('DocumentIndexCtrl', function ($scope, $routeParams, $http, Auth, $location, App) {
+    $scope.App = App;
     $scope.title = 'Documents';
 
     $scope.documents = [];
@@ -25,11 +26,10 @@ angular.module('markdownFormatWdiffApp')
       $http.post('/api/documents', {title: $scope.newDocumentTitle})
       .success(function(newDocument) {
         $scope.documents.push(newDocument);
-        //and document view page
-        $location.path('/'+newDocument._id);
+        //skip redirecting to document view page
+        //$location.path('/'+newDocument._id);
       });
 
     };
 
-    $scope.json = function (object) { return JSON.stringify(object, null, "  "); };
  })

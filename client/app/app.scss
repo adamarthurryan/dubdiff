@@ -15,13 +15,28 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     padding: 0.2em 0;
 }
 
+.indent {
+  margin-left: 2em;
+}
 table.revisions th, table.revisions td{
-  padding-left: 1em;
   padding-right: 1em;
 }
-
+table.revisions td.content {
+  max-height: 30em;
+}
 table.revisions .state {
     width: 7em;
+}
+
+form.controls {
+  margin-top: 1em;
+}
+
+form.form-inline.controls > *  {
+  margin-right: 1em;
+}
+form.form-inline.controls > .form-group > label,  {
+  margin-right: 0.5em;
 }
 
 // Component styles are injected through grunt

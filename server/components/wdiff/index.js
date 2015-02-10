@@ -205,7 +205,7 @@ function rewriteWdiffMarkdown(source) {
     //  |([ \t]+[0-9]+\.)  - numeric lists
     // )?
     // [ \t]+             - trailing whitespace
-  var PREFIX =  /^([ \t]*\>)*(([ \t]*#*)|([ \t]+[\*\+-])|([ \t]+[0-9]+\.))?[ \t]+/
+  var PREFIX =  /^([ \t]*\>)*(([ \t]*#*)|([ \t]*[\*\+-])|([ \t]*[\d]+\.))?[ \t]+/
   //var PREFIX = /^#*/
 
 

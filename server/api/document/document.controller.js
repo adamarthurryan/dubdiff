@@ -161,6 +161,7 @@ exports.showRevision = function(req, res) {
     .findById(req.params.revisionid)
     .populate('owner', '_id name')
     .populate('document', '_id title currentRevision')
+    .populate('document.revisions', '_id')
     .exec(function (err, revision) {
       if(err) { return handleError(res, err); }
       if(!revision) { return res.send(404); }

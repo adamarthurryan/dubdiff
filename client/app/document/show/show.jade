@@ -3,27 +3,37 @@ nav(ng-include='"components/navbar/navbar.html"')
 nav(ng-include='"components/elements/header.html"')
     
 .container
-  .row(ng-show='isOwner()')
+  .row
     .col-lg-12
-      form
+      
+
+  .row
+    .col-lg-6.col-sm-12
+      form.form-inline.controls.well(ng-show='App.isOwner(document)')
           a.btn.btn-primary(href='/{{document._id}}/revision/new')
             | New Revision
 
-  .row
-    .col-lg-6.col-md-9.center-block
-      
       table.revisions
         tr
           th.state State
-          th.created revision
-        tr(ng-repeat='revision in document.revisions | orderBy:"created":true | limitTo:5' )
+          th.created Revision
+        tr(ng-repeat='revision in document.revisions | orderBy:"created":true' ng-hide='$last' )
           td.state {{revision.state}}
           td.created 
             h4
               a(href='/{{document._id}}/revision/{{revision._id}}')
                 {{revision.created}}
-      //pre
-        | {{json(revision)}}
+          //these aren't working great
+          //td.wdiff.prev
+            a.btn.btn-default(ng-hide='$last', href='/wdiff/{{App.previousRevision(document, revision)._id}}/{{revision._id}}') Prev
+          //td.wdiff.curr
+            a.btn.btn-default(ng-hide='$first', href='/wdiff/{{revision._id}}/{{document.currentRevision._id}}') Current
+        
+    .col-lg-6.col-sm-12
+      div(btf-markdown='document.currentRevision.content')
+
+    //pre.col-lg-6
+      | {{json(document)}}
  
 
 footer(ng-include='"components/elements/footer.html"')

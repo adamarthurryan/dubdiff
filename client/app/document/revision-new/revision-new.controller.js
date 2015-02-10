@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('markdownFormatWdiffApp')
-  .controller('DocumentRevisionNewCtrl', function ($scope, $routeParams, $http, Auth, $location) {
+  .controller('DocumentRevisionNewCtrl', function ($scope, $routeParams, $http, Auth, $location, App) {
+    $scope.App = App;
     $scope.title = '';
     $scope.subtitle = '';
 
@@ -11,14 +12,6 @@ angular.module('markdownFormatWdiffApp')
 
     $scope.getCurrentUser = Auth.getCurrentUser;
     $scope.isLoggedIn = Auth.isLoggedIn; 
-
-    $scope.isOwner = function () {
-      var currentUser = Auth.getCurrentUser();
-      if (!currentUser || !$scope.revision || !$scope.revision.owner)
-        return false; 
-
-      return $scope.revision.owner._id == currentUser._id;
-    };
 
     var path = '/api/documents/' + $routeParams.id;
     $http.get(path).success(function(document) {
@@ -30,7 +23,6 @@ angular.module('markdownFormatWdiffApp')
 
 
     $scope.saveRevision = function() {
-      alert(JSON.stringify($scope.revision))
       //save the revision to the document
       $http.post('/api/documents/'+$routeParams.id+'/revisions', $scope.revision)
       .success(function(newRevision) {
@@ -39,5 +31,4 @@ angular.module('markdownFormatWdiffApp')
       });
     };
 
-    $scope.json = function (object) { return JSON.stringify(object, null, "  "); };
   })

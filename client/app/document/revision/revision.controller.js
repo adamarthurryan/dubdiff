@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('markdownFormatWdiffApp')
-  .controller('DocumentRevisionCtrl', function ($scope, $routeParams, $http, Auth) {
+  .controller('DocumentRevisionCtrl', function ($scope, $routeParams, $http, Auth, App) {
+    $scope.App = App;
     $scope.revision = {};
 
     $scope.title = '';
@@ -20,11 +21,11 @@ angular.module('markdownFormatWdiffApp')
     }
 
     //returns true if this revision is the current revision in its document
-    $scope.isCurrent = function () {
-      if (!$scope.revision)
+    $scope.isCurrent = function (revision) {
+      if (!revision)
         return false;
 
-      return $scope.revision._id == $scope.revision.document.currentRevision;
+      return revision._id == revision.document.currentRevision;
     }
 
     var path = '/api/documents/'+$routeParams.id+'/revisions/' + $routeParams.revisionid;
@@ -34,6 +35,5 @@ angular.module('markdownFormatWdiffApp')
       $scope.subtitle = $scope.isCurrent() ? " (current)":(" ("+$scope.revision.created+")");
     });
 
-    $scope.json = function (object) { return JSON.stringify(object, null, "  "); };
 
   })

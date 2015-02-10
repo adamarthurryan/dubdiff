@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('markdownFormatWdiffApp')
-  .controller('DocumentShowCtrl', function ($scope, $routeParams, $http, Auth) {
+  .controller('DocumentShowCtrl', function ($scope, $routeParams, $http, Auth, App) {
+    $scope.App = App;
     $scope.document = {};
     $scope.title = '';
 
@@ -23,6 +24,17 @@ angular.module('markdownFormatWdiffApp')
       $scope.title = document.title;
     });
 
-    $scope.json = function (object) { return JSON.stringify(object, null, "  "); };
+    //looks up this revision in the document revisions list
+    //and returns the previous revision
+    //if this is the oldest revision, then just return itself
+    $scope.previousRevision = function (revision) {
+      //find the index of the revision in documents
+      var index = _.findIndex($scope.document.revisions, '_id');
+      var prevIndex = index-1;
+      if (prevIndex < 0)
+        prevIndex = 0;
+
+      return $scope.document.revisions[prevIndex];
+    }
 
   })
