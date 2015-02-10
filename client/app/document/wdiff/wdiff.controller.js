@@ -8,6 +8,8 @@ angular.module('markdownFormatWdiffApp')
     $scope.same = false;
     $scope.revisionA = {};
     $scope.revisionB = {};
+    $scope.isShowBefore = true;
+    $scope.isShowAfter = false;
 
     $scope.getCurrentUser = Auth.getCurrentUser;
     $scope.isLoggedIn = Auth.isLoggedIn; 
@@ -24,5 +26,13 @@ angular.module('markdownFormatWdiffApp')
       $scope.subtitle = "wdiff: "+result.a.created + " / " + result.b.created;
     });
 
+    $scope.showBefore = function() {
+      $scope.isShowBefore = true;
+      $scope.isShowAfter = false;
+    }
+    $scope.showAfter = function() {
+      $scope.isShowBefore = false;
+      $scope.isShowAfter = true;
+    }
 
   })

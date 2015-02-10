@@ -4,11 +4,18 @@ nav(ng-include='"components/elements/header.html"')
     
 .container
   .row
-    //!!! add controls to view a and b
+    .col-md-6.col-sm-12.well(ng-show='isShowBefore')
+      div(btf-markdown='revisionA.content')
+    .col-md-6.col-sm-12
+      .controls.well
+        a.btn.btn-default.pull-left(ng-hide='isShowBefore', type='submit', ng-click='showBefore()')
+          | Show Before
+        a.btn.btn-default.pull-right(ng-hide='isShowAfter', type='submit', ng-click='showAfter()')
+          | Show After
 
-  .row
-    .col-lg-6.col-md-9.center-block
       div(btf-markdown='wdiff')
+    .col-md-6.col-sm-12.well(ng-show='isShowAfter')
+      div(btf-markdown='revisionB.content')
       //pre
         {{json(result)}}
  

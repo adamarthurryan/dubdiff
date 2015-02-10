@@ -146,7 +146,8 @@ exports.indexRevisionsForDocument = function(req, res) {
   Revision
     .find({document: req.params.id})
     .populate('owner', '_id name')
-    .populate('document', '_id title currentRevision')
+    .populate('document', '_id title currentRevision revisions')
+    .populate('document.revisions', '_id')
     .exec(function (err, revisions) {
       if(err) { return handleError(res, err); }
       if(!revisions) { return res.send(404); }
@@ -160,7 +161,7 @@ exports.showRevision = function(req, res) {
   Revision
     .findById(req.params.revisionid)
     .populate('owner', '_id name')
-    .populate('document', '_id title currentRevision')
+    .populate('document', '_id title currentRevision revisions')
     .populate('document.revisions', '_id')
     .exec(function (err, revision) {
       if(err) { return handleError(res, err); }
