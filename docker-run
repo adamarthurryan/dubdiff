@@ -1,3 +1,0 @@
-#!/bin/bash
-
-docker run --name mean-dev -v ~/docker/data:/data --link=mongodb:mongodb -p=8000:8000 -p=9000:9000 -p=3000:3000 -p=35729:35729 -it adamarthurryan/mean-dev

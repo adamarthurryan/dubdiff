@@ -33,7 +33,7 @@ if docker inspect -f {{.Name}} mongodb
     echo "* creating new mongodb server"
     # Start a mongo db server as a daemon
     # The server will restart automatically on boot and will use the data-db container as a volume
-    docker run -p 27017 --restart=always --name=mongodb --volumes-from=data-db -d mongo 
+    docker run -p 27017 --name=mongodb --volumes-from=data-db -d mongo 
 fi
 
 echo
@@ -51,9 +51,43 @@ if docker inspect -f {{.Name}} data-files
     # sudo docker run --link=mongodb:mongodb -i mongo mongo --host mongodb
 fi
 
-  
+echo  
 
-# create the samba server
-echo "* creating samba server"
-sudo docker run --rm -v $(which docker):/docker -v /var/run/docker.sock:/docker.sock svendowideit/samba data-files
+#make sure the samba server is running
+if docker inspect -f {{.State.Running}} samba-server
+  then
+    echo "* samba-server running"
+  else
+    # create the samba server
+    echo "* creating samba server"
+    sudo docker run --rm -v $(which docker):/docker -v /var/run/docker.sock:/docker.sock svendowideit/samba data-files
+fi
 
+echo
+
+# test if the mean-dev container has been created
+if docker inspect -f {{.Name}} mean-dev
+  then
+    # make sure the server is running
+    if docker inspect -f {{.State.Running}} mean-dev
+      then
+        echo "* mean-dev exists and is running"
+      else
+        echo "* starting mean-dev"
+    fi
+  else
+    echo "* creating mean-dev"
+    docker run -d --name=mean-dev --volumes-from=data-files --link=mongodb:mongodb -p=8000:8000 -p=9000:9000 -p=3000:3000 -p=35729:35729 -it adamarthurryan/mean-dev
+fi 
+
+echo
+echo
+echo "* to attach to the mean-dev server: "
+echo "> sudo docker attach mean-dev" 
+echo
+echo "* to run an instance for access to tools:"
+echo "> sudo docker run --volumes-from=data-files --rm -it adamarthurryan/mean-dev"
+
+echo 
+echo "* or maybe you want another dev server:"
+echo "docker run -d --name=thename --volumes-from=data-files --link=mongodb:mongodb -p=localnum:9000 -p=localnum:34729 -it adamarthurryan/mean-dev"
