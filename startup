@@ -91,3 +91,7 @@ echo "> sudo docker run --volumes-from=data-files --rm -it adamarthurryan/mean-d
 echo 
 echo "* or maybe you want another dev server:"
 echo "docker run -d --name=thename --volumes-from=data-files --link=mongodb:mongodb -p=localnum:9000 -p=localnum:34729 -it adamarthurryan/mean-dev"
+
+echo
+echo "* mount the data folder with ./mount-data"
+

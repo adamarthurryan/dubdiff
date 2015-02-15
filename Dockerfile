@@ -15,26 +15,30 @@ RUN apt-get -y update && apt-get -y install \
 RUN curl -sL https://deb.nodesource.com/setup | bash -
 RUN apt-get install -y nodejs
 
-# install ruby and the SASS rubygem
-RUN apt-get install -y ruby
-RUN gem install sass
-
+# install ruby
+RUN apt-get install -y ruby1.9.1 ruby1.9.1-dev
 
 # add a user
 RUN useradd -ms /bin/bash docker
 
-
 # switch to the docker user
 ENV HOME /home/docker
 USER docker
+
+# configure ruby gems to run from the home directory
+ENV PATH $PATH:/home/docker/.gem/ruby/1.9.1/bin
+
+# install some ruby gems 
+RUN gem install --user-install sass
+RUN gem install --user-install compass
 
 # configure npm to run without sudo permissions
 RUN echo 'prefix=${HOME}/.npm-packages' >> $HOME/.npmrc
 
 ENV NPM_PACKAGES $HOME/.npm-packages
 ENV NODE_PATH $NPM_PACKAGES/lib/node_modules:$NODE_PATH
-ENV PATH $NPM_PACKAGES/bin:$PATH
-ENV MANPATH $NPM_PACKAGES/share/man:$(manpath)
+ENV PATH $PATH:$NPM_PACKAGES/bin
+ENV MANPATH $(manpath):$NPM_PACKAGES/share/man
 
 # install yeoman tooling and other npm packages
 RUN npm install -g node-gyp

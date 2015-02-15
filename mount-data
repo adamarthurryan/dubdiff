@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+# determine the id of the user who invoked this script
+# if sudo was used, the user who invoked sudo 
+if [ ${SUDO_USER} ]
+	then
+		REAL_USER=${SUDO_USER}
+	else
+		REAL_USER=${USER}
+fi 
+
+echo "mounting //localhost_data to /mnt/data with uid:gid ${REAL_USER}:${REAL_USER}"
+mount -t cifs //localhost/_data /mnt/data -o uid=${REAL_USER} -o gid=${REAL_USER} -o forceuid -o forcegid
