@@ -2,11 +2,17 @@
 
 A docker container for developing mean stack applications
 
-Useage
+Usage
 ======
 
-Build the container with `sudo docker build -t 'tag name' .` and run with `sudo ./mean-dev`. Or, start a whole web development stack with `sudo ./startup`.
+Build the container with `docker build -t 'tag name' .`. Install the `mean` and `start-mongodb` to `~/bin` or some other location in the path.
 
-To mount the samba filesystem, try `sudo mount -t cifs uid=adamarthurryan forceuid //localserver/_data /mnt/localserver`
+To run commands from the container, use `mean <command>`. For example, to install a new npm package globally:
+    mean npm install -g generator-polymer
 
+Or to create a yeoman scaffolding in the current folder:
+    mean yo polymer
+
+Some default npm and gem packages are specified in `default-packages.sh`. They can be installed with:
+    mean bash default-packages.sh
 

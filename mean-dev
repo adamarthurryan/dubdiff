@@ -1,3 +1,0 @@
-#!/bin/bash
-
-docker run -d -it --name=mean-dev --volumes-from=data-files --link=mongodb:mongodb -p=localnum:9000 -p=localnum:34729 -it adamarthurryan/mean-dev
