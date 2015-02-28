@@ -18,9 +18,9 @@ RUN apt-get install -y nodejs
 # install ruby
 RUN apt-get install -y ruby1.9.1 ruby1.9.1-dev
 
-
 # add a user
-RUN useradd -ms /bin/bash docker
+# and make them a sudoer
+RUN useradd -ms /bin/bash docker && echo "docker:docker" | chpasswd && adduser docker sudo
 
 # switch to the docker user
 ENV HOME /home/docker
