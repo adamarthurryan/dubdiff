@@ -1,0 +1,28 @@
+// nav(ng-include='"components/navbar/navbar.html"')
+
+nav(ng-include='"components/elements/header.html"', onload='title = "wdiff markdown";  subtitle ="results"')
+
+.container
+  .row
+    .col-md-2.col-sm-12
+      .controls.well.btn-group
+        a.btn.btn-block.btn-primary(ng-class='{"active": isShowBefore}', type='submit', ng-click='showBefore()')
+          | Original
+        a.btn.btn-block.btn-primary(ng-class='{"active": isShowAfter}', type='submit', ng-click='showAfter()')
+          | Final
+        a.btn.btn-block.btn-primary(ng-class='{"active": isShowWdiff}', type='submit', ng-click='showWdiff()')
+          | Difference
+
+    .col-md-10.col-sm-12.well(ng-show='isShowBefore')
+      div(btf-markdown='before')
+
+
+    .col-md-10.col-sm-12.well(ng-show='isShowWdiff')
+      div(btf-markdown='wdiff')
+
+    .col-md-10.col-sm-12.well(ng-show='isShowAfter')
+      div(btf-markdown='after')
+      //pre
+        {{json(result)}}
+
+footer(ng-include='"components/elements/footer.html"')

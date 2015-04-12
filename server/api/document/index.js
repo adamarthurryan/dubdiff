@@ -27,4 +27,4 @@ router.delete('/:id/revisions/:revisionid', auth.isAuthenticated(), controller.d
 */
 router.get('/wdiff/:revisionida/:revisionidb', controller.wdiff);
 
-module.exports = router;  
+module.exports = router;
