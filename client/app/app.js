@@ -10,7 +10,7 @@ angular.module('markdownFormatWdiffApp', [
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
-      .otherwise({
+      .otherwise ({
         redirectTo: '/'
       });
 

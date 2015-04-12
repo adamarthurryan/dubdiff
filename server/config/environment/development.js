@@ -5,7 +5,7 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://mongodb/markdownformatwdiff-dev'
+    uri: 'mongodb://localhost/markdownformatwdiff-dev'
   },
 
   seedDB: false
