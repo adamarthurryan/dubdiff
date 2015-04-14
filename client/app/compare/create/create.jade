@@ -1,0 +1,24 @@
+// nav(ng-include='"components/navbar/navbar.html"')
+
+nav(ng-include='"components/elements/header.html"', onload='title = "wdiff markdown"; ')
+
+.container
+
+  form.row
+
+    .col-md-2.col-sm-12.form-group
+      .controls.well
+        a.btn.btn-block.btn-primary(type='button', ng-click='compare()') compare
+
+    .col-lg-5.col-sm-12.form-group
+      label(for='docA')
+        | Original
+      textarea.form-control(id='docA', ng-model='docA')
+
+    .col-lg-5.col-sm-12.form-group
+      label(for='docB')
+        | Final
+      textarea.form-control(id='docB', ng-model='docB')
+
+
+footer(ng-include='"components/elements/footer.html"')

@@ -8,6 +8,14 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  * App-wide Styles
  */
 
+.hero-unit {
+  margin: 20px;
+}
+
+.hero-unit h1 a {
+  color: #ffffff;
+}
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
@@ -41,10 +49,6 @@ form.form-inline.controls > .form-group > label,  {
 
 // Component styles are injected through grunt
 // injector
-@import 'account/login/login.scss';
-@import 'admin/admin.scss';
-@import 'document/document.scss';
-@import 'document/revision-new/revision-new.scss';
-@import 'wdiff/wdiff.scss';
+@import 'compare/compare.scss';
 @import 'modal/modal.scss';
 // endinjector
