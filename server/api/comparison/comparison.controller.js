@@ -27,7 +27,6 @@ exports.wdiffMarkdownComparison = function wdiffMarkdownComparison(req, res) {
         return handleError(res, err);
 
       _.merge(result, comparison._doc)
-      console.log(result);
       return res.json(result);
     });
   });
