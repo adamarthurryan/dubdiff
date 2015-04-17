@@ -35,7 +35,7 @@ module.exports = function(a, b, asMarkdown, callback) {
         if (err) 
           return callback(err);
 
-        //write the string to the file
+       //write the string to the file
         fs.write(fileb.fd, b);
 
         //close the file
@@ -45,11 +45,12 @@ module.exports = function(a, b, asMarkdown, callback) {
 
           var cmd = "./bin/wdiff " + filea.path + " " +fileb.path;
           exec(cmd, function(err, stdout) {
-            
+//console.log(cmd);
+//console.log(err);
+//console.log(stdout);            
             if (err && err.code!=1 && err.code!=0) {  
               return callback(err);
             }
-
             //if no difference was found by wdiff, err.code will be 0
             var wdiffSame;
             wdiffSame = (err && err.code == 0) ? true:false;
