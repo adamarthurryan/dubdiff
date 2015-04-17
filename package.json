@@ -19,11 +19,6 @@
     "method-override": "~1.0.0",
     "mongoose": "~3.8.8",
     "morgan": "~1.0.0",
-    "passport": "~0.2.0",
-    "passport-facebook": "latest",
-    "passport-google-oauth": "latest",
-    "passport-local": "~0.1.6",
-    "passport-twitter": "latest",
     "serve-favicon": "~2.0.1",
     "temp": "^0.8.1"
   },

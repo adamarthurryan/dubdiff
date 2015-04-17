@@ -14,7 +14,6 @@ var cookieParser = require('cookie-parser');
 var errorHandler = require('errorhandler');
 var path = require('path');
 var config = require('./environment');
-var passport = require('passport');
 var session = require('express-session');
 var mongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
@@ -39,7 +38,7 @@ module.exports = function(app) {
     saveUninitialized: true,
     store: new mongoStore({ mongoose_connection: mongoose.connection })
   }));
-  
+
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'public')));
