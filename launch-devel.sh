@@ -16,4 +16,6 @@ if docker inspect -f {{.Name}} data-docker-home > /dev/null
     
 fi
 
-docker run -it --rm --volumes-from=data-docker-home -v ${PWD}:/working -w /working -p 9000:9000 -p 35729:35729 adamarthurryan/mean $@
+docker/start-mongodb
+
+docker run -it --rm --link mongodb:mongodb --volumes-from=data-docker-home -v ${PWD}:/working -w /working -p 9000:9000 -p 35729:35729 adamarthurryan/mean grunt serve

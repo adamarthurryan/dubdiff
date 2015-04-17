@@ -1,21 +1,15 @@
-# docker-mean-dev
+# wdiff-markdown/docker 
 
-A docker container for developing mean stack applications
+A docker container for deploying the wdiff-markdown application
 
 Usage
 ======
 
-Build the container with `docker build -t 'adamarthurryan/mean' .`. Install the `mean` and `start-mongodb` to `~/bin` or some other location in the path.
+Build the container with `docker build -t 'adamarthurryan/wdiff-markdown'`. 
 
-To run commands from the container, use `mean <command>`. For example, to install a new npm package globally:
+Run the script `prepare.sh` from this folder.
 
-    mean npm install -g generator-polymer
+To launch the application in development mode, run `launch-devel.sh`.
 
-Or to create a yeoman scaffolding in the current folder:
-
-    mean yo polymer
-
-Some default npm and gem packages are specified in `default-packages.sh`. They can be installed with:
-
-    mean bash default-packages.sh
+To launch the application in production mode, run `launch-prod.sh`.
 

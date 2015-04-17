@@ -18,6 +18,9 @@ RUN apt-get install -y nodejs
 # install ruby
 RUN apt-get install -y ruby1.9.1 ruby1.9.1-dev
 
+# install wdiff
+RUN apt-get install -y wdiff
+
 # add a user
 # and make them a sudoer
 RUN useradd -ms /bin/bash docker && echo "docker:docker" | chpasswd && adduser docker sudo
