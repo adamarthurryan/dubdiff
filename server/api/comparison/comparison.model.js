@@ -1,13 +1,19 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+// Load Chance
+var Chance = require('chance');
 
-var ComparisonSchema = new Schema({
-  created: {type: Date, default: Date.now},
+// Instantiate Chance so it can be used
+var chance = new Chance();
 
-  a: String,
-  b: String,
-});
 
-module.exports = mongoose.model('Comparison', ComparisonSchema);
+var Comparison = function Comparison(a,b) {
+  return {
+    created: Date.now(),
+    a: a,
+    b: b,
+    _id: chance.hash()
+  };
+};
+
+module.exports = Comparison;
