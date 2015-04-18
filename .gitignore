@@ -8,3 +8,4 @@ client/bower_components
 dist
 server/config/local.env.js
 wdiff-1.2.2
+data

@@ -6,16 +6,14 @@
 
 # test if the data-docker-home container has been created
 if docker inspect -f {{.Name}} data-docker-home > /dev/null
-  then 
+  then
     echo > /dev/null
   else
     echo "* creating data-docker-home container"
     echo
     # The data container has a volume at /home/docker, is named 'data' and is based on busybox
     docker create -v /home/docker --name data-docker-home adamarthurryan/mean echo "Data container - docker home"
-    
+
 fi
 
-docker/mongodb-start
-
-docker run -it --rm --link mongodb:mongodb -e "PORT=8080" --volumes-from=data-docker-home -v ${PWD}:/working -w /working -p 80:8080 adamarthurryan/mean grunt serve:dist
+docker run -it --rm -e "PORT=8080" --volumes-from=data-docker-home -v ${PWD}:/working -w /working -p 80:8080 adamarthurryan/mean grunt serve:dist
