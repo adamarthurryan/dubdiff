@@ -10,7 +10,7 @@ var _ = require('lodash'),
 temp.track();
 
 // Perform a comparison between a and b
-// the callback should have parameters (err, result) 
+// the callback should have parameters (err, result)
 module.exports = function(a, b, asMarkdown, callback) {
 
   //!!! this nested file-open is not a good pattern
@@ -19,7 +19,7 @@ module.exports = function(a, b, asMarkdown, callback) {
   // open the first file
   temp.open('wdiffa-', function(err, filea) {
     //handle errors
-    if (err) 
+    if (err)
       return callback(err);
 
     //write the string to the file
@@ -32,7 +32,7 @@ module.exports = function(a, b, asMarkdown, callback) {
 
       //open the second file
       temp.open('wdiffa-', function(err, fileb) {
-        if (err) 
+        if (err)
           return callback(err);
 
        //write the string to the file
@@ -47,8 +47,8 @@ module.exports = function(a, b, asMarkdown, callback) {
           exec(cmd, function(err, stdout) {
 //console.log(cmd);
 //console.log(err);
-//console.log(stdout);            
-            if (err && err.code!=1 && err.code!=0) {  
+//console.log(stdout);
+            if (err && err.code!=1 && err.code!=0) {
               return callback(err);
             }
             //if no difference was found by wdiff, err.code will be 0
@@ -62,7 +62,7 @@ module.exports = function(a, b, asMarkdown, callback) {
               //!!! this needs more sophisticated parsing
 
               var markdown = rewriteWdiffMarkdown(stdout)
-              
+
               resData.wdiff=markdown;
             }
 
@@ -77,9 +77,8 @@ module.exports = function(a, b, asMarkdown, callback) {
 /* Rewrites the given wdiff output to correctly render as markdown,
   assuming the source documents were also valid markdown. */
 function rewriteWdiffMarkdown(source) {
-
   //initialize a stack for the lexed input
-  //make it a lodash container, just for kicks 
+  //make it a lodash container, just for kicks
   var tokens = _([]);
 
   //define tokens
@@ -88,20 +87,20 @@ function rewriteWdiffMarkdown(source) {
   var RDEL_LINS = {type:"RDEL_LINS"};
   var NEWLINE = {type:"\n"};
 
-  var isStringToken = function (token) { return token.type == "STRING";} 
+  var isStringToken = function (token) { return token.type == "STRING";}
 
 
   //create a lexer to process the wdiff string
   var lexer = new Lexer(function (char) {
     //the default rule creates a string on the stack for unmatched characters
-    //and just adds characters to it as they come in 
+    //and just adds characters to it as they come in
     if (tokens.size() == 0 || !isStringToken(tokens.last()))
       tokens.push({type: "STRING", value:""});
 
     tokens.last().value += char;
   });
 
-  //rules for the newline character, 
+  //rules for the newline character,
   //as well as opening and closing (left and right) delete and insert tokens
   lexer
     .addRule(/\[-/, function () {
@@ -125,7 +124,7 @@ function rewriteWdiffMarkdown(source) {
       tokens.push(NEWLINE);
     })
     ;
-  
+
 
   //do the lexing
   lexer.setInput(source);
@@ -140,10 +139,10 @@ function rewriteWdiffMarkdown(source) {
   var SSTRING = "string", SINS = "ins", SDEL = "del", SDELINS = "delins";
   var state = SSTRING;
 
-  //this is the index of the immediately previous delete string in the transform stack 
+  //this is the index of the immediately previous delete string in the transform stack
   var deleteStartIndex = -1
 
-  //iterate the input tokens to create the intermediate representation 
+  //iterate the input tokens to create the intermediate representation
   tokens.forEach(function(token) {
     //we add string tokens to the transformed stack
     if (isStringToken(token)) {
@@ -196,55 +195,72 @@ function rewriteWdiffMarkdown(source) {
   // * now emit the output string
   var output = "";
   var newline = true;
+  var newlineIndex = -1;
 
   // prefixes are matched as follows:
     // ^                  - start of line
     // ([ \t]*\>)*       - blockquotes (possibly nested)
     // (
-    //  ([ \t]*#*)      - headers 
+    //  ([ \t]*#*)      - headers
     //  |([ \t]+[\*\+-])     - unordered lists
     //  |([ \t]+[0-9]+\.)  - numeric lists
     // )?
     // [ \t]+             - trailing whitespace
-  var PREFIX =  /^([ \t]*\>)*(([ \t]*#*)|([ \t]*[\*\+-])|([ \t]*[\d]+\.))?[ \t]+/
-  //var PREFIX = /^#*/
+    //var PREFIX =  /^([ \t]*\>)*(([ \t]*#*)|([ \t]*[\*\+-])|([ \t]*[\d]+\.))?[ \t]+/
+    var PREFIX =  /^([ \t]*\>)*(([ \t]*#*)|([ \t]*[\*\+-])|([ \t]*[\d]+\.))?[ \t]*/
+    //var PREFIX = /^#*/
 
 
   transform.forEach(function(item) {
     //newlines are undecorated
     if (item.string == '\n') {
       output += '\n';
+
+      //flag the new line
       newline = true;
+      //and record the offset in the output string
+      newlineIndex = output.length;
       return
     }
 
-    var prestring = "";
-    var poststring = item.string;
+    //wrap del strings with tags
+    if (item.state == SDEL) {
+      output += '<del>' + item.string + '</del>';
+      //del doesn't reset the newline state
+    }
 
-    //if this is a newline, we need to peel off any markdown formatting prefixes 
-    //and output them outside the del/ins tags
-    if (newline) {
+    //ins strings have to be handled a little differently:
+    //if this is an ins just after a newline, or after a del after a newline, we need to peel off any markdown formatting prefixes and insert them at the beginning of the line outside the del/ins tags
+    else if (item.state == SINS && newline) {
+      var prestring, poststring;
       var match = item.string.match(PREFIX);
-      if (match == null) 
+      if (match == null)
         prestring ="";
       else
         prestring = match[0];
 
       poststring = item.string.substring(prestring.length);
+
+      output = output.substring(0, newlineIndex) + prestring + output.substring(newlineIndex);
+      output += '<ins>' + poststring + '</ins>';
+      newline = false;
+      newlineIndex = -1;
+
     }
 
-    //wrap ins and del strings with tags
-    if (item.state == SDEL)
-      output += prestring+'<del>' + poststring + '</del>';
-    else if (item.state ==SINS) 
-      output += prestring+'<ins>' + poststring + '</ins>';
+    else if (item.state == SINS) {
+      output += '<ins>' + item.string + '</ins>';
+    }
 
     //and just output other strings
-    else 
-      output += prestring+poststring;
+    else {
+      output += item.string;
+      //this resets the newline state
+      newline = false;
+      newlineIndex = -1;
+    }
 
-    newline = false;
   });
+
   return output;
-  
 }
