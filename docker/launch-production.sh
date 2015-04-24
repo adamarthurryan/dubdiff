@@ -18,4 +18,4 @@ fi
 
 echo Run this script from the project root folder!
 
-docker run -it --rm -e "PORT=8080" --volumes-from=data-docker-home -v ${PWD}:/working -w /working -p 80:8080 adamarthurryan/mean grunt serve:dist
+docker run -it --rm -e "PORT=8080" --volumes-from=data-docker-home -v ${PWD}:/working -w /working -p 8081:8080 adamarthurryan/mean grunt serve:dist
