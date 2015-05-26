@@ -7,8 +7,14 @@ nav(ng-include='"components/elements/header.html"', onload='title = "dubdiff"; '
   form.row
 
     .col-md-2.col-sm-12.form-group
-      .controls.well
+      .controls.well.col-lg-12
         a.btn.btn-block.btn-primary(type='button', ng-click='compare()') compare
+
+      .controls.well.btn-group.col-lg-12
+        a.btn.btn-block.btn-primary(ng-class='{"active": isMarkdownFormat}', type='submit',  ng-click='toggleMarkdownFormat()')
+          span.glyphicon(ng-class='{"glyphicon-ok": isMarkdownFormat}')
+          | &nbsp; As Markdown
+
 
     .col-lg-5.col-sm-12.form-group
       label(for='docA')

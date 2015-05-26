@@ -6,16 +6,26 @@ angular.module('markdownFormatWdiffApp')
     $scope.docB = "";
     $scope.wdiff = "";
     $scope.wdiffMarkdown = "";
-    $scope.displayAsMarkdown = true;
+    $scope.isMarkdownFormat = true;
 
     $scope.compare = function() {
       $http.post('/api/compare',
-        { a: $scope.docA, b: $scope.docB },
+        { a: _.escape($scope.docA), b: _.escape($scope.docB) },
         {headers:{"Content-Type":"application/json"}})
       .success(function (comparison) {
-        $location.path('/'+comparison._id)
+        $location.path('/'+comparison._id);
+        $location.hash($scope.isMarkdownFormat?'markdown':'plaintext');
       });
     };
+
+    $scope.toggleMarkdownFormat = function() {
+      if ($scope.isMarkdownFormat) {
+        $scope.isMarkdownFormat = false;
+      }
+      else {
+        $scope.isMarkdownFormat = true;
+      }
+    }
 
 
 

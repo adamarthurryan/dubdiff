@@ -29,6 +29,26 @@ exports.showComparison = function showComparison(req, res) {
   });
 }
 
+//return the a or b doc for a comparison given an id, if it exsits
+exports.showComparison = function showComparison(req, res) {
+  //generate a filename
+  var filename = fnComparison(req.params.id);
+
+  //check if that file exists
+  fs.exists(filename, function (exists) {
+    //if the file does not exist, return a 404
+    if (!exists)  return res.send(404);
+
+    //otherwise, read the file as JSON
+    jf.readFile(filename, function(err, comparison) {
+      if(err) { return handleError(res, err); }
+
+      //and return
+      return res.json(comparison);
+    });
+  });
+}
+
 //return a markdown wdiff for the comparison given an id, if it exsits
 exports.wdiffMarkdownComparison = function wdiffMarkdownComparison(req, res) {
   //generate a filename
