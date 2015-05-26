@@ -43,7 +43,7 @@ module.exports = function(a, b, asMarkdown, callback) {
           if (err)
             return callback(err);
 
-          var cmd = "wdiff " + filea.path + " " +fileb.path;
+          var cmd = "./bin/wdiff " + filea.path + " " +fileb.path;
           exec(cmd, function(err, stdout) {
 
             if (err && err.code!=1 && err.code!=0) {
