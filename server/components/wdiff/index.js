@@ -43,11 +43,9 @@ module.exports = function(a, b, asMarkdown, callback) {
           if (err)
             return callback(err);
 
-          var cmd = "./bin/wdiff " + filea.path + " " +fileb.path;
+          var cmd = "wdiff " + filea.path + " " +fileb.path;
           exec(cmd, function(err, stdout) {
-//console.log(cmd);
-//console.log(err);
-//console.log(stdout);
+
             if (err && err.code!=1 && err.code!=0) {
               return callback(err);
             }
@@ -56,7 +54,7 @@ module.exports = function(a, b, asMarkdown, callback) {
             wdiffSame = (err && err.code == 0) ? true:false;
 
 
-            var resData = {wdiff:stdout, same: wdiffSame};
+            var resData = {wdiffNoMarkdown:stdout, same: wdiffSame};
             if (asMarkdown) {
 
               //!!! this needs more sophisticated parsing

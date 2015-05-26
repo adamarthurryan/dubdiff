@@ -8,7 +8,9 @@ var router = express.Router();
 //router.get('/', controller.index);
 
 router.get('/:id', controller.showComparison);
+//router.get('/:id/:doc', controller.showComparisonDoc);
 router.get('/wdiff/:id', controller.wdiffMarkdownComparison);
+//router.get('/wdiff/:id/nomarkdown', controller.wdiffNoMarkdownComparison);
 
 router.post('/', controller.create);
 

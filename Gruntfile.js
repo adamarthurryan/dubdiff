@@ -1,6 +1,7 @@
 // Generated on 2015-02-05 using generator-angular-fullstack 2.0.13
 'use strict';
 
+
 module.exports = function (grunt) {
   var localConfig;
   try {
@@ -8,6 +9,7 @@ module.exports = function (grunt) {
   } catch(e) {
     localConfig = {};
   }
+
 
   // Load grunt tasks automatically, when needed
   require('jit-grunt')(grunt, {
@@ -501,7 +503,7 @@ module.exports = function (grunt) {
             '<%= yeoman.client %>/app',
             '<%= yeoman.client %>/components'
           ],
-          compass: false
+          compass:false
         },
         files: {
           '.tmp/app/app.css' : '<%= yeoman.client %>/app/app.scss'

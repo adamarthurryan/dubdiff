@@ -10,5 +10,9 @@ angular.module('markdownFormatWdiffApp')
       .when('/:id', {
         templateUrl: 'app/compare/show/show.html',
         controller: 'CompareShowCtrl'
+      })
+      .when('/:id/:format', {
+        templateUrl: 'app/compare/show/show.html',
+        controller: 'CompareShowCtrl'
       });
   });

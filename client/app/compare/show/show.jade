@@ -5,7 +5,7 @@ nav(ng-include='"components/elements/header.html"', onload='title = "dubdiff";  
 .container
   .row
     .col-md-2.col-sm-12
-      .controls.well.btn-group
+      .controls.well.btn-group.col-lg-12
         a.btn.btn-block.btn-primary(ng-class='{"active": isShowBefore}', type='submit', ng-click='showBefore()')
           | Original
         a.btn.btn-block.btn-primary(ng-class='{"active": isShowAfter}', type='submit', ng-click='showAfter()')
@@ -13,16 +13,34 @@ nav(ng-include='"components/elements/header.html"', onload='title = "dubdiff";  
         a.btn.btn-block.btn-primary(ng-class='{"active": isShowWdiff}', type='submit', ng-click='showWdiff()')
           | Difference
 
-    .col-md-10.col-sm-12.well(ng-show='isShowBefore')
-      div(btf-markdown='before')
+      .controls.well.btn-group.col-lg-12
+        a.btn.btn-block.btn-primary(ng-class='{"active": isMarkdownFormat}', type='submit',  ng-click='toggleMarkdownFormat()')
+          span.glyphicon(ng-class='{"glyphicon-ok": isMarkdownFormat}')
+          | &nbsp; As Markdown
 
 
-    .col-md-10.col-sm-12.well(ng-show='isShowWdiff')
-      div(btf-markdown='wdiff')
 
-    .col-md-10.col-sm-12.well(ng-show='isShowAfter')
-      div(btf-markdown='after')
-      //pre
-        {{json(result)}}
+    div(ng-if='isMarkdownFormat')
+
+      .col-md-10.col-sm-12.content-well(ng-show='isShowBefore')
+        div.before(btf-markdown='before')
+
+      .col-md-10.col-sm-12.content-well(ng-show='isShowWdiff')
+        div.wdiff(btf-markdown='wdiff')
+
+      .col-md-10.col-sm-12.content-well(ng-show='isShowAfter')
+        div.after(btf-markdown='after')
+
+
+    div(ng-if='!isMarkdownFormat')
+
+      .col-md-10.col-sm-12.content-well(ng-show='isShowBefore')
+        .content-pre.before(ng-bind-html='before')
+
+      .col-md-10.col-sm-12.content-well(ng-show='isShowWdiff')
+        .content-pre.wdiff(ng-bind-html='wdiff')
+
+      .col-md-10.col-sm-12.content-well(ng-show='isShowAfter')
+        .content-pre.after(ng-bind-html='after')
 
 footer(ng-include='"components/elements/footer.html"')
