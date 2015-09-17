@@ -9,4 +9,4 @@ The markdown-sensitive processing of the wdiff comparison is at `server/componen
 
 ## Live Version
 
-The tool is live at [http://dubdiff.com], feel free to use it there.
+The tool is live at http://dubdiff.com, feel free to use it there.
