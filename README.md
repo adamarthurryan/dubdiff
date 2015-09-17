@@ -7,4 +7,6 @@ Uses the [`wdiff`](http://www.gnu.org/software/wdiff/) tool as a diffing engine.
 The markdown-sensitive processing of the wdiff comparison is at `server/components/wdiff/index.js`, for the curious.
 
 
-The tool is live at (http://dubdiff.com), feel free to use it there.
+## Live Version
+
+The tool is live at [http://dubdiff.com], feel free to use it there.
