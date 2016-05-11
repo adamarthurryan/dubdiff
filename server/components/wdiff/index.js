@@ -16,6 +16,15 @@ module.exports = function(a, b, asMarkdown, callback) {
   //!!! this nested file-open is not a good pattern
   // better would be to use promises and write the two files asynchronously
 
+  //console.log(a)
+  //console.log(escapeString(a))
+
+  //a few strings have to be escaped: "[-", "-]", "{+", and "+}"
+  a = escapeString(a)
+  b = escapeString(b)
+
+
+
   // open the first file
   temp.open('wdiffa-', function(err, filea) {
     //handle errors
@@ -43,7 +52,7 @@ module.exports = function(a, b, asMarkdown, callback) {
           if (err)
             return callback(err);
 
-          var cmd = "./bin/wdiff " + filea.path + " " +fileb.path;
+          var cmd = "wdiff " + filea.path + " " +fileb.path;
           exec(cmd, function(err, stdout) {
 
             if (err && err.code!=1 && err.code!=0) {
@@ -53,13 +62,14 @@ module.exports = function(a, b, asMarkdown, callback) {
             var wdiffSame;
             wdiffSame = (err && err.code == 0) ? true:false;
 
-
-            var resData = {wdiffNoMarkdown:stdout, same: wdiffSame};
+            var resData = {wdiffNoMarkdown:unescapeString(stdout), same: wdiffSame};
             if (asMarkdown) {
 
               //!!! this needs more sophisticated parsing
 
-              var markdown = rewriteWdiffMarkdown(stdout)
+              //console.log(stdout)
+
+              var markdown = unescapeString(rewriteWdiffMarkdown(stdout))
 
               resData.wdiff=markdown;
             }
@@ -203,7 +213,7 @@ function rewriteWdiffMarkdown(source) {
     //  |([ \t]+[\*\+-])     - unordered lists
     //  |([ \t]+[0-9]+\.)  - numeric lists
     // )?
-    // [ \t]+             - trailing whitespace
+    // [ \t]*             - trailing whitespace
     //var PREFIX =  /^([ \t]*\>)*(([ \t]*#*)|([ \t]*[\*\+-])|([ \t]*[\d]+\.))?[ \t]+/
     var PREFIX =  /^([ \t]*\>)*(([ \t]*#*)|([ \t]*[\*\+-])|([ \t]*[\d]+\.))?[ \t]*/
     //var PREFIX = /^#*/
@@ -261,4 +271,17 @@ function rewriteWdiffMarkdown(source) {
   });
 
   return output;
+}
+
+
+function escapeString(str) {
+  str = str.replace(/\[\-/gm, "&#91;-")
+  str = str.replace(/\-\]/gm, "-&#93;")
+  return str
+}
+
+function unescapeString(str) {
+  str = str.replace(/\&\#91\;-/gm, "[-")
+  str = str.replace(/-\&\#93\;/gm, "-]")
+  return str  
 }
