@@ -6,12 +6,51 @@ var _ = require('lodash'),
     exec = require('child_process').exec,
     Lexer = require('lex');
 
+var diff = require('diff');
+
 // Automatically track and cleanup files at exit
 temp.track();
 
 // Perform a comparison between a and b
 // the callback should have parameters (err, result)
+
+
 module.exports = function(a, b, asMarkdown, callback) {
+
+
+  //a few strings have to be escaped: "[-", "-]", "{+", and "+}"
+  a = escapeString(a)
+  b = escapeString(b)
+
+  var diffRes = diff.diffWordsWithSpace(a,b, {ignoreWhitespace:true})
+  var diffStr = diffRes.map (part => {
+    if (part.added) return "{+"+part.value+"+}";
+    else if (part.removed) return "[-"+part.value+"-]";
+    else return part.value;
+  }).join("");
+
+  //if no difference was found by wdiff, err.code will be 0
+  var wdiffSame;
+  wdiffSame = false; //???
+
+  console.log(diffStr)
+
+  var resData = {wdiffNoMarkdown:unescapeString(diffStr), same: wdiffSame};
+  if (asMarkdown) {
+
+    //!!! this needs more sophisticated parsing
+
+    //console.log(stdout)
+
+    var markdown = unescapeString(rewriteWdiffMarkdown(diffStr))
+
+    resData.wdiff=markdown;
+  }
+
+  return callback(null, resData);
+}
+
+var oldversion = function(a, b, asMarkdown, callback) {
 
   //!!! this nested file-open is not a good pattern
   // better would be to use promises and write the two files asynchronously
@@ -61,6 +100,8 @@ module.exports = function(a, b, asMarkdown, callback) {
             //if no difference was found by wdiff, err.code will be 0
             var wdiffSame;
             wdiffSame = (err && err.code == 0) ? true:false;
+
+            console.log(stdout)
 
             var resData = {wdiffNoMarkdown:unescapeString(stdout), same: wdiffSame};
             if (asMarkdown) {
