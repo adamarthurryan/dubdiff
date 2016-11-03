@@ -14,9 +14,9 @@ temp.track();
 // Perform a comparison between a and b
 // the callback should have parameters (err, result)
 
-module.exports = newversion
+module.exports = jsdiffEngine
 
-function newversion (a, b, asMarkdown, callback) {
+function jsdiffEngine (a, b, asMarkdown, callback) {
 
 
   //a few strings have to be escaped: "[-", "-]", "{+", and "+}"
@@ -41,8 +41,6 @@ function newversion (a, b, asMarkdown, callback) {
 
     //!!! this needs more sophisticated parsing
 
-    //console.log(stdout)
-
     var markdown = unescapeString(rewriteWdiffMarkdown(diffStr))
 
     resData.wdiff=markdown;
@@ -51,13 +49,10 @@ function newversion (a, b, asMarkdown, callback) {
   return callback(null, resData);
 }
 
-function oldversion (a, b, asMarkdown, callback) {
+function wdiffEngine (a, b, asMarkdown, callback) {
 
   //!!! this nested file-open is not a good pattern
   // better would be to use promises and write the two files asynchronously
-
-  //console.log(a)
-  //console.log(escapeString(a))
 
   //a few strings have to be escaped: "[-", "-]", "{+", and "+}"
   a = escapeString(a)
@@ -108,8 +103,6 @@ function oldversion (a, b, asMarkdown, callback) {
             if (asMarkdown) {
 
               //!!! this needs more sophisticated parsing
-
-              //console.log(stdout)
 
               var markdown = unescapeString(rewriteWdiffMarkdown(stdout))
 
