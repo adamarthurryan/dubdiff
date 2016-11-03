@@ -14,8 +14,9 @@ temp.track();
 // Perform a comparison between a and b
 // the callback should have parameters (err, result)
 
+module.exports = newversion
 
-module.exports = function(a, b, asMarkdown, callback) {
+function newversion (a, b, asMarkdown, callback) {
 
 
   //a few strings have to be escaped: "[-", "-]", "{+", and "+}"
@@ -50,7 +51,7 @@ module.exports = function(a, b, asMarkdown, callback) {
   return callback(null, resData);
 }
 
-var oldversion = function(a, b, asMarkdown, callback) {
+function oldversion (a, b, asMarkdown, callback) {
 
   //!!! this nested file-open is not a good pattern
   // better would be to use promises and write the two files asynchronously
