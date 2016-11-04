@@ -29,7 +29,7 @@ The wdiff binary should be placed in the `bin` subfolder, or a link should be ma
 
 On a low-memory machine, eg. a DigitalOcean 512MB instance, you will need to enable virtual memory. Use this guide:
 
- - [https://www.digitalocean.com/community/tutorials/how-to-configure-virtual-memory-swap-file-on-a-vps#2]
+ - [How To Configure Virtual Memory (Swap File) on a VPS](https://www.digitalocean.com/community/tutorials/how-to-configure-virtual-memory-swap-file-on-a-vps#2)
 
 ### Start on boot
 
