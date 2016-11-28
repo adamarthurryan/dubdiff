@@ -5,7 +5,7 @@ module.exports = {
     filename: './dist/browser-bundle.js'
   },
   target: 'web',
-  devtool: 'eval-cheap-module-source-map',
+  devtool: 'eval-module-source-map',
   module: {
     loaders: [
       {

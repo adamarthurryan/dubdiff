@@ -4,18 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run webpack --colors",
-    "start": "npm run webpack --progress --colors --watch",
-    "deploy": "git subtree push --prefix dist origin gh-pages",
+    "build": "ebpack --colors",
+    "start": "webpack --progress --colors --watch",
+    "serve": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "BSD-2-Clause",
   "dependencies": {
+    "babel-preset-es2015-mod": "^6.6.0",
+    "babel-preset-es3": "^1.0.1",
+    "diff": "^3.0.1",
+    "express": "^4.14.0",
     "react": "^0.14.5",
     "react-dom": "^0.14.5",
     "react-redux": "^4.4.6",
+    "react-router": "^1.0.0",
     "redux": "^3.5.1",
+    "redux-router": "^1.0.0-beta5",
     "reselect": "^2.5.1"
   },
   "devDependencies": {

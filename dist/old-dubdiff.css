@@ -1,4 +1,22 @@
 @charset "UTF-8";
+
+/*
+.hero-unit {
+  color: #fff2dc;
+  background: #fea539 !important;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #688bb5 !important;
+    border-color: #08246b !important; }
+
+.btn-primary {
+    color: #fff;
+    background-color: #587ba5 !important;
+    border-color: #08246b !important; }
+*/
+
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
