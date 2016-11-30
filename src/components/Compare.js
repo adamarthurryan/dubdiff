@@ -1,10 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
+import {Segment, Grid, Form} from 'semantic-ui-react'
+
 import * as Actions from '../actions'
 import * as Selectors from '../selectors'
 
 import Header from './Header'
+import Footer from './Footer'
 import CompareControls from './CompareControls'
 
 import Show from './Show'
@@ -26,29 +29,32 @@ const mapDispatchToProps = dispatch => ({
 class Compare extends React.Component {
 
   render() {
-    console.log(this.props.safeInput)
     return (
       <div>
         <Header/>
-        <div className="container">
-          <form className="row">
-            <div className="col-md-2 col-sm-12">
+    
+        <Segment basic padded>
+          <Grid stackable columns={2}>
+            <Grid.Column width="3">
               <CompareControls/>
-            </div>
-              <div className="col-md-10 col-sm-12 content-well">
-                  { this.props.isShowDifference ?
+            </Grid.Column>
+            <Grid.Column width="13">
+              <Segment>
+                { this.props.isShowDifference ?
 
-                    <div>{this.props.diff}</div>: 
+                    <Show diff={this.props.diff} isMarkdownFormat={this.props.isMarkdownFormat}>{this.props.diff}</Show>: 
 
                     <Show 
                       text={this.props.isShowOriginal? this.props.safeInput.original: this.props.safeInput.final} 
                       isMarkdownFormat={this.props.isMarkdownFormat}
                     />
-                  }
-                   
-              </div>
-           </form>
-        </div>
+                }
+              </Segment>
+            </Grid.Column>
+          </Grid>
+        </Segment>
+
+        <Footer/>
       </div>
     )
   }

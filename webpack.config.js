@@ -5,7 +5,8 @@ module.exports = {
     filename: './dist/browser-bundle.js'
   },
   target: 'web',
-  devtool: 'eval-module-source-map',
+//  devtool: 'eval-module-source-map',
+
   module: {
     loaders: [
       {
@@ -13,7 +14,7 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           presets: ['es2015', 'react'],
-          compact: "false"
+          compact: "true"
         }
       },
     ]

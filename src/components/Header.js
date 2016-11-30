@@ -1,16 +1,13 @@
 import React from 'react'
 
+import {Segment, Header} from 'semantic-ui-react'
+
 import {Link} from 'react-router'
 
-const Header = (props) => (
-  <nav>
-    <header id="banner" className="hero-unit">
-      <div className="container">
-        <h1><Link to="/">dubdiff</Link></h1>
-        <h3></h3>
-      </div>
-    </header>
-  </nav>
+const SiteHeader = (props) => (
+  <Segment basic padded textAlign="center" as="header" id='masthead'>
+    <Header><Link to="/">dubdiff</Link></Header>
+  </Segment>
 )
 
-export default Header
+export default SiteHeader

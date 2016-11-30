@@ -2,10 +2,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
+import {Segment, Grid, Form} from 'semantic-ui-react'
+
 import * as Actions from '../actions'
 import * as Selectors from '../selectors'
 
 import Header from './Header'
+import Footer from './Footer'
 import MainControls from './MainControls'
 
 const mapStateToProps = (state) => ({
@@ -30,22 +33,37 @@ class Main extends React.Component {
     return (
       <div>
         <Header/>
-        <div className="container">
-          <form className="row">
-            <div className="col-md-2 col-sm-12">
-              <MainControls/>
-            </div>
-            <div className="col-lg-5 col-sm-12 form-group">
-              <label htmlFor="docA">Original</label>
-              <textarea id="docA" value={this.props.input.original} onChange={event => this.props.onChangeOriginal(event.target.value)} className="form-control"></textarea>
-            </div>
-            <div className="col-lg-5 col-sm-12 form-group">
-              <label htmlFor="docB">Final</label>
-              <textarea id="docB" value={this.props.input.final} onChange={event => this.props.onChangeFinal(event.target.value)} className="form-control"></textarea>
-            </div>
-          </form>
-        </div>
+
+        <Segment basic padded>
+          <Grid stackable columns={3}>
+            <Grid.Column width="3">
+              <MainControls/> 
+            </Grid.Column>
+            <Grid.Column width="6">
+              <Form>
+                <Form.Field>
+                  <label>Original</label>
+                  <textarea value={this.props.input.original} onChange={event => this.props.onChangeOriginal(event.target.value)}></textarea>
+                </Form.Field>
+              </Form>
+            </Grid.Column>
+            <Grid.Column width="6">
+                <Form>
+                <Form.Field>
+                  <label>Final</label>
+                  <textarea value={this.props.input.final} onChange={event => this.props.onChangeFinal(event.target.value)}></textarea>
+                </Form.Field>
+              </Form>
+            </Grid.Column>
+          </Grid>
+        </Segment>
+
+
+        <Footer/>
       </div>
+
+
+
     )
   } 
 }

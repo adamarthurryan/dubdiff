@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
 
+import {Button, Icon, Segment} from 'semantic-ui-react'
+
 import * as Actions from '../actions'
 import * as Selectors from '../selectors'
 
@@ -32,17 +34,18 @@ class MainControls extends React.Component {
 
   render() {
     return (
-      <div className="form-group">
-        <div className="controls well col-lg-12">
-        <Link to="compare" className="btn btn-block btn-primary">Compare</Link>
-        </div>
-        <div className="controls well btn-group col-lg-12">
-          <a className={(this.props.isMarkdownFormat ? "active " : "")+"btn btn-block btn-primary"} type="submit" onClick={this.onClickMarkdownFormat.bind(this)}>
-            <span className={(this.props.isMarkdownFormat ? "glyphicon-ok " : "") + "glyphicon"}></span>
-            &nbsp; As Markdown
-          </a>
-        </div>
-      </div>
+      <Segment.Group>
+        <Segment >
+          <Link to="compare"><Button fluid>Compare</Button></Link>
+        </Segment>
+
+        <Segment >
+          <Button fluid active={this.props.isMarkdownFormat} type="submit" onClick={this.onClickMarkdownFormat.bind(this)}>
+            {this.props.isMarkdownFormat ? <Icon name="checkmark"/> : <span/>}
+            &nbsp;As Markdown
+          </Button>
+        </Segment>
+      </Segment.Group>
     )
   }
 }

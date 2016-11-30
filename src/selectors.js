@@ -4,9 +4,10 @@ import { createSelector } from 'reselect'
 
 import React from 'react'
 
-import * as JsDiff from 'diff'
 
 import {Format, Show} from './reducers'
+
+import * as Dubdiff from './util/dubdiff'
 
 
 const input = (state) => state.input
@@ -44,14 +45,7 @@ export const isShowDifference= isShow(Show.DIFFERENCE)
 export const diff = createSelector(
   [format, input],
   (format, input) => {
-
-    let diff = JsDiff.diffLines(input.original.replace(/ /g, '###\n'), input.final.replace(/ /g, '###\n'))
-    console.log(diff, diff.map(({added, removed, value})=>({added, removed, value:value.replace(/###\n/g, ' ')})))
-    return diff.map(({added, removed, value})=>({added, removed, value:value.replace(/###\n/g, ' ')})).map(part => (
-      part.added ? <ins>{part.value}</ins> :
-      part.removed ? <del>{part.value}</del> :
-      <span>{part.value}</span> 
-    ))
+    return Dubdiff.plaintextDiff(input.original, input.final)
 /*
     let diff = JsDiff.diffWords (input.original.replace(/ /g, ' '), input.final.replace(/ /g, ' '))
     return diff.map(({added, removed, value})=>({added, removed, value:value.replace(/ /g, ' ')})).map(part => (
@@ -62,6 +56,8 @@ export const diff = createSelector(
 */ 
   }
 )
+
+
 
 /*
   html diff
