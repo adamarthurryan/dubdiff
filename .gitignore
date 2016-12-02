@@ -1,6 +1,6 @@
 *~
 node_modules
-
+data/*
 
 # have to add the bundle to version control so deployment with git subtree works
 # browser-bundle.js
