@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const Show = (props) => {
+const ShowPlaintext = (props) => {
   return <div>
     <pre style={{whiteSpace:'pre-wrap'}}>
       {props.text ?
@@ -14,7 +14,7 @@ const Show = (props) => {
   </div>
 }
 
-export default Show
+export default ShowPlaintext
 
 function diffToPre(diff) {
   return diff.map(part => (

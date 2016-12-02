@@ -10,7 +10,7 @@ import Header from './Header'
 import Footer from './Footer'
 import CompareControls from './CompareControls'
 
-import Show from './Show'
+import ShowPlaintext from './ShowPlaintext'
 
 const mapStateToProps = (state) => ({
   isMarkdownFormat: Selectors.isMarkdownFormat(state),
@@ -42,9 +42,9 @@ class Compare extends React.Component {
               <Segment>
                 { this.props.isShowDifference ?
 
-                    <Show diff={this.props.diff} isMarkdownFormat={this.props.isMarkdownFormat}>{this.props.diff}</Show>: 
+                    <ShowPlaintext diff={this.props.diff} isMarkdownFormat={this.props.isMarkdownFormat}>{this.props.diff}</ShowPlaintext>: 
 
-                    <Show 
+                    <ShowPlaintext 
                       text={this.props.isShowOriginal? this.props.safeInput.original: this.props.safeInput.final} 
                       isMarkdownFormat={this.props.isMarkdownFormat}
                     />
