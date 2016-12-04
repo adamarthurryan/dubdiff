@@ -12,7 +12,7 @@ import * as Dubdiff from './util/dubdiff'
 
 const input = (state) => state.input
 const format = (state) => state.format
-const show = (state) => state.show
+const show = (state) => state.show 
 
 export const safeInput = createSelector(
   [input],
@@ -25,7 +25,6 @@ export const safeInput = createSelector(
 export const isMarkdownFormat = createSelector(
   [format],
   (format) => {
-    console.log(format, Format.MARKDOWN)
     return format == Format.MARKDOWN
   }
 )

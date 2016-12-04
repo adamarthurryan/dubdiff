@@ -10,9 +10,6 @@ export function plaintextDiff(original, final) {
     let diff = JsDiff.diffArrays(arrOriginal, arrFinal)
     diff = plaintextRestoreSpaces(diff)
 
-
-    console.log(diffToLogString(diff))
-
     return diff
 
 //    return JsDiff.diffWordsWithSpace(original,final)

@@ -1,7 +1,7 @@
-const express = require('express')
-const jf = require('jsonfile')
-const fs = require('fs')
-const uuid = require('uuid')
+import express from 'express'
+import jf from 'jsonfile'
+import fs from 'fs'
+import uuid from 'uuid'
 
 
 const router = express.Router()

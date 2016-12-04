@@ -1,6 +1,6 @@
 module.exports = {
   cache: true,
-  entry: './src/client',
+  entry: './src/client/index.js',
   output: {
     filename: './dist/browser-bundle.js'
   },

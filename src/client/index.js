@@ -4,16 +4,13 @@ import ReactDOM from 'react-dom'
 import * as Redux from 'redux'
 
 import {Provider} from 'react-redux'
-import * as localStore from './localStore'
 
-import * as reducers from './reducers'
-
-import Main from './components/Main'
-import Compare from './components/Compare'
-
-import { Router } from 'react-router'
 import  createBrowserHistory  from 'history/lib/createBrowserHistory'
-import  {Route, IndexRoute, Redirect } from 'react-router'
+import  {Router, Route, IndexRoute, Redirect } from 'react-router'
+
+import * as localStore from '../common/localStore'
+import * as reducers from '../common/reducers'
+import routes from '../common/routes'
 
 
 //create the redux store
@@ -37,8 +34,7 @@ function render() {
     ReactDOM.render(
     <Provider store={store}>
         <Router history={createBrowserHistory()}>
-            <Route path="/" component={Main}  />
-            <Route path="/**" component={Compare}/>
+            {routes}
         </Router>
     </Provider>
   , document.getElementById('root'))

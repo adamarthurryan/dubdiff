@@ -1,10 +1,7 @@
 import React from 'react'
 
 
-//use markdown-it to render markdown
-//alternately use markdown to jsx
-
-const ShowMarkdown = (props) => {
+const ShowPlaintext = (props) => {
   return <div>
     <pre style={{whiteSpace:'pre-wrap'}}>
       {props.text ?
@@ -17,7 +14,7 @@ const ShowMarkdown = (props) => {
   </div>
 }
 
-export default ShowMarkdown
+export default ShowPlaintext
 
 function diffToPre(diff) {
   return diff.map(part => (
@@ -30,6 +27,5 @@ function diffToPre(diff) {
 
 
 const ifNotNewlineSpace = str => {
-  console.log(str)
   return !str.endsWith('\n') ? ' ' : ''
 }
