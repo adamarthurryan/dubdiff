@@ -6,6 +6,8 @@ import * as JsDiff from 'diff'
 // the diff would use a custom compare function that would disregard the spaces
 // alternately, the text could be split with the spaces included in the array and then compared with a 
 // custom diff function that would treat the space elements as null/ignored
+
+//the current mechanism for adding and removing spaces is fragile and broken
 export function plaintextDiff(original, final) {
     let arrOriginal = plaintextSplit(original)
     let arrFinal = plaintextSplit(final)
@@ -27,22 +29,29 @@ export function markdownDiff(original, final) {
     return diff  
 }
 
-
-export function diffToLogString(diff) {
+// returns a string version of the diff, with "{+ ... +}" and "[- ... -]"
+// representing ins and del blocks
+export function diffToString(diff) {
   return diff.map(({added, removed, value}) => {
-      let sym = added ? "+" : removed ? '-' : '/'
-      return sym+value+sym
-  })
+      let start = added ? '{+' : removed ? '[-' : ''
+      let end = added ? '+}' : removed ? '-]' : ''
+      let string = value
+      if (Array.isArray(value))
+        string = value.join('')
+
+      return start+string+end
+  }).join(' ')
 }
 
 let plaintextSplit = text =>text.split(/[ ]|(\n)/)
+
 function plaintextRestoreSpaces (diff) {
   return diff.map(({added, removed, value}) => ({
     added, 
     removed, 
     value:value.map((str, idx, arr) => (
       (str!='\n' && (idx<arr.length-1)) ? str+" " : str)
-    ).join('')
+    )
   }))
 }
 
@@ -79,7 +88,7 @@ function rewriteMarkdownDiff(diff) {
 function applyTransformationRule1(diff) {
   let transformedDiff = []
 
-  const B_ADD='added', B_REM='removed', B_SAME='same'
+  const B_ADDED='added', B_REMOVED='removed', B_SAME='same'
   let previousBlockType = null 
   let currentBlockType = null
   let previousBlockWasMultiline = false
@@ -87,16 +96,18 @@ function applyTransformationRule1(diff) {
 
   //iterate the input tokens to create the intermediate representation
   diff.forEach((currentBlock) => {
-    
+
     previousBlockType = currentBlockType
     previousBlockWasMultiline = currentBlockIsMultiline
-    currentBlockType = (currentBlock.added ? B_ADD : (currentBlock.removed ? B_REMOVED : B_SAME))
+    currentBlockType = (currentBlock.added ? B_ADDED : (currentBlock.removed ? B_REMOVED : B_SAME))
     currentBlockIsMultiline = isMultilineDiffBlock(currentBlock)
 
     //transform rule 1 applys when:
     // the previous block was a del and had multiple lines
     // the current block is an ins
-    if (previousBlockType == B_REM && currentBlockType == B_INS && previousBlockWasMultiline) {
+    if (previousBlockType == B_REMOVED && currentBlockType == B_ADDED && previousBlockWasMultiline) {
+      console.log('trigger rule 1')
+
       //split the first line from the current block
       let currentBlockSplit = splitMultilineDiffBlock(currentBlock)
 
@@ -104,13 +115,14 @@ function applyTransformationRule1(diff) {
       let previousBlock = transformedDiff.pop()
 
       //split the first line from the previous block
-      let previousBlockSplit = splitMultilineDiffBlock(currentBlock)
+      let previousBlockSplit = splitMultilineDiffBlock(previousBlock)
+
+      console.log({currentBlock, currentBlockSplit, previousBlock, previousBlockSplit})
 
       //now add the blocks back, interleaving del and ins blocks
       for (let i=0; i<Math.max(previousBlockSplit.length, currentBlockSplit.length); i++) {
         if (i<previousBlockSplit.length)
           transformedDiff.push(previousBlockSplit[i])
-
         if (i<currentBlockSplit.length)
           transformedDiff.push(currentBlockSplit[i])
       }
@@ -142,6 +154,7 @@ function applyTransformationRule2(diff) {
 
 
   /// ...
+  /*
   transform.forEach(function(item) {
     //newlines are undecorated
     if (item.string == '\n') {
@@ -193,7 +206,7 @@ function applyTransformationRule2(diff) {
     }
 
   });
-
+*/
 
 }
 
@@ -213,22 +226,30 @@ function isMultilineDiffBlock({value}) {
 //if the diff block begins with a newline, the returned array will begin with an empty diff
 function splitMultilineDiffBlock({added, removed, value}) {
   //find the indices of the diff block that coorespond to newlines
-  const splits = findIndicesOf(value, '\n')
+  const splits = findIndicesOf(value, str => str=='\n')
+
+  splits.push(value.length)
 
   //create a range from each index
   const ranges = splits.reduce( 
     //the accumulator is a structure with the last index and the list of ranges 
     //the ranges are a {start, end} structure 
-    ({last, ranges}, i) => {i, ranges.concat([{start:last, end:i}])},
+    ({last, ranges}, i) => {
+      ranges = ranges.concat([{start:last, end:i}])
+      return {last:i, ranges}
+    },
     //start with the zero index and an empty array 
     {last: 0, ranges:[]}
   ).ranges
 
+
   //map the ranges into blocks
   const blocks = ranges.map(
     //each block is the same as the given original block, but with the values split at newlines
-    ({start, end}) => {added, removed, value.slice(start, end)}
+    ({start, end}) => ({added, removed, value:value.slice(start, end)})
   )
+
+  console.log({value, splits, ranges, blocks})
 
   return blocks
 }
