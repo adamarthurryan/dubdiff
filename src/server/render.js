@@ -34,7 +34,7 @@ export default function render(store, req, res) {
       }
 
     } else {
-      res.status(404).send(renderError('Not found', ''))
+      res.status(404).send(errorTemplate('Not found', `${req.url} not found.`))
     }
   })
 }
@@ -47,7 +47,7 @@ const pageTemplate = (body) => {
           <title>Dubdiff</title>
 
           <!-- CSS -->
-          <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"/>
+          <link rel="stylesheet" href="dist/semantic.min.css"/>
           <link rel="stylesheet" href="dist/main.css"/> 
 
           <!-- Favicon -->
@@ -65,7 +65,10 @@ function errorTemplate(title, message, exception) {
   return pageTemplate(`
     <h1>${title}</h1>
     <p>${message}</p>
-    <pre>${exception.toString()}</pre>
+    ${exception ? 
+      `<pre>${exception.toString()}</pre>`:
+      ``
+    }
   `)
 }
 

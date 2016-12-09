@@ -9,19 +9,29 @@ import * as Selectors from '../selectors'
 
 const mapStateToProps = (state) => ({
   format: state.format, 
-  isMarkdownFormat: Selectors.isMarkdownFormat(state)
+  isMarkdownFormat: Selectors.isMarkdownFormat(state),
+  safeInput: Selectors.safeInput(state)
 })
 
   
 const mapDispatchToProps = dispatch => ({
   onSetPlaintextFormat: (format) => dispatch(Actions.setPlaintextFormat()),
-  onSetMarkdownFormat: (format) => dispatch(Actions.setMarkdownFormat())
+  onSetMarkdownFormat: (format) => dispatch(Actions.setMarkdownFormat()), 
+  onCompare: (safeInput) => {
+    dispatch(Actions.updateOriginalCompare(safeInput.original))
+    dispatch(Actions.updateFinalCompare(safeInput.final))
+    dispatch(Actions.clearInput())
+  }
 })
 
 class MainControls extends React.Component {
 
   onClickCompare() {
+    //generate new id? (or should the id be baked into the link route?)
+    //post safeInput to db
 
+    this.props.onCompare(this.props.safeInput)
+    return false
   }
 
   onClickMarkdownFormat() {
@@ -36,7 +46,7 @@ class MainControls extends React.Component {
     return (
       <Segment.Group>
         <Segment >
-          <Link to="compare"><Button fluid>Compare</Button></Link>
+          <Link to="compare"><Button fluid onClick={this.onClickCompare.bind(this)}>Compare</Button></Link>
         </Segment>
 
         <Segment >

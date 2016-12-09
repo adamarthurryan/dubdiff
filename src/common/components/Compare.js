@@ -17,7 +17,7 @@ const mapStateToProps = (state) => ({
   isShowOriginal: Selectors.isShowOriginal(state),
   isShowFinal: Selectors.isShowFinal(state),
   isShowDifference: Selectors.isShowDifference(state),
-  safeInput: Selectors.safeInput(state),
+  compare: state.compare,
   diff: Selectors.diff(state)
 })
 
@@ -45,7 +45,7 @@ class Compare extends React.Component {
                     <ShowPlaintext diff={this.props.diff} isMarkdownFormat={this.props.isMarkdownFormat}>{this.props.diff}</ShowPlaintext>: 
 
                     <ShowPlaintext 
-                      text={this.props.isShowOriginal? this.props.safeInput.original: this.props.safeInput.final} 
+                      text={this.props.isShowOriginal? this.props.compare.original: this.props.compare.final} 
                       isMarkdownFormat={this.props.isMarkdownFormat}
                     />
                 }

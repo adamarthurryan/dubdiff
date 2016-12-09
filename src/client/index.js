@@ -13,13 +13,26 @@ import * as reducers from '../common/reducers'
 import routes from '../common/routes'
 
 
+//the localStore implementation is naive
+//initial state should be rehydrated from the server
+//then additional state transformations should be applied based on localStore contents
+// (or not? maybe localStore is not needed)
+
+const initialState = window.__INITIAL_STATE__
+
 //create the redux store
 //initial state is retrieved from localStore
 const store = Redux.createStore(
   Redux.combineReducers(reducers), 
-  localStore.get("dubdiff"),
+  initialState,
   window.devToolsExtension ? window.devToolsExtension() : undefined
 )
+
+const localInput = localStore.get('dubdiff')
+if (localInput.input) {
+  //dispatch localStore data to store
+  //should this be done after the first render?
+}
 
 //save the state whenever the state changes
 function saveState() {

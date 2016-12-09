@@ -17,10 +17,10 @@ const ShowPlaintext = (props) => {
 export default ShowPlaintext
 
 function diffToPre(diff) {
-  return diff.map(part => (
-      part.added ? <span><ins>{part.value}</ins>{ifNotNewlineSpace(part.value)}</span> :
-      part.removed ? <span><del>{part.value}</del>{ifNotNewlineSpace(part.value)}</span> :
-      <span>{part.value}{ifNotNewlineSpace(part.value)}</span>
+  return diff.map((part, index) => (
+      part.added ? <span key={index}><ins>{part.value}</ins>{ifNotNewlineSpace(part.value)}</span> :
+      part.removed ? <span key={index}><del>{part.value}</del>{ifNotNewlineSpace(part.value)}</span> :
+      <span key={index}>{part.value}{ifNotNewlineSpace(part.value)}</span>
     ))
 }
 

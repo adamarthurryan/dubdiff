@@ -12,6 +12,7 @@ const mapStateToProps = (state) => ({
   isShowOriginal: Selectors.isShowOriginal(state),
   isShowFinal: Selectors.isShowFinal(state),
   isShowDifference: Selectors.isShowDifference(state),
+  compare: state.compare
 })
 
   
@@ -21,13 +22,17 @@ const mapDispatchToProps = dispatch => ({
   onShowOriginal: () => dispatch(Actions.showOriginal()),
   onShowFinal: () => dispatch(Actions.showFinal()),
   onShowDifference: () => dispatch(Actions.showDifference()),
-
+  onEdit: (compare) => {
+    dispatch(Actions.updateOriginalInput(compare.original))
+    dispatch(Actions.updateFinalInput(compare.final))
+    dispatch(Actions.clearCompare())
+  }
 })
 
 class CompareControls extends React.Component {
 
-  onClickCompare() {
-
+  onClickEdit() {
+    this.props.onEdit(this.props.compare)
   }
 
   onClickMarkdownFormat() {
@@ -41,6 +46,10 @@ class CompareControls extends React.Component {
   render() {
     return (
       <Segment.Group>
+        <Segment>
+          <Link to="/"><Button fluid  onClick={this.onClickEdit.bind(this)}>Edit</Button></Link>
+        </Segment>
+
         <Segment >
           <Button fluid onClick={this.props.onShowOriginal} active={this.props.isShowOriginal}>Original</Button>
           <Button fluid onClick={this.props.onShowFinal} active={this.props.isShowFinal}>Final</Button>

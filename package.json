@@ -4,8 +4,9 @@
   "description": "",
   "main": "src/server/babel.index.js",
   "scripts": {
-    "build": "ebpack --colors",
-    "start": "webpack --progress --colors --watch",
+    "copy-css": "copyfiles -f ./node_modules/semantic-ui-css/semantic.min.css ./dist",
+    "build": "npm run copy-css && webpack --colors",
+    "start": "npm run copy-css && webpack --progress --colors --watch",
     "serve": "node src/server/babel.index.js",
     "webpack-stats": "webpack --profile --json > stats.json",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -27,6 +28,7 @@
     "redux": "^3.5.1",
     "redux-router": "^1.0.0-beta5",
     "reselect": "^2.5.1",
+    "semantic-ui-css": "^2.2.4",
     "semantic-ui-react": "^0.61.6",
     "uuid": "^3.0.1"
   },

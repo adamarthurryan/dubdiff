@@ -1,17 +1,32 @@
 
 
+
 export function input (state, action ) {
   switch (action.type) {
     case 'UPDATE_ORIGINAL_INPUT':
       return Object.assign({}, state, {original:action.data})
     case 'UPDATE_FINAL_INPUT':
       return Object.assign({}, state, {final:action.data})
-    case 'RESET_INPUT':
+    case 'CLEAR_INPUT':
         return {original:'', final:''}
     default:
       return state || {original:'', final:''}
   }
 }
+
+export function compare (state, action ) {
+  switch (action.type) {
+    case 'UPDATE_ORIGINAL_COMPARE':
+      return Object.assign({}, state, {original:action.data})
+    case 'UPDATE_FINAL_COMPARE':
+      return Object.assign({}, state, {final:action.data})
+    case 'CLEAR_COMPARE':
+        return {original:'', final:''}
+    default:
+      return state || {original:'', final:''}
+  }
+}
+
 
 export const Format = {
   PLAINTEXT: 'PLAINTEXT',
