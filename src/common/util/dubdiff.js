@@ -1,4 +1,5 @@
 import * as JsDiff from 'diff'
+import EditorsDiff from './EditorsDiff'
 
 
 //!!! this deal with adding and removing spaces could be done more elegantly by 
@@ -9,21 +10,23 @@ import * as JsDiff from 'diff'
 
 //the current mechanism for adding and removing spaces is fragile and broken
 export function plaintextDiff(original, final) {
-    let arrOriginal = plaintextSplit(original)
-    let arrFinal = plaintextSplit(final)
+    //let arrOriginal = plaintextSplit(original)
+    //let arrFinal = plaintextSplit(final)
 
-    let diff = JsDiff.diffArrays(arrOriginal, arrFinal)
-    diff = plaintextRestoreSpaces(diff)
+    let diff = EditorsDiff.diff(original, final)
+    //diff = plaintextRestoreSpaces(diff)
 
     return diff
 }
 
 export function markdownDiff(original, final) {
-    let arrOriginal = plaintextSplit(original)
-    let arrFinal = plaintextSplit(final)
+//    let arrOriginal = plaintextSplit(original)
+//    let arrFinal = plaintextSplit(final)
 
-    let diff = JsDiff.diffArrays(arrOriginal, arrFinal)
-    diff = plaintextRestoreSpaces(diff)
+//    let diff = JsDiff.diffArrays(arrOriginal, arrFinal)
+//    diff = plaintextRestoreSpaces(diff)
+
+    let diff = EditorsDiff.diff(original, final)
     diff = rewriteMarkdownDiff(diff)
 
     return diff  
@@ -40,7 +43,7 @@ export function diffToString(diff) {
         string = value.join('')
 
       return start+string+end
-  }).join(' ')
+  }).join('')
 }
 
 let plaintextSplit = text =>text.split(/[ ]|(\n)/)
