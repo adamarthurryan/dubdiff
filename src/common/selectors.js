@@ -5,7 +5,7 @@ import { createSelector } from 'reselect'
 import React from 'react'
 
 
-import {Format, Show} from './reducers'
+import {Format, Show} from './constants'
 
 import * as Dubdiff from './util/dubdiff'
 

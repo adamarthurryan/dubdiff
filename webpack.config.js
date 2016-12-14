@@ -20,4 +20,9 @@ module.exports = {
       { test: /\.json$/, loader: "json-loader" },
     ]
   },
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+  }
 };

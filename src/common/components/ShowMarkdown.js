@@ -5,8 +5,6 @@ import markdownCompiler  from 'markdown-to-jsx'
 import {diffToString, diffToHtml} from '../util/dubdiff'
 
 const ShowMarkdown = (props) => {
-  if (props.diff)
-    console.log(diffToString(props.diff))
 
   return <div>
       {

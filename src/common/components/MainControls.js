@@ -18,9 +18,9 @@ const mapDispatchToProps = dispatch => ({
   onSetPlaintextFormat: (format) => dispatch(Actions.setPlaintextFormat()),
   onSetMarkdownFormat: (format) => dispatch(Actions.setMarkdownFormat()), 
   onCompare: (safeInput) => {
+    dispatch(Actions.save())
     dispatch(Actions.updateOriginalCompare(safeInput.original))
     dispatch(Actions.updateFinalCompare(safeInput.final))
-    dispatch(Actions.clearInput())
   }
 })
 

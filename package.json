@@ -8,7 +8,7 @@
     "build": "npm run copy-css && webpack --colors",
     "start": "npm run copy-css && webpack --progress --colors --watch",
     "serve": "node src/server/babel.index.js",
-    "webpack-stats": "webpack --profile --json > stats.json",
+    "webpack-stats": "webpack --json > stats.json",
     "test": "mocha --watch --compilers js:babel-register"
   },
   "author": "",
@@ -29,6 +29,9 @@
     "react-router": "^1.0.0",
     "redux": "^3.5.1",
     "redux-router": "^1.0.0-beta5",
+    "redux-thunk": "^2.1.0",
+    "request": "^2.79.0",
+    "request-promise-native": "^1.0.3",
     "reselect": "^2.5.1",
     "semantic-ui-css": "^2.2.4",
     "semantic-ui-react": "^0.61.6",

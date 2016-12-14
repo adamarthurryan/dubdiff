@@ -1,4 +1,4 @@
-
+import {Format, Show} from './constants'
 
 
 export function input (state, action ) {
@@ -28,12 +28,6 @@ export function compare (state, action ) {
 }
 
 
-export const Format = {
-  PLAINTEXT: 'PLAINTEXT',
-  MARKDOWN: 'MARKDOWN'
-}
-
-
 export function format (state, action) {
   switch (action.type) {
     case 'SET_PLAINTEXT_FORMAT':
@@ -45,11 +39,6 @@ export function format (state, action) {
   }
 } 
 
-export const Show = {
-  ORIGINAL:'ORIGINAL',
-  FINAL:'FINAL',
-  DIFFERENCE:'DIFFERENCE'
-}
 
 export function show (state, action) {
   switch (action.type) {
@@ -61,5 +50,25 @@ export function show (state, action) {
       return Show.DIFFERENCE
     default:
       return state || Show.DIFFERENCE
+  }
+}
+
+
+export function saveStatus (state, action) {
+  switch (action.type) {
+    case 'SAVE_STATUS_DIRTY':
+      return {dirty:true, id:null}
+    case 'SAVE_STATUS_EMPTY':
+      return {dirty:false, id:null}
+    case 'SAVE_STATUS_SAVED':
+      return Object.assign({}, state, {waiting: false, dirty:false, failed: false, error:null})
+    case 'SAVE_STATUS_FAILED' :
+      return Object.assign({}, state, {waiting: false, failed: true, error: action.error})
+    case 'SAVE_STATUS_WAITING' :
+      return Object.assign({}, state, {waiting: true, failed: false, error: null })
+    case 'SAVE_STATUS_ASSIGN_ID':
+      return Object.assign({}, state, {id: action.id})
+    default:
+      return state || {empty: true, dirty:false, id:null}
   }
 }
