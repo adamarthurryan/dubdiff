@@ -8,7 +8,7 @@ const ShowPlaintext = (props) => {
         props.text: 
         props.diff ?
           diffToPre(props.diff) :
-          null
+          null 
       }
     </pre>
   </div>
@@ -18,14 +18,8 @@ export default ShowPlaintext
 
 function diffToPre(diff) {
   return diff.map((part, index) => (
-      part.added ? <span key={index}><ins>{part.value}</ins>{ifNotNewlineSpace(part.value)}</span> :
-      part.removed ? <span key={index}><del>{part.value}</del>{ifNotNewlineSpace(part.value)}</span> :
-      <span key={index}>{part.value}{ifNotNewlineSpace(part.value)}</span>
+      part.added ? <ins key={index}>{part.value}</ins> :
+      part.removed ? <del key={index}>{part.value}</del> :
+      <span key={index}>{part.value}</span>
     ))
-}
-
-
-
-const ifNotNewlineSpace = str => {
-  return !str.endsWith('\n') ? ' ' : ''
 }

@@ -17,6 +17,7 @@ module.exports = {
           compact: "true"
         }
       },
+      { test: /\.json$/, loader: "json-loader" },
     ]
   },
 };

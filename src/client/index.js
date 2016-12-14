@@ -11,6 +11,8 @@ import  {Router, Route, IndexRoute, Redirect } from 'react-router'
 import * as localStore from '../common/localStore'
 import * as reducers from '../common/reducers'
 import routes from '../common/routes'
+import * as Actions from '../common/actions'
+
 
 
 //the localStore implementation is naive
@@ -29,8 +31,11 @@ const store = Redux.createStore(
 )
 
 const localInput = localStore.get('dubdiff')
+console.log(localInput)
 if (localInput.input) {
   //dispatch localStore data to store
+  store.dispatch(Actions.updateOriginalInput(localInput.input.original))
+  store.dispatch(Actions.updateFinalInput(localInput.input.final))
   //should this be done after the first render?
 }
 

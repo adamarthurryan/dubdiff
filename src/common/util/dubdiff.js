@@ -1,32 +1,18 @@
 import * as JsDiff from 'diff'
 import EditorsDiff from './EditorsDiff'
 
+let plaintextDiffer = new EditorsDiff()
+let markdownDiffer = new EditorsDiff(/([\s,.:]|[*\[\]\(\)])/)
 
-//!!! this deal with adding and removing spaces could be done more elegantly by 
-// diffing on an array of simple data structures that contain the text and the adjacent space
-// the diff would use a custom compare function that would disregard the spaces
-// alternately, the text could be split with the spaces included in the array and then compared with a 
-// custom diff function that would treat the space elements as null/ignored
-
-//the current mechanism for adding and removing spaces is fragile and broken
+//returns a comparison of the texts as plaintext
 export function plaintextDiff(original, final) {
-    //let arrOriginal = plaintextSplit(original)
-    //let arrFinal = plaintextSplit(final)
-
-    let diff = EditorsDiff.diff(original, final)
-    //diff = plaintextRestoreSpaces(diff)
-
+    let diff = plaintextDiffer.diff(original, final)
     return diff
 }
 
+//returns a comparison of the texts as markdown
 export function markdownDiff(original, final) {
-//    let arrOriginal = plaintextSplit(original)
-//    let arrFinal = plaintextSplit(final)
-
-//    let diff = JsDiff.diffArrays(arrOriginal, arrFinal)
-//    diff = plaintextRestoreSpaces(diff)
-
-    let diff = EditorsDiff.diff(original, final)
+    let diff = markdownDiffer.diff(original, final)
     diff = rewriteMarkdownDiff(diff)
 
     return diff  
@@ -34,10 +20,12 @@ export function markdownDiff(original, final) {
 
 // returns a string version of the diff, with "{+ ... +}" and "[- ... -]"
 // representing ins and del blocks
-export function diffToString(diff) {
+export function diffToString(diff, tags={added:{start:'{+', end:'+}'}, removed:{start:'[-', end:'-]'}, same:{start:'', end:''}}) {
+
   return diff.map(({added, removed, value}) => {
-      let start = added ? '{+' : removed ? '[-' : ''
-      let end = added ? '+}' : removed ? '-]' : ''
+
+      let {start,end} = added ? tags.added : (removed ? tags.removed : tags.same)
+
       let string = value
       if (Array.isArray(value))
         string = value.join('')
@@ -46,16 +34,8 @@ export function diffToString(diff) {
   }).join('')
 }
 
-let plaintextSplit = text =>text.split(/[ ]|(\n)/)
-
-function plaintextRestoreSpaces (diff) {
-  return diff.map(({added, removed, value}) => ({
-    added, 
-    removed, 
-    value:value.map((str, idx, arr) => (
-      (str!='\n' && (idx<arr.length-1)) ? str+" " : str)
-    )
-  }))
+export function diffToHtml(diff) {
+  return diffToString(diff, {added:{start:'<ins>', end:'</ins>'}, removed:{start:'<del>', end:'</del>'}, same:{start:'', end:''}})  
 }
 
 
@@ -80,7 +60,7 @@ function rewriteMarkdownDiff(diff) {
   //apply transformation rules
   let transformedDiff = diff
   transformedDiff= applyTransformationRule1(transformedDiff)
-  //transformedDiff= applyTransformationRule2(transformedDiff)
+  transformedDiff= applyTransformationRule2(transformedDiff)
   return transformedDiff
 }
 
@@ -109,7 +89,6 @@ function applyTransformationRule1(diff) {
     // the previous block was a del and had multiple lines
     // the current block is an ins
     if (previousBlockType == B_REMOVED && currentBlockType == B_ADDED && previousBlockWasMultiline) {
-      console.log('trigger rule 1')
 
       //split the first line from the current block
       let currentBlockSplit = splitMultilineDiffBlock(currentBlock)
@@ -120,7 +99,6 @@ function applyTransformationRule1(diff) {
       //split the first line from the previous block
       let previousBlockSplit = splitMultilineDiffBlock(previousBlock)
 
-      console.log({currentBlock, currentBlockSplit, previousBlock, previousBlockSplit})
 
       //now add the blocks back, interleaving del and ins blocks
       for (let i=0; i<Math.max(previousBlockSplit.length, currentBlockSplit.length); i++) {
@@ -139,102 +117,85 @@ function applyTransformationRule1(diff) {
   return transformedDiff
 }
 
+
+// matches markdown prefixes that affect the formatting of the whole subsequent line
+  // ^                  - start of line
+  // ([ \t]*\>)*       - blockquotes (possibly nested)
+  // (
+  //  ([ \t]*#*)      - headers
+  //  |([ \t]+[\*\+-])     - unordered lists
+  //  |([ \t]+[0-9]+\.)  - numeric lists
+  // )?
+  // [ \t]*             - trailing whitespace
+const MARKDOWN_PREFIX =  /^([ \t]*\>)*(([ \t]*#*)|([ \t]*[\*\+-])|([ \t]*[\d]+\.))?[ \t]*/
+
+//matches strings that end with a newline followed by some whitespace
+const NEWLINE_SUFFIX = /\n\s*$/
+
+// transformation rule 2:
+//    after a newline, if an ins or del block begins with a markdown line formatting prefix (eg. for a title or list)
+//    then that prefix should be moved out of the block
+//    also, if an ins block begins with a formatting prefix and follows immediately after a del block that follows a newline,
+//    the prefix should be moved out of the block _and_ an extra newline character should be added to the beginning of it
 function applyTransformationRule2(diff) {
-  // we need to find markdown prefixes that should be pulled out of added/removed blocks to the start of the line
-  // prefixes are matched as follows:
-    // ^                  - start of line
-    // ([ \t]*\>)*       - blockquotes (possibly nested)
-    // (
-    //  ([ \t]*#*)      - headers
-    //  |([ \t]+[\*\+-])     - unordered lists
-    //  |([ \t]+[0-9]+\.)  - numeric lists
-    // )?
-    // [ \t]*             - trailing whitespace
-  const PREFIX =  /^([ \t]*\>)*(([ \t]*#*)|([ \t]*[\*\+-])|([ \t]*[\d]+\.))?[ \t]*/
-
   let transformedDiff = []
-  return transformedDiff
 
+  let isNewline = true
+  let newlineString = '\n'
 
-  /// ...
-  /*
-  transform.forEach(function(item) {
-    //newlines are undecorated
-    if (item.string == '\n') {
-      output += '\n';
+  //iterate the input tokens to create the intermediate representation
+  diff.forEach((currentBlock) => {
 
-      //flag the new line
-      newline = true;
-      //and record the offset in the output string
-      newlineIndex = output.length;
-      return
+    if (isNewline && (currentBlock.added || currentBlock.removed) ) {
+      let match = currentBlock.value.match(MARKDOWN_PREFIX)
+      if (match) {
+        let preBlock = {value:match[0]}
+        let postBlock = {added:currentBlock.added, removed:currentBlock.removed, value:currentBlock.value.substring(match[0].length)}
+        
+        if (currentBlock.added) {
+          let newlineBlock = {value: newlineString}
+          transformedDiff.push(newlineBlock)
+        }
+        transformedDiff.push(preBlock)
+        transformedDiff.push(postBlock)
+      }
+      else {
+        transformedDiff.push(currentBlock)
+      }
     }
-
-    //wrap del strings with tags
-    if (item.state == SDEL) {
-      output += '<del>' + item.string + '</del>';
-      //del doesn't reset the newline state
-    }
-
-    //ins strings have to be handled a little differently:
-    //if this is an ins just after a newline, or after a del after a newline, 
-    //we need to peel off any markdown formatting prefixes and insert them at the beginning of the line outside the del/ins tags
-    else if (item.state == SINS && newline) {
-      var prestring, poststring;
-      var match = item.string.match(PREFIX);
-      if (match == null)
-        prestring ="";
-      else
-        prestring = match[0];
-
-      poststring = item.string.substring(prestring.length);
-
-      output = output.substring(0, newlineIndex) + prestring + output.substring(newlineIndex);
-      output += '<ins>' + poststring + '</ins>';
-      newline = false;
-      newlineIndex = -1;
-
-    }
-
-    else if (item.state == SINS) {
-      output += '<ins>' + item.string + '</ins>';
-    }
-
-    //and just output other strings
     else {
-      output += item.string;
-      //this resets the newline state
-      newline = false;
-      newlineIndex = -1;
+      transformedDiff.push(currentBlock)
+      isNewline = NEWLINE_SUFFIX.test(currentBlock.value)
+      if (isNewline)
+        newlineString = currentBlock.value.match(NEWLINE_SUFFIX)[0]
     }
+  })
 
-  });
-*/
-
+  return transformedDiff
 }
 
 
 
 //returns true if the given diff block contains a newline element
 function isMultilineDiffBlock({value}) {
-  return value.find(word => word == '\n')
+  return value.indexOf('\n') != -1
 }
 
 
 //returns an array of diff blocks that have the same added, removed fields as the given one
-//but with the array of words split by newlines
+//but with the string split by newlines
 //if the diff block has no newlines, an array containing only that diff will be returned
 //if the diff block has newlines, the resulting array will have a series of blocks, 
 // each of which subsequent to the first block will begin with a newline
 //if the diff block begins with a newline, the returned array will begin with an empty diff
 function splitMultilineDiffBlock({added, removed, value}) {
   //find the indices of the diff block that coorespond to newlines
-  const splits = findIndicesOf(value, str => str=='\n')
+  const splits = indicesOf(value, c => (c=='\n') )
 
   splits.push(value.length)
 
   //create a range from each index
-  const ranges = splits.reduce( 
+  const ranges = splits.reduce(  
     //the accumulator is a structure with the last index and the list of ranges 
     //the ranges are a {start, end} structure 
     ({last, ranges}, i) => {
@@ -249,16 +210,16 @@ function splitMultilineDiffBlock({added, removed, value}) {
   //map the ranges into blocks
   const blocks = ranges.map(
     //each block is the same as the given original block, but with the values split at newlines
-    ({start, end}) => ({added, removed, value:value.slice(start, end)})
+    ({start, end}) => ({added, removed, value:value.substring(start, end)})
   )
 
-  console.log({value, splits, ranges, blocks})
+  //console.log({value, splits, ranges, blocks})
 
   return blocks
 }
 
-//collect all the indices of the given array that satisfy the test function
-const findIndicesOf = (array, test) => array.reduce( 
+//collect all the indices of the given string that satisfy the test function
+const indicesOf = (string, test) => string.split('').reduce( 
   //add indexes that satisfy the test function to the array
   (acc, x, i) => (test(x) ? acc.concat([i]) : acc ), 
   //start with the empty array

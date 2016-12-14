@@ -1,44 +1,62 @@
 
 import {Diff} from 'diff'
 
-const EditorsDiff = new Diff()
+// EditorsDiff is a custom Diff implementation from the jsdiff library
+// It allows diffing by phrases. Whitespace is ignored for the purpose of comparison,
+// but is preserved and included in the output.
 
-EditorsDiff.equals = function(left, right) {
-  return (
-    left.string == right.string 
-  )
+const TOKEN_BOUNDARYS = /([\s,.:])/
     
-}
-EditorsDiff.tokenize = function(value) {
-  let tokens = value.split(/([ ]+)|(\n)/)
-  let annotatedTokens = [] 
-  tokens.forEach( token => {
-    if (isSpace(token)) {
-      if (annotatedTokens.length == 0)
-        annotatedTokens.push({string:'', whitespace:[]})
+class EditorsDiff extends Diff {
+  constructor (tokenBoundaries=TOKEN_BOUNDARYS) {
+    super()
+    this.tokenBoundaries = tokenBoundaries
+  }
 
-      let last = annotatedTokens[annotatedTokens.length-1]
-      last.whitespace.push(token)
-    }
-    else {
-      annotatedTokens.push({string:token, whitespace:[]})
-    }
-  })
-  console.log(annotatedTokens)
-  return annotatedTokens
-}
-EditorsDiff.join = function (annotatedTokens) {
-  let tokens = []
-  annotatedTokens.forEach(annotatedToken => {
-    tokens.push(annotatedToken.string)
-    annotatedToken.whitespace.forEach(item => {
-      tokens.push(item)
+  equals (left, right) {
+    return (
+      left.string == right.string 
+    )
+      
+  }
+
+
+  //splits the input string into a series of word and punctuation tokens
+    //each token is associated with an optional trailing array of spaces
+  tokenize (value) {
+    let tokens = value.split(this.tokenBoundaries)
+    let annotatedTokens = [] 
+    tokens.forEach( token => {
+      if (isSpace(token)) {
+        if (annotatedTokens.length == 0)
+          annotatedTokens.push({string:'', whitespace:[]})
+
+        let last = annotatedTokens[annotatedTokens.length-1]
+        last.whitespace.push(token)
+      }
+      else {
+        annotatedTokens.push({string:token, whitespace:[]})
+      }
     })
-  })
 
-  console.log(tokens.join(''))
-  return tokens.join('')
-}
+    //this final empty token is necessary for the jsdiff diffing engine to work properly
+    annotatedTokens.push({string:'', whitespace:[]})
+    return annotatedTokens
+  }
+  join(annotatedTokens) {
+    let tokens = []
+    annotatedTokens.forEach(annotatedToken => {
+      tokens.push(annotatedToken.string)
+      annotatedToken.whitespace.forEach(item => {
+        tokens.push(item)
+      })
+    })
+    return tokens.join('')
+  }
+} 
+
+
+
 
 export default EditorsDiff
 

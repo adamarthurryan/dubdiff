@@ -11,24 +11,26 @@ import Footer from './Footer'
 import CompareControls from './CompareControls'
 
 import ShowPlaintext from './ShowPlaintext'
+import ShowMarkdown from './ShowMarkdown'
 
 const mapStateToProps = (state) => ({
   isMarkdownFormat: Selectors.isMarkdownFormat(state),
-  isShowOriginal: Selectors.isShowOriginal(state),
+  isShowOriginal: Selectors.isShowOriginal(state), 
   isShowFinal: Selectors.isShowFinal(state),
   isShowDifference: Selectors.isShowDifference(state),
-  compare: state.compare,
+  compare: state.compare, 
   diff: Selectors.diff(state)
 })
 
 const mapDispatchToProps = dispatch => ({
 })
 
-
+ 
 
 class Compare extends React.Component {
 
   render() {
+    console.log({isMarkdownFormat: this.props.isMarkdownFormat, isShowDifference: this.props.isShowDifference})
     return (
       <div>
         <Header/>
@@ -40,14 +42,20 @@ class Compare extends React.Component {
             </Grid.Column>
             <Grid.Column width="13">
               <Segment>
-                { this.props.isShowDifference ?
-
-                    <ShowPlaintext diff={this.props.diff} isMarkdownFormat={this.props.isMarkdownFormat}>{this.props.diff}</ShowPlaintext>: 
-
-                    <ShowPlaintext 
-                      text={this.props.isShowOriginal? this.props.compare.original: this.props.compare.final} 
-                      isMarkdownFormat={this.props.isMarkdownFormat}
-                    />
+                {
+                  (!this.props.isMarkdownFormat && this.props.isShowDifference) ? 
+                      <ShowPlaintext diff={this.props.diff}>{this.props.diff}</ShowPlaintext>: 
+                  (this.props.isMarkdownFormat && this.props.isShowDifference) ?
+                      <ShowMarkdown diff={this.props.diff}>{this.props.diff}</ShowMarkdown>: 
+                  (!this.props.isMarkdownFormat && !this.props.isShowDifference) ?
+                      <ShowPlaintext 
+                        text={this.props.isShowOriginal? this.props.compare.original: this.props.compare.final} 
+                      /> :
+                  (this.props.isMarkdownFormat && !this.props.isShowDifference) ?
+                      <ShowMarkdown 
+                        text={this.props.isShowOriginal? this.props.compare.original: this.props.compare.final} 
+                      /> :
+                  null
                 }
               </Segment>
             </Grid.Column>

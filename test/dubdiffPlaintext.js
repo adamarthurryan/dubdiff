@@ -27,7 +27,7 @@ describe('dubdiff', () => {
     expect(diff(
       'This is a smlb sentnce with no errors.',
       'This is a simple sentence with no errors.'
-    )).to.equal('This is a [-smlb sentnce-]{+simple sentence+} with no errors.')
+    )).to.equal('This is a [-smlb sentnce -]{+simple sentence +}with no errors.')
   })
 
   it('diffs with word deletion', ()=>{  
@@ -59,5 +59,11 @@ describe('dubdiff', () => {
       'there\n',
       'there\n'
     )).to.equal('there\n')
+  })
+  it('treats punctuation separately', () => {
+    expect(diff(
+      'Hello world.',
+      'Hello, world.'
+    )).to.equal('Hello{+, +}world.')
   })
 })
