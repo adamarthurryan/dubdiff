@@ -10,10 +10,11 @@ import  {Router, Route, IndexRoute, Redirect, browserHistory } from 'react-route
 
 import thunk from 'redux-thunk'
 
-import * as localStore from '../common/localStore'
 import * as reducers from '../common/reducers'
 import routes from '../common/routes'
-import * as Actions from '../common/actions'
+import * as Actions from '../common/actions' 
+
+import LocalStorage from './LocalStorage'
 
 
 
@@ -38,35 +39,19 @@ const store = Redux.createStore(
     Redux.applyMiddleware(...middlewares)
 )
 
-//this way of reading local input isn't working:
-// it's just overriding what comes from the server
-// and it's not respecting the comparison that is loaded from the server
 
-/*
-const localInput = localStore.get('dubdiff')
-if (localInput.input) {
-  //dispatch localStore data to store
-  store.dispatch(Actions.updateOriginalInput(localInput.input.original))
-  store.dispatch(Actions.updateFinalInput(localInput.input.final))
-  //should this be done after the first render?
-}
-*/
 
-//save the state whenever the state changes
-function saveState() {
-  let state = store.getState()
-  //pass the elements of state that should be persisted to the local store as an array of element name strings
-  localStore.set(state, ["input"], "dubdiff") 
-}
-store.subscribe(saveState)
+
 
 
 function render() {
     ReactDOM.render(
     <Provider store={store}>
+      <LocalStorage >
         <Router history={browserHistory}>
             {routes}
         </Router>
+      </LocalStorage>
     </Provider>
   , document.getElementById('root'))
 }
