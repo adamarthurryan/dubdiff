@@ -31,7 +31,6 @@ function createComparisonWithId(req, res) {
   const id = req.params.id
   const {a, b} = req.body
 
-
   return writeRecord(res, id, {a, b, id})
 }
 
@@ -82,12 +81,12 @@ function writeRecord(res, id, data) {
 module.exports = router
 
 function handleError(res, err) {
-  console.log(err);
-  return res.send(500, err);
+  console.log(err)
+  return res.send(500, err)
 }
 
 
 // returns a filename for the given comparison
 function fnData (id) {
-  return "./data/" + "id-" + id + ".json";
+  return `./data/${id}.json`
 }

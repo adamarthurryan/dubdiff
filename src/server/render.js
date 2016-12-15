@@ -1,18 +1,17 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
-import { match, RoutingContext } from 'react-router'
+import { match, RouterContext } from 'react-router'
 
 import routes from '../common/routes.js'
 
 
 export default function render(store, req, res) {
-  console.log(store.getState())
-
   // Send the rendered page back to the client
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
-      res.status(500).send(renderError('Routing Error', error.message))
+      console.log(error)
+      res.status(500).send(renderError('Routing Error:', error.message))
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
@@ -20,7 +19,7 @@ export default function render(store, req, res) {
       try {
         const html = renderToString(
           <Provider store={store}>
-            <RoutingContext {...renderProps} />    
+            <RouterContext {...renderProps} />    
           </Provider>
         )
 
@@ -30,6 +29,7 @@ export default function render(store, req, res) {
         res.status(200).send(appTemplate(html, initialState))
       }
       catch(ex) {
+        console.log("Render Exception:",ex)
         res.status(500).send(errorTemplate('Render Exception', ex.message, ex))
       }
 

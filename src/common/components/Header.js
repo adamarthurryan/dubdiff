@@ -1,10 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {Segment, Header} from 'semantic-ui-react'
+import {Segment, Header, Rail, Container} from 'semantic-ui-react'
 import {Link} from 'react-router'
 
 import * as Actions from '../actions'
+import SaveStatus from './SaveStatus'
 
 const mapStateToProps = (state) => ({
 })
@@ -18,9 +19,21 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const SiteHeader = (props) => (
-  <Segment basic padded textAlign="center" as="header" id='masthead'>
-    <Link to="/"><Header onClick={props.onClear}>dubdiff</Header></Link>
-  </Segment>
+
+  
+    <Segment basic >
+
+      <Segment basic padded textAlign="center" as="header" id='masthead'>
+        <Header><Link onClick={props.onClear} to="/">dubdiff</Link></Header>
+      </Segment>
+
+      <Rail internal position="right">
+        <Segment basic padded>
+          <SaveStatus/>
+        </Segment>
+      </Rail>
+
+    </Segment>
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(SiteHeader)

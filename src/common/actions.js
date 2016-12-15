@@ -1,4 +1,4 @@
-import requestPromise from 'request-promise-native'
+import fetch from 'isomorphic-fetch'
 import uuid from 'uuid/v4'
 
 export const updateOriginalInput = (text) => 
@@ -24,43 +24,82 @@ export const clearInput = () =>
     dispatch({ type: 'SAVE_STATUS_EMPTY'})
   }
 
-export const updateOriginalCompare = (text) => ({ type: 'UPDATE_ORIGINAL_COMPARE', data:text})
-export const updateFinalCompare = (text) => ({ type: 'UPDATE_FINAL_COMPARE', data:text})
-export const clearCompare = () => ({ type: 'CLEAR_COMPARE'})
 export const setPlaintextFormat = () => ({ type: 'SET_PLAINTEXT_FORMAT'})
 export const setMarkdownFormat = () => ({ type: 'SET_MARKDOWN_FORMAT'})
 export const showOriginal = () => ({ type: 'SHOW_ORIGINAL'})
 export const showFinal = () => ({ type: 'SHOW_FINAL'})
 export const showDifference = () => ({ type: 'SHOW_DIFFERENCE'})
 
+
+//saves the current input fields to the server
+//creates and returns a new id for the 
 export const save = () =>
   (dispatch, getState) => {
 
-    console.log("!!! SAVING")
-
     //generate an id
     const id = uuid()
-    dispatch( {type: 'SAVE_STATUS_ASSIGN_ID', id})
 
     //set waiting state
     dispatch( {type: 'SAVE_STATUS_WAITING'})
 
-    const reqOptions = {
+    const endpointUri = `/api/compare/${id}`
+    const fetchOptions = {
       method: 'POST',
-      uri: `${location.origin}/api/compare/${id}`,
-      body: {
+      body: JSON.stringify({
         a: getState().input.original,
         b: getState().input.final
+      }),
+      headers: {
+        "Content-Type": "application/json"
       },
-      json: true
     }
 
+
     //dispatch post request
-    requestPromise(reqOptions)
-      .then(returnBodyJson => {
+    fetch(endpointUri, fetchOptions)
+      .then(response => {
         dispatch( {type: 'SAVE_STATUS_SAVED'})
       })
       .catch(error => {
         dispatch( {type: 'SAVE_STATUS_FAILED', error})
       })
+
+    //return the id after the request has been sent
+    return id;
   }
+
+/*
+const load = (id) =>
+  (dispatch, getState) => {
+
+    //set waiting state
+    dispatch( {type: 'SAVE_STATUS_WAITING'})
+
+    const endpointUri = `/api/compare/${id}`
+    const fetchOptions = {
+      method: 'GET'
+    }
+
+
+    //dispatch post request
+    fetch(endpointUri, fetchOptions)
+      .then(response => response.json())
+      .then(json => {
+        dispatch( {type: 'UPDATE_ORIGINAL_INPUT', data:json.a})
+        dispatch( {type: 'UPDATE_FINAL_INPUT', data:json.b})
+        dispatch( {type: 'LOAD_STATUS_LOADED'})
+      })
+      .catch(error => {
+        dispatch( {type: 'LOAD_STATUS_FAILED', error})
+      })
+
+    //return the id after the request has been sent
+    return id;
+
+  }
+
+export const loadIfNeeded = (id) =>
+  (dispatch, getState) => {
+    if
+  }
+*/

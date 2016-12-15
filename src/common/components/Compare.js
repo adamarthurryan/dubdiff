@@ -18,23 +18,28 @@ const mapStateToProps = (state) => ({
   isShowOriginal: Selectors.isShowOriginal(state), 
   isShowFinal: Selectors.isShowFinal(state),
   isShowDifference: Selectors.isShowDifference(state),
-  compare: state.compare, 
+  safeInput: Selectors.safeInput(state), 
   diff: Selectors.diff(state)
 })
 
 const mapDispatchToProps = dispatch => ({
+  //loadIfNeeded: (id) => dispatch(Actions.loadIfNeeded())
 })
 
  
 
 class Compare extends React.Component {
+  /*
+  componentDidMount() {
+    this.props.loadIfNeeded(this.props.routeParams.compareId)
+  }
+  */
 
   render() {
-    console.log({isMarkdownFormat: this.props.isMarkdownFormat, isShowDifference: this.props.isShowDifference})
     return (
       <div>
         <Header/>
-    
+
         <Segment basic padded>
           <Grid stackable columns={2}>
             <Grid.Column width="3">
@@ -49,11 +54,11 @@ class Compare extends React.Component {
                       <ShowMarkdown diff={this.props.diff}>{this.props.diff}</ShowMarkdown>: 
                   (!this.props.isMarkdownFormat && !this.props.isShowDifference) ?
                       <ShowPlaintext 
-                        text={this.props.isShowOriginal? this.props.compare.original: this.props.compare.final} 
+                        text={this.props.isShowOriginal? this.props.safeInput.original: this.props.safeInput.final} 
                       /> :
                   (this.props.isMarkdownFormat && !this.props.isShowDifference) ?
                       <ShowMarkdown 
-                        text={this.props.isShowOriginal? this.props.compare.original: this.props.compare.final} 
+                        text={this.props.isShowOriginal? this.props.safeInput.original: this.props.safeInput.final} 
                       /> :
                   null
                 }

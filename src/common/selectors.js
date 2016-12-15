@@ -13,7 +13,6 @@ import * as Dubdiff from './util/dubdiff'
 const input = (state) => state.input
 const format = (state) => state.format
 const show = (state) => state.show 
-const compare = (state) => state.compare
 
 export const safeInput = createSelector(
   [input],
@@ -43,9 +42,9 @@ export const isShowDifference= isShow(Show.DIFFERENCE)
 
 
 export const diff = createSelector(
-  [format, compare],
-  (format, compare) => {
-    return Dubdiff.plaintextDiff(compare.original, compare.final)
+  [format, safeInput],
+  (format, safeInput) => {
+    return Dubdiff.plaintextDiff(safeInput.original, safeInput.final)
 /*
     let diff = JsDiff.diffWords (input.original.replace(/ /g, ' '), input.final.replace(/ /g, ' '))
     return diff.map(({added, removed, value})=>({added, removed, value:value.replace(/ /g, ' ')})).map(part => (

@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router'
+import {browserHistory} from 'react-router'
 
 import {Button, Icon, Segment} from 'semantic-ui-react'
 
@@ -10,27 +10,30 @@ import * as Selectors from '../selectors'
 const mapStateToProps = (state) => ({
   format: state.format, 
   isMarkdownFormat: Selectors.isMarkdownFormat(state),
-  safeInput: Selectors.safeInput(state)
+  saveStatus: state.saveStatus
 })
 
   
 const mapDispatchToProps = dispatch => ({
   onSetPlaintextFormat: (format) => dispatch(Actions.setPlaintextFormat()),
   onSetMarkdownFormat: (format) => dispatch(Actions.setMarkdownFormat()), 
-  onCompare: (safeInput) => {
-    dispatch(Actions.save())
-    dispatch(Actions.updateOriginalCompare(safeInput.original))
-    dispatch(Actions.updateFinalCompare(safeInput.final))
+
+  //returns an id for the record to be saved
+  startSaveAsync: () => {
+    return dispatch(Actions.save())
   }
 })
 
 class MainControls extends React.Component {
 
   onClickCompare() {
-    //generate new id? (or should the id be baked into the link route?)
-    //post safeInput to db
+    //start saving the input to the server
+    const id = this.props.startSaveAsync()
 
-    this.props.onCompare(this.props.safeInput)
+    //we can use the id created by the save method to build a path
+    const comparePath = `/${id}`
+    browserHistory.replace(comparePath)
+
     return false
   }
 
@@ -46,7 +49,7 @@ class MainControls extends React.Component {
     return (
       <Segment.Group>
         <Segment >
-          <Link to="compare"><Button fluid onClick={this.onClickCompare.bind(this)}>Compare</Button></Link>
+          <Button fluid onClick={this.onClickCompare.bind(this)}>Compare</Button>
         </Segment>
 
         <Segment >

@@ -5,8 +5,8 @@ import * as Redux from 'redux'
 
 import {Provider} from 'react-redux'
 
-import  createBrowserHistory  from 'history/lib/createBrowserHistory'
-import  {Router, Route, IndexRoute, Redirect } from 'react-router'
+//import  createBrowserHistory  from 'history/lib/createBrowserHistory'
+import  {Router, Route, IndexRoute, Redirect, browserHistory } from 'react-router'
 
 import thunk from 'redux-thunk'
 
@@ -38,8 +38,11 @@ const store = Redux.createStore(
     Redux.applyMiddleware(...middlewares)
 )
 
-console.log(store)
+//this way of reading local input isn't working:
+// it's just overriding what comes from the server
+// and it's not respecting the comparison that is loaded from the server
 
+/*
 const localInput = localStore.get('dubdiff')
 if (localInput.input) {
   //dispatch localStore data to store
@@ -47,6 +50,7 @@ if (localInput.input) {
   store.dispatch(Actions.updateFinalInput(localInput.input.final))
   //should this be done after the first render?
 }
+*/
 
 //save the state whenever the state changes
 function saveState() {
@@ -60,7 +64,7 @@ store.subscribe(saveState)
 function render() {
     ReactDOM.render(
     <Provider store={store}>
-        <Router history={createBrowserHistory()}>
+        <Router history={browserHistory}>
             {routes}
         </Router>
     </Provider>

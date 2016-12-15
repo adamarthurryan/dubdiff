@@ -14,20 +14,6 @@ export function input (state, action ) {
   }
 }
 
-export function compare (state, action ) {
-  switch (action.type) {
-    case 'UPDATE_ORIGINAL_COMPARE':
-      return Object.assign({}, state, {original:action.data})
-    case 'UPDATE_FINAL_COMPARE':
-      return Object.assign({}, state, {final:action.data})
-    case 'CLEAR_COMPARE':
-        return {original:'', final:''}
-    default:
-      return state || {original:'', final:''}
-  }
-}
-
-
 export function format (state, action) {
   switch (action.type) {
     case 'SET_PLAINTEXT_FORMAT':
@@ -57,18 +43,30 @@ export function show (state, action) {
 export function saveStatus (state, action) {
   switch (action.type) {
     case 'SAVE_STATUS_DIRTY':
-      return {dirty:true, id:null}
+      return {dirty: true}
     case 'SAVE_STATUS_EMPTY':
-      return {dirty:false, id:null}
+      return {dirty: false, empty: true}
     case 'SAVE_STATUS_SAVED':
-      return Object.assign({}, state, {waiting: false, dirty:false, failed: false, error:null})
+      return {dirty: false, saved: true}
     case 'SAVE_STATUS_FAILED' :
       return Object.assign({}, state, {waiting: false, failed: true, error: action.error})
     case 'SAVE_STATUS_WAITING' :
-      return Object.assign({}, state, {waiting: true, failed: false, error: null })
-    case 'SAVE_STATUS_ASSIGN_ID':
-      return Object.assign({}, state, {id: action.id})
+      return Object.assign({}, state, {waiting: true, failed: false, error: null})
     default:
-      return state || {empty: true, dirty:false, id:null}
+      return state || {empty: true, dirty:false}
   }
 }
+/*
+export function loadStatus (state, action) {
+  switch (action.type) {
+    case 'LOAD_STATUS_WAITING':
+      return {waiting: true}
+    case 'LOAD_STATUS_FAILED':
+      return {failed: true, error: action.error }
+    case 'LOAD_STATUS_LOADED':
+      return {loaded: true}
+    default:
+      return state || {waiting: false}
+  }
+}
+*/

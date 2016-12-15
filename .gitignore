@@ -7,3 +7,6 @@ data/*
 
 browser-bundle.js.map
 npm-debug.log.*
+
+stats.json
+stats.analyzed.txt
