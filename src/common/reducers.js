@@ -1,4 +1,4 @@
-import {Format, Show} from './constants'
+import {Format, Show, Status, StatusError} from './constants'
 
 
 export function input (state, action ) {
@@ -39,7 +39,7 @@ export function show (state, action) {
   }
 }
 
-
+/*
 export function saveStatus (state, action) {
   switch (action.type) {
     case 'SAVE_STATUS_DIRTY':
@@ -56,17 +56,20 @@ export function saveStatus (state, action) {
       return state || {empty: true, dirty:false}
   }
 }
-/*
-export function loadStatus (state, action) {
-  switch (action.type) {
-    case 'LOAD_STATUS_WAITING':
-      return {waiting: true}
-    case 'LOAD_STATUS_FAILED':
-      return {failed: true, error: action.error }
-    case 'LOAD_STATUS_LOADED':
-      return {loaded: true}
-    default:
-      return state || {waiting: false}
-  }
-}
 */
+
+//tracks status of the app, especially with respect to loaded and saved user data
+export function status (state, action) {
+  //the status or error type is valid if it is in the list of Status or StatusError types
+  const isValidStatus = (type) => Status[type] == type
+  const isValidError = (type) => StatusError[type] == type
+
+  //the error is cleared when status changes
+  if (action.type == 'STATUS_SET' && isValidStatus(action.data))
+    return {type:action.data, error: null, hasError: false, errorType: null}
+  //the error is set in addition to the status
+  else if (action.type == 'STATUS_SET_ERROR' && isValidError(action.data))
+    return Object.assign({}, state, {error: action.error, hasError: true, errorType:action.data})
+  else
+    return {type:Status.EMPTY, hasError: false, error:null}
+}

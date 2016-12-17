@@ -21,15 +21,10 @@ const mapDispatchToProps = dispatch => ({
   onShowOriginal: () => dispatch(Actions.showOriginal()),
   onShowFinal: () => dispatch(Actions.showFinal()),
   onShowDifference: () => dispatch(Actions.showDifference()),
-  onEdit: () => {
-  }
+  onEdit: () => dispatch(Actions.edit())
 })
 
 class CompareControls extends React.Component {
-
-  onClickEdit() {
-    this.props.onEdit()
-  }
 
   onClickMarkdownFormat() {
     if (this.props.isMarkdownFormat)
@@ -43,7 +38,7 @@ class CompareControls extends React.Component {
     return (
       <Segment.Group>
         <Segment>
-          <Link to="/"><Button fluid  onClick={this.onClickEdit.bind(this)}>Edit</Button></Link>
+          <Button fluid  onClick={this.props.onEdit}>Edit</Button>
         </Segment>
 
         <Segment >

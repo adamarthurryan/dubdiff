@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {browserHistory} from 'react-router'
 
 import {Button, Icon, Segment} from 'semantic-ui-react'
 
@@ -19,23 +18,10 @@ const mapDispatchToProps = dispatch => ({
   onSetMarkdownFormat: (format) => dispatch(Actions.setMarkdownFormat()), 
 
   //returns an id for the record to be saved
-  startSaveAsync: () => {
-    return dispatch(Actions.save())
-  }
+  onCompare: () => dispatch(Actions.compare()) 
 })
 
 class MainControls extends React.Component {
-
-  onClickCompare() {
-    //start saving the input to the server
-    const id = this.props.startSaveAsync()
-
-    //we can use the id created by the save method to build a path
-    const comparePath = `/${id}`
-    browserHistory.replace(comparePath)
-
-    return false
-  }
 
   onClickMarkdownFormat() {
     if (this.props.isMarkdownFormat)
@@ -49,7 +35,7 @@ class MainControls extends React.Component {
     return (
       <Segment.Group>
         <Segment >
-          <Button fluid onClick={this.onClickCompare.bind(this)}>Compare</Button>
+          <Button fluid onClick={this.props.onCompare}>Compare</Button>
         </Segment>
 
         <Segment >

@@ -5,27 +5,20 @@ import { Message, Icon, Button} from 'semantic-ui-react'
 import { browserHistory} from 'react-router'
 
 import * as Actions from '../actions'
+import {Status, StatusError} from '../constants'
 
 const mapStateToProps = (state) => ({
-  saveStatus: state.saveStatus
+  status: state.status
 })
 
   
 const mapDispatchToProps = dispatch => ({
-  retrySave: () => dispatch(Actions.save())
+  onSave: () => dispatch(Actions.save())
 })
 
-const onRetrySaveClick = (props) => {
-      //we can use the id created by the save method to build a path
-    const id = props.retrySave()
-    const comparePath = `/${id}`
-    browserHistory.replace(comparePath)
-    return false
-}
-
-
 const SaveStatus = (props) => {
-  if (props.saveStatus.waiting) return (
+  console.log(props.status)
+  if (props.status.type == Status.SAVING) return (
     <Message size='tiny' floating compact icon>
       <Icon name='circle notched' loading />
       <Message.Content>
@@ -33,16 +26,32 @@ const SaveStatus = (props) => {
       </Message.Content>
     </Message>
   )
-  else if (props.saveStatus.failed) return (
+  if (props.status.type == Status.LOADING) return (
+    <Message size='tiny' floating compact icon>
+      <Icon name='circle notched' loading />
+      <Message.Content>
+        <Message.Header>Loading diff</Message.Header>
+      </Message.Content>
+    </Message>
+  )
+  else if (props.status.hasError && props.status.errorType == StatusError.SAVE_ERROR) return (
     <Message size='tiny' floating compact icon>
       <Icon name='exclamation' />
       <Message.Content>
         <Message.Header>Error saving diff</Message.Header>
-        The server returned {props.saveStatus.error.message}. 
-        <Button onClick={()=>onRetrySaveClick(props)}>Retry</Button>
+        {props.status.error.message} 
+        <Button onClick={props.onSave}>Retry</Button>
       </Message.Content>
-    </Message>
-  
+    </Message> 
+  )
+  else if (props.status.hasError && props.status.errorType == StatusError.LOAD_ERROR) return (
+    <Message size='tiny' floating compact icon>
+      <Icon name='exclamation' />
+      <Message.Content>
+        <Message.Header>Error loading diff</Message.Header>
+        Server returned {props.status.error}
+      </Message.Content>
+    </Message> 
   )
 
   else return ( <div></div> )

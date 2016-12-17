@@ -12,10 +12,7 @@ const mapStateToProps = (state) => ({
 
   
 const mapDispatchToProps = dispatch => ({
-  onClear: () => {
-    dispatch(Actions.clearInput())
-    dispatch(Actions.clearCompare())
-  },
+  onReset: () => { console.log(Actions.reset()); dispatch(Actions.reset())},
 })
 
 const SiteHeader = (props) => (
@@ -24,7 +21,7 @@ const SiteHeader = (props) => (
     <Segment basic >
 
       <Segment basic padded textAlign="center" as="header" id='masthead'>
-        <Header><Link onClick={props.onClear} to="/">dubdiff</Link></Header>
+        <Header><Link onClick={props.onReset}>dubdiff</Link></Header>
       </Segment>
 
       <Rail internal position="right">
