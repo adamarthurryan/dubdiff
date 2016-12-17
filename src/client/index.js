@@ -21,6 +21,8 @@ import LocalStorage from './LocalStorage'
 //initial state is rehydrated from the server
 const initialState = window.__INITIAL_STATE__
 
+console.log('initialState', initialState)
+
 //create the redux store
 //initial state is retrieved from localStore
 const store = Redux.createStore(

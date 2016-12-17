@@ -19,6 +19,6 @@ export const Status = {
 }
 
 export const StatusError = {
-  LOADING_ERROR: 'LOAD_ERROR',
-  SAVING_ERROR: 'SAVE_ERROR'
+  LOAD_ERROR: 'LOAD_ERROR',
+  SAVE_ERROR: 'SAVE_ERROR'
 }

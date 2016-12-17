@@ -71,5 +71,5 @@ export function status (state, action) {
   else if (action.type == 'STATUS_SET_ERROR' && isValidError(action.data))
     return Object.assign({}, state, {error: action.error, hasError: true, errorType:action.data})
   else
-    return {type:Status.EMPTY, hasError: false, error:null}
+    return state || {type:Status.EMPTY, hasError: false, error:null}
 }

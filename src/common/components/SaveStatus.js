@@ -13,11 +13,11 @@ const mapStateToProps = (state) => ({
 
   
 const mapDispatchToProps = dispatch => ({
-  onSave: () => dispatch(Actions.save())
+  onSave: () => dispatch(Actions.save()),
+  onReset: () => dispatch(Actions.reset())
 })
 
 const SaveStatus = (props) => {
-  console.log(props.status)
   if (props.status.type == Status.SAVING) return (
     <Message size='tiny' floating compact icon>
       <Icon name='circle notched' loading />
@@ -40,6 +40,7 @@ const SaveStatus = (props) => {
       <Message.Content>
         <Message.Header>Error saving diff</Message.Header>
         {props.status.error.message} 
+        <br/>
         <Button onClick={props.onSave}>Retry</Button>
       </Message.Content>
     </Message> 
@@ -49,7 +50,9 @@ const SaveStatus = (props) => {
       <Icon name='exclamation' />
       <Message.Content>
         <Message.Header>Error loading diff</Message.Header>
-        Server returned {props.status.error}
+        {props.status.error.message}
+        <br/>
+        <Button onClick={props.onReset}>New Diff</Button>
       </Message.Content>
     </Message> 
   )

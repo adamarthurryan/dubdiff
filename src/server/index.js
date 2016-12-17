@@ -9,7 +9,8 @@ import comparisonRouter from './comparison'
 
 
 import * as reducers from '../common/reducers'
-import * as actions from '../common/actions'
+
+import {Status, StatusError} from '../common/constants'
 
 import render from './render'
 
@@ -27,27 +28,33 @@ app.use('/api/compare', comparisonRouter);
 
 
 //the following routes are for server-side rendering of the app
-
 //we should render the comparison directly from the server
-
-//this is garbage, we should use a robust method for loading comparisons, parallel to how saving works
-//comparisons should be loaded isomorphically
+//this loading logic could be moved into ../common/actions because it is isomorphic
 app.route('/:comparisonId')
   .get((req, res) => {
 
+
     const store = createSessionStore()
-    
+    const endpointUri = `http://localhost:${PORT}/api/compare/${req.params.comparisonId}`
+
     //fetch the comparison
-    fetchComparison(req.params.comparisonId)
-      .then( ({a,b}) => {
-        store.dispatch({type: 'UPDATE_ORIGINAL_INPUT', data: a})
-        store.dispatch({type: 'UPDATE_FINAL_INPUT', data: b})
-        render(store, req, res)
-      })
-      .catch( error => {
-        //... what to do here?
-        console.log(`Error fetching comparison with id ${req.params.comparisonId}`, error)
-      })
+    fetch(endpointUri)
+    .then(response => {
+      if (response.ok)
+        return response.json()
+      else {
+        response.text().then( () => {
+          const error = {message:`${response.status}: ${response.statusText}`}
+          initAndRenderError(error, store, req, res)
+        })
+      }
+    })
+    .then( ({a,b}) => {
+      initAndRenderComparison({a,b}, store, req, res)
+    })
+    .catch( error => {
+      initAndRenderError(error, store, req, res)
+    })
 
   })
 app.route('/')
@@ -69,17 +76,15 @@ function createSessionStore() {
   )
 }
 
-
-function fetchComparison(id) {
-  const endpointUri = `http://localhost:${PORT}/api/compare/${id}`
-  const fetchOptions = {
-    method: 'GET'
-  }
- 
-  //dispatch post request
-  return fetch(endpointUri, fetchOptions)
-    .then(response => response.json())
+function initAndRenderComparison({a,b}, store, req, res) {
+  store.dispatch({type: 'UPDATE_ORIGINAL_INPUT', data: a})
+  store.dispatch({type: 'UPDATE_FINAL_INPUT', data: b})
+  store.dispatch({type: 'STATUS_SET', data: Status.CLEAN})
+  render(store, req, res)
 }
 
-
-//router.get('/', controller.index);
+function initAndRenderError(error, store, req, res) {
+  store.dispatch({type: 'STATUS_SET', data: Status.EMPTY})
+  store.dispatch({type: 'STATUS_SET_ERROR', data: StatusError.LOAD_ERROR, error})
+  render(store, req, res)
+}

@@ -98,9 +98,18 @@ export const save = () =>
     //dispatch post request
     fetch(endpointUri, fetchOptions)
       .then(response => {
-        dispatch({type: 'STATUS_SET', data: Status.CLEAN})
+        if (response.ok)
+          dispatch({type: 'STATUS_SET', data: Status.CLEAN})
+        else {
+          response.text().then( (responseText) => {
+            const error = {message:`${response.status}: ${responseText}`}
+            dispatch({type: 'STATUS_SET', data: Status.DIRTY})
+            dispatch({type: 'STATUS_SET_ERROR', data: StatusError.SAVE_ERROR, error})
+          })
+        }
       })
       .catch(error => {
+        //!!! could use a better error message here
         dispatch({type: 'STATUS_SET', data: Status.DIRTY})
         dispatch({type: 'STATUS_SET_ERROR', data: StatusError.SAVE_ERROR, error})
       })

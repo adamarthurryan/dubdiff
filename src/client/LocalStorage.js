@@ -18,9 +18,6 @@ const stateName = "dubdiff_state"
 //from the given object
 const copyKeys = (obj, keys) => keys.reduce((acc, p)=>{acc[p]=obj[p]; return acc}, {})
 
-console.log(copyKeys({a:1, b:2}, ['a']))
-console.log(copyKeys({}, ['a']))
-
 //utility method for retrieving json data from the local store
 function getLocalState (keys) {
   if (localStorage.getItem(stateName)) {
@@ -55,6 +52,7 @@ class LocalStorage extends React.Component {
   //load the state from the local storage
   componentDidMount() {
     //only if the status is EMPTY
+/*
     if (this.props.input.original=='' && this.props.input.final == '') {
       const localState = getLocalState(['input'])
       if (localState.input && localState.input.original)
@@ -62,6 +60,7 @@ class LocalStorage extends React.Component {
       if (localState.input && localState.input.final) 
         this.props.onChangeFinal(localState.input.final)
     }
+*/
   }
   //save the state to local storage
   componentWillReceiveProps(nextProps) {
