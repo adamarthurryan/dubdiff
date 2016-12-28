@@ -39,10 +39,10 @@ To build and launch a dev server:
     npm start
     npm run server
 
-To build and launch the distribution server:
+To build and launch the production server:
 
-    npm run build:dist
-    npm run server:dist
+    npm run build:prod
+    npm run server:prod
 
 
 
@@ -62,7 +62,7 @@ On a low-memory machine, eg. a DigitalOcean 512MB instance, you will need to ena
 
 To make the application start on boot, run the following:
 
-    pm2 start grunt --name dubdiff -- serve:dist
+    pm2 start npm --name dubdiff -- run serve:prod
     pm2 startup systemd
     pm2 save
 

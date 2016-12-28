@@ -14,7 +14,8 @@ import {Status, StatusError} from '../common/constants'
 
 import render from './render'
 
-const PORT = 8080
+//set use port 8080 for dev, 80 for production
+const PORT = (process.env.NODE_ENV !== "production" ? 8080 : 80)
 
 const app = express()
 
