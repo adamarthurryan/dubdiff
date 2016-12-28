@@ -1,12 +1,12 @@
 var Path = require('path');
 
-var srcRoot = Path.join(__dirname, '..')//.replace(/\\/g, "/")
+var srcRoot = Path.join(__dirname, '..')
 
 //there should be some option for distribution / optimization?
 var config =  {
-  /* upgraded to babel 6 to be able to use this preset */
   presets: ["node6", "react"],
-  sourceMaps: "both",
+  //enable source maps for non-production instances
+  sourceMaps: (process.env.NODE_ENV !== "production" ? "both" : false),
   //highlightCode: false,
   sourceRoot: srcRoot,
   only: /src/
@@ -15,16 +15,12 @@ var config =  {
 
 require('babel-core/register')(config);
 
-
-const PIPING = true
-
-//!!! Need to guard for production environments
-//if (process.env.NODE_ENV !== "production") {
-if (PIPING)
+// Enable piping for non-production environments
+if (process.env.NODE_ENV !== "production") {
   if (!require("piping")({hook: true, includeModules: false})) {
     return;
   }
-//}
+}
 
 try {
   require('./index.js');

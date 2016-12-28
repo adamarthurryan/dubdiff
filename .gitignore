@@ -2,9 +2,10 @@
 node_modules
 data/*
 
-# have to add the bundle to version control so deployment with git subtree works
-# browser-bundle.js
+dist/themes
+dist/semantic.min.css
 
+browser-bundle.js
 browser-bundle.js.map
 npm-debug.log.*
 

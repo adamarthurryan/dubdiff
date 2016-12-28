@@ -5,9 +5,11 @@
   "main": "src/server/babel.index.js",
   "scripts": {
     "copy-css": "cpy --parents --cwd=./node_modules/semantic-ui-css semantic.min.css themes/default/assets/fonts/icons.woff2 ../../dist",
-    "build": "npm run copy-css && webpack --colors",
-    "start": "npm run copy-css && webpack --progress --colors --watch",
+    "build": "npm run copy-css && webpack --progress --colors",
+    "build:prod": "npm run copy-css && cross-env NODE_ENV=production webpack -p --progress --colors",
+    "build:watch": "npm run copy-css && webpack --progress --colors --watch",
     "serve": "node src/server/babel.index.js",
+    "serve:prod": "cross-env NODE_ENV=production node src/server/babel.index.js",
     "webpack-stats": "webpack --json > stats.json",
     "test": "mocha --watch --compilers js:babel-register"
   },
@@ -47,6 +49,7 @@
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
     "copyfiles": "^0.2.2",
+    "cross-env": "^3.1.3",
     "json-loader": "^0.5.4",
     "mocha": "^3.2.0",
     "piping": "^1.0.0-rc.4",

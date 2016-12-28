@@ -1,11 +1,10 @@
-module.exports = {
+let config = {
   cache: true,
   entry: './src/client/index.js',
   output: {
     filename: './dist/browser-bundle.js'
   },
   target: 'web',
-//  devtool: 'eval-module-source-map',
 
   module: {
     loaders: [
@@ -26,3 +25,12 @@ module.exports = {
     tls: 'empty'
   }
 };
+
+if (process.env.NODE_ENV == "production") {
+  config.devtool = "cheap-module-source-map"
+}
+else {
+  config.devtool = "eval"
+}
+
+module.exports = config;
