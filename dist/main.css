@@ -1,3 +1,11 @@
 #masthead .header {
   font-size: 4em;
 }
+
+ins {
+  background-color: #dbffdb;
+}
+
+del {
+  background-color: #ffdddd;
+}

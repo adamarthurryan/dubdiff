@@ -65,7 +65,7 @@ app.route('/')
 
 
 app.listen(PORT, function () {
-  console.log('Server listening on port 8080.')
+  console.log(`Server listening on port ${PORT}.`)
 })
 
 
