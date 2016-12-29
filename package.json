@@ -7,6 +7,7 @@
     "copy-css": "cpy --parents --cwd=./node_modules/semantic-ui-css semantic.min.css themes/default/assets/fonts/icons.woff2 ../../dist",
     "build": "npm run copy-css && webpack --progress --colors",
     "build:prod": "npm run copy-css && cross-env NODE_ENV=production webpack -p --progress --colors",
+    "build:prod:nocopy": "cross-env NODE_ENV=production webpack -p --progress --colors",
     "build:watch": "npm run copy-css && webpack --progress --colors --watch",
     "serve": "node src/server/babel.index.js",
     "serve:prod": "cross-env NODE_ENV=production node src/server/babel.index.js",
