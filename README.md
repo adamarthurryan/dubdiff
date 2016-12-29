@@ -62,8 +62,13 @@ On a low-memory machine, eg. a DigitalOcean 512MB instance, you will need to ena
 
 To make the application start on boot, run the following:
 
-    pm2 start npm --name dubdiff -- run serve:prod
+    # initialize pm2 to start on boot with the systemd boot manager
     pm2 startup systemd
+    
+    # start the app with pm2
+    pm2 start npm --name dubdiff -- run serve:prod
+    
+    # save the current pm2 config so that it can be reloaded on boot
     pm2 save
 
  [Digital Ocean: How To Set Up a Node.js Application for Production on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04)
