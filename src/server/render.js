@@ -54,7 +54,6 @@ const pageTemplate = (body) => {
           <link rel="icon" type="image/png" sizes="96x96" href="dist/favicon-96x96.png">
           <link rel="icon" type="image/png" sizes="16x16" href="dist/favicon-16x16.png">
 
-
         </head>
         <body>
           ${body}
@@ -81,7 +80,7 @@ function appTemplate(html, initialState) {
       <div id="root">${html}</div>
 
       <script>
-        window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
+        window.__INITIAL_STATE__ = "${encodeURI(JSON.stringify(initialState,null,2))}"
       </script>
       <!-- <script>__REACT_DEVTOOLS_GLOBAL_HOOK__ = parent.__REACT_DEVTOOLS_GLOBAL_HOOK__</script> -->
       <script type="text/javascript" src="dist/browser-bundle.js"></script>
