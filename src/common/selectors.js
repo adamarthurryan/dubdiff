@@ -44,18 +44,12 @@ export const isShowDifference= isShow(Show.DIFFERENCE)
 export const diff = createSelector(
   [format, safeInput],
   (format, safeInput) => {
-    return Dubdiff.plaintextDiff(safeInput.original, safeInput.final)
-/*
-    let diff = JsDiff.diffWords (input.original.replace(/ /g, ' '), input.final.replace(/ /g, ' '))
-    return diff.map(({added, removed, value})=>({added, removed, value:value.replace(/ /g, ' ')})).map(part => (
-      part.added ? <ins>{part.value}</ins> :
-      part.removed ? <del>{part.value}</del> :
-      <span>{part.value}</span> 
-    ))
-*/ 
+    if (format==Format.PLAINTEXT)
+      return Dubdiff.plaintextDiff(safeInput.original, safeInput.final)
+    else if (format==Format.MARKDOWN)
+      return Dubdiff.markdownDiff(safeInput.original, safeInput.final)
   }
 )
-
 
 
 /*

@@ -5,7 +5,7 @@
 
 import chai from 'chai'
 
-import {markdownDiff, diffToString} from '../src/common/util/dubdiff'
+import {markdownDiff, diffToString, diffToHtml} from '../src/common/util/dubdiff'
 
 let diff = (a,b) => diffToString(markdownDiff(a,b))
 
@@ -43,7 +43,7 @@ describe('dubdiff', () => {
 `# Title
 other`,
 `# Subtitle`
-    )).to.equal('# [-Title-]{+Subtitle+}[-\nother-]')
+    )).to.equal('# [-Title-]{+Subtitle+}\n[-other-]')
   })
 
   it('pulls prefixes out of ins or del blocks after newline',  () => {
@@ -70,5 +70,18 @@ other`,
       'This [link](https://somewhere.com) is the same.',
       'This [link](https://somewhere.org) changed.'
     )).to.equal('This [link](https://somewhere.[-com-]{+org+}) [-is the same-]{+changed+}.')
+  }) 
+  it('deletes a title' , () => {
+    expect(diff(
+      'Hello\n# Title 1\n# Title 2',
+      'Hello\n# Title 2'
+    )).to.equal('Hello\n# Title [-1-]\n# [-Title -]2',)
+  })
+  it('deletes a more different title' , () => {
+    expect(diff(
+      'Hello\n# Filbert\n# Title 2',
+      'Hello\n# Title 2'
+    )).to.equal('Hello\n# [-Filbert-]\n# Title 2',)
   })
 })
+

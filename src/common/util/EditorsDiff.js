@@ -61,3 +61,4 @@ class EditorsDiff extends Diff {
 export default EditorsDiff
 
 const isSpace = str => /[ ]+/.test(str)
+const isNewline = str => /[\n]+/.test(str)
