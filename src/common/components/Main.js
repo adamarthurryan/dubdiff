@@ -13,59 +13,50 @@ import MainControls from './MainControls'
 
 const mapStateToProps = (state) => ({
   input: state.input,
-  safeInput: Selectors.safeInput(state),
+  safeInput: Selectors.safeInput(state)
 })
 
-  
 const mapDispatchToProps = dispatch => ({
   onChangeOriginal: (text) => dispatch(Actions.updateOriginalInput(text)),
-  onChangeFinal: (text) => dispatch(Actions.updateFinalInput(text)),
+  onChangeFinal: (text) => dispatch(Actions.updateFinalInput(text))
 })
 
-
 class Main extends React.Component {
-  
-  constructor() {
-    super()
-  }
 
-  render () { 
+  render () {
     return (
       <div>
-        <Header/>
+        <Header />
 
         <Segment basic padded>
           <Grid stackable columns={3}>
-            <Grid.Column width="3">
-              <MainControls/> 
+            <Grid.Column width='3'>
+              <MainControls />
             </Grid.Column>
-            <Grid.Column width="6">
+            <Grid.Column width='6'>
               <Form>
                 <Form.Field>
                   <label>Original</label>
-                  <textarea value={this.props.input.original} onChange={event => this.props.onChangeOriginal(event.target.value)}></textarea>
+                  <textarea value={this.props.input.original} onChange={event => this.props.onChangeOriginal(event.target.value)} />
                 </Form.Field>
               </Form>
             </Grid.Column>
-            <Grid.Column width="6">
-                <Form>
+            <Grid.Column width='6'>
+              <Form>
                 <Form.Field>
                   <label>Final</label>
-                  <textarea value={this.props.input.final} onChange={event => this.props.onChangeFinal(event.target.value)}></textarea>
+                  <textarea value={this.props.input.final} onChange={event => this.props.onChangeFinal(event.target.value)} />
                 </Form.Field>
               </Form>
             </Grid.Column>
           </Grid>
         </Segment>
 
-
-        <Footer/>
+        <Footer />
       </div>
 
-
-
     )
-  } 
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)

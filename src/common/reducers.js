@@ -1,16 +1,15 @@
 import {Format, Show, Status, StatusError} from './constants'
 
-
-export function input (state, action ) {
+export function input (state, action) {
   switch (action.type) {
     case 'UPDATE_ORIGINAL_INPUT':
-      return Object.assign({}, state, {original:action.data})
+      return Object.assign({}, state, {original: action.data})
     case 'UPDATE_FINAL_INPUT':
-      return Object.assign({}, state, {final:action.data})
+      return Object.assign({}, state, {final: action.data})
     case 'CLEAR_INPUT':
-        return {original:'', final:''}
+      return {original: '', final: ''}
     default:
-      return state || {original:'', final:''}
+      return state || {original: '', final: ''}
   }
 }
 
@@ -23,8 +22,7 @@ export function format (state, action) {
     default:
       return state || Format.PLAINTEXT
   }
-} 
-
+}
 
 export function show (state, action) {
   switch (action.type) {
@@ -58,18 +56,20 @@ export function saveStatus (state, action) {
 }
 */
 
-//tracks status of the app, especially with respect to loaded and saved user data
+// tracks status of the app, especially with respect to loaded and saved user data
 export function status (state, action) {
-  //the status or error type is valid if it is in the list of Status or StatusError types
-  const isValidStatus = (type) => Status[type] == type
-  const isValidError = (type) => StatusError[type] == type
+  // the status or error type is valid if it is in the list of Status or StatusError types
+  const isValidStatus = (type) => Status[type] === type
+  const isValidError = (type) => StatusError[type] === type
 
-  //the error is cleared when status changes
-  if (action.type == 'STATUS_SET' && isValidStatus(action.data))
-    return {type:action.data, error: null, hasError: false, errorType: null}
-  //the error is set in addition to the status
-  else if (action.type == 'STATUS_SET_ERROR' && isValidError(action.data))
-    return Object.assign({}, state, {error: action.error, hasError: true, errorType:action.data})
-  else
-    return state || {type:Status.EMPTY, hasError: false, error:null}
+  // the error is cleared when status changes
+  if (action.type === 'STATUS_SET' && isValidStatus(action.data)) {
+    return {type: action.data, error: null, hasError: false, errorType: null}
+  }
+  // the error is set in addition to the status
+  else if (action.type === 'STATUS_SET_ERROR' && isValidError(action.data)) {
+    return Object.assign({}, state, {error: action.error, hasError: true, errorType: action.data})
+  } else {
+    return state || {type: Status.EMPTY, hasError: false, error: null}
+  }
 }

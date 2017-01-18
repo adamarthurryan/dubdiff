@@ -1,9 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {Segment, Grid, Form} from 'semantic-ui-react'
+import {Segment, Grid} from 'semantic-ui-react'
 
-import * as Actions from '../actions'
 import * as Selectors from '../selectors'
 
 import Header from './Header'
@@ -15,18 +14,16 @@ import ShowMarkdown from './ShowMarkdown'
 
 const mapStateToProps = (state) => ({
   isMarkdownFormat: Selectors.isMarkdownFormat(state),
-  isShowOriginal: Selectors.isShowOriginal(state), 
+  isShowOriginal: Selectors.isShowOriginal(state),
   isShowFinal: Selectors.isShowFinal(state),
   isShowDifference: Selectors.isShowDifference(state),
-  safeInput: Selectors.safeInput(state), 
+  safeInput: Selectors.safeInput(state),
   diff: Selectors.diff(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-  //loadIfNeeded: (id) => dispatch(Actions.loadIfNeeded())
+  // loadIfNeeded: (id) => dispatch(Actions.loadIfNeeded())
 })
-
- 
 
 class Compare extends React.Component {
   /*
@@ -35,39 +32,39 @@ class Compare extends React.Component {
   }
   */
 
-  render() {
+  render () {
     return (
       <div>
-        <Header/>
+        <Header />
 
         <Segment basic padded>
           <Grid stackable columns={2}>
-            <Grid.Column width="3">
-              <CompareControls/>
+            <Grid.Column width='3'>
+              <CompareControls />
             </Grid.Column>
-            <Grid.Column width="13">
+            <Grid.Column width='13'>
               <Segment>
                 {
-                  (!this.props.isMarkdownFormat && this.props.isShowDifference) ? 
-                      <ShowPlaintext diff={this.props.diff}>{this.props.diff}</ShowPlaintext>: 
-                  (this.props.isMarkdownFormat && this.props.isShowDifference) ?
-                      <ShowMarkdown diff={this.props.diff}>{this.props.diff}</ShowMarkdown>: 
-                  (!this.props.isMarkdownFormat && !this.props.isShowDifference) ?
-                      <ShowPlaintext 
-                        text={this.props.isShowOriginal? this.props.safeInput.original: this.props.safeInput.final} 
-                      /> :
-                  (this.props.isMarkdownFormat && !this.props.isShowDifference) ?
-                      <ShowMarkdown 
-                        text={this.props.isShowOriginal? this.props.safeInput.original: this.props.safeInput.final} 
-                      /> :
-                  null
+                  (!this.props.isMarkdownFormat && this.props.isShowDifference)
+                    ? <ShowPlaintext diff={this.props.diff}>{this.props.diff}</ShowPlaintext>
+                    : (this.props.isMarkdownFormat && this.props.isShowDifference)
+                      ? <ShowMarkdown diff={this.props.diff}>{this.props.diff}</ShowMarkdown>
+                      : (!this.props.isMarkdownFormat && !this.props.isShowDifference)
+                        ? <ShowPlaintext
+                          text={this.props.isShowOriginal ? this.props.safeInput.original : this.props.safeInput.final}
+                          />
+                        : (this.props.isMarkdownFormat && !this.props.isShowDifference)
+                          ? <ShowMarkdown
+                            text={this.props.isShowOriginal ? this.props.safeInput.original : this.props.safeInput.final}
+                            />
+                          : null
                 }
               </Segment>
             </Grid.Column>
           </Grid>
         </Segment>
 
-        <Footer/>
+        <Footer />
       </div>
     )
   }
@@ -75,10 +72,9 @@ class Compare extends React.Component {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Compare)
 
-
 /*    <div ng-if="isMarkdownFormat">
       <div ng-show="isShowBefore" class="col-md-10 col-sm-12 content-well">
-        <div btf-markdown="before" class="before"> 
+        <div btf-markdown="before" class="before">
         </div>
       </div>
       <div ng-show="isShowWdiff" class="col-md-10 col-sm-12 content-well">

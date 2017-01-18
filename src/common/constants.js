@@ -4,9 +4,9 @@ export const Format = {
 }
 
 export const Show = {
-  ORIGINAL:'ORIGINAL',
-  FINAL:'FINAL',
-  DIFFERENCE:'DIFFERENCE'
+  ORIGINAL: 'ORIGINAL',
+  FINAL: 'FINAL',
+  DIFFERENCE: 'DIFFERENCE'
 }
 
 export const Status = {

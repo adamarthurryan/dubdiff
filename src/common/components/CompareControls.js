@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router'
 
 import {Button, Icon, Segment} from 'semantic-ui-react'
 
@@ -11,13 +10,12 @@ const mapStateToProps = (state) => ({
   isMarkdownFormat: Selectors.isMarkdownFormat(state),
   isShowOriginal: Selectors.isShowOriginal(state),
   isShowFinal: Selectors.isShowFinal(state),
-  isShowDifference: Selectors.isShowDifference(state),
+  isShowDifference: Selectors.isShowDifference(state)
 })
 
-  
 const mapDispatchToProps = dispatch => ({
   onSetPlaintextFormat: () => dispatch(Actions.setPlaintextFormat()),
-  onSetMarkdownFormat: () => dispatch(Actions.setMarkdownFormat()), 
+  onSetMarkdownFormat: () => dispatch(Actions.setMarkdownFormat()),
   onShowOriginal: () => dispatch(Actions.showOriginal()),
   onShowFinal: () => dispatch(Actions.showFinal()),
   onShowDifference: () => dispatch(Actions.showDifference()),
@@ -26,19 +24,19 @@ const mapDispatchToProps = dispatch => ({
 
 class CompareControls extends React.Component {
 
-  onClickMarkdownFormat() {
-    if (this.props.isMarkdownFormat)
+  onClickMarkdownFormat () {
+    if (this.props.isMarkdownFormat) {
       this.props.onSetPlaintextFormat()
-    else
+    } else {
       this.props.onSetMarkdownFormat()
+    }
   }
 
-
-  render() {
+  render () {
     return (
       <Segment.Group>
         <Segment>
-          <Button fluid  onClick={this.props.onEdit}>Edit</Button>
+          <Button fluid onClick={this.props.onEdit}>Edit</Button>
         </Segment>
 
         <Segment >
@@ -48,8 +46,8 @@ class CompareControls extends React.Component {
         </Segment>
 
         <Segment >
-          <Button fluid active={this.props.isMarkdownFormat} type="submit" onClick={this.onClickMarkdownFormat.bind(this)}>
-            {this.props.isMarkdownFormat ? <Icon name="checkmark"/> : <span/>}
+          <Button fluid active={this.props.isMarkdownFormat} type='submit' onClick={this.onClickMarkdownFormat.bind(this)}>
+            {this.props.isMarkdownFormat ? <Icon name='checkmark' /> : <span />}
             &nbsp;As Markdown
           </Button>
         </Segment>

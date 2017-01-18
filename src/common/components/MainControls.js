@@ -7,31 +7,30 @@ import * as Actions from '../actions'
 import * as Selectors from '../selectors'
 
 const mapStateToProps = (state) => ({
-  format: state.format, 
+  format: state.format,
   isMarkdownFormat: Selectors.isMarkdownFormat(state),
   saveStatus: state.saveStatus
 })
 
-  
 const mapDispatchToProps = dispatch => ({
   onSetPlaintextFormat: (format) => dispatch(Actions.setPlaintextFormat()),
-  onSetMarkdownFormat: (format) => dispatch(Actions.setMarkdownFormat()), 
+  onSetMarkdownFormat: (format) => dispatch(Actions.setMarkdownFormat()),
 
-  //returns an id for the record to be saved
-  onCompare: () => dispatch(Actions.compare()) 
+  // returns an id for the record to be saved
+  onCompare: () => dispatch(Actions.compare())
 })
 
 class MainControls extends React.Component {
 
-  onClickMarkdownFormat() {
-    if (this.props.isMarkdownFormat)
+  onClickMarkdownFormat () {
+    if (this.props.isMarkdownFormat) {
       this.props.onSetPlaintextFormat()
-    else
+    } else {
       this.props.onSetMarkdownFormat()
+    }
   }
 
-
-  render() {
+  render () {
     return (
       <Segment.Group>
         <Segment >
@@ -39,8 +38,8 @@ class MainControls extends React.Component {
         </Segment>
 
         <Segment >
-          <Button fluid active={this.props.isMarkdownFormat} type="submit" onClick={this.onClickMarkdownFormat.bind(this)}>
-            {this.props.isMarkdownFormat ? <Icon name="checkmark"/> : <span/>}
+          <Button fluid active={this.props.isMarkdownFormat} type='submit' onClick={this.onClickMarkdownFormat.bind(this)}>
+            {this.props.isMarkdownFormat ? <Icon name='checkmark' /> : <span />}
             &nbsp;As Markdown
           </Button>
         </Segment>
@@ -52,4 +51,4 @@ class MainControls extends React.Component {
 export default connect(mapStateToProps, mapDispatchToProps)(MainControls)
 
 /*
-<a type="button" onClick={this.onClickCompare.bind(this)} className="btn btn-block btn-primary">compare</a>*/
+<a type="button" onClick={this.onClickCompare.bind(this)} className="btn btn-block btn-primary">compare</a> */

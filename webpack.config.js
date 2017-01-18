@@ -13,10 +13,10 @@ let config = {
         loader: 'babel-loader',
         query: {
           presets: ['es2015-native-modules', 'react'],
-          compact: "true"
+          compact: 'true'
         }
       },
-      { test: /\.json$/, loader: "json-loader" },
+      { test: /\.json$/, loader: 'json-loader' }
     ]
   },
   node: {
@@ -24,13 +24,12 @@ let config = {
     net: 'empty',
     tls: 'empty'
   }
-};
-
-if (process.env.NODE_ENV == "production") {
-  config.devtool = "cheap-module-source-map"
-}
-else {
-  config.devtool = "eval"
 }
 
-module.exports = config;
+if (process.env.NODE_ENV === 'production') {
+  config.devtool = 'cheap-module-source-map'
+} else {
+  config.devtool = 'eval'
+}
+
+module.exports = config

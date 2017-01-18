@@ -12,6 +12,8 @@
     "serve": "node src/server/babel.index.js",
     "serve:prod": "cross-env NODE_ENV=production node src/server/babel.index.js",
     "webpack-stats": "webpack --json > stats.json",
+    "lint": "standard --verbose | snazzy",
+    "lint:fix": "standard --fix --verbose | snazzy",
     "test": "mocha --watch --compilers js:babel-register"
   },
   "author": "",
@@ -55,6 +57,8 @@
     "json-loader": "^0.5.4",
     "mocha": "^3.2.0",
     "piping": "^1.0.0-rc.4",
+    "snazzy": "^6.0.0",
+    "standard": "^8.6.0",
     "webpack": "^2.1.0-beta.27"
   }
 }
