@@ -5,6 +5,8 @@ import {Segment, Grid} from 'semantic-ui-react'
 
 import * as Selectors from '../selectors'
 
+import {Format} from '../constants'
+
 import Header from './Header'
 import Footer from './Footer'
 import CompareControls from './CompareControls'
