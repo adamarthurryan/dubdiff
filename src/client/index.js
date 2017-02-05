@@ -61,7 +61,7 @@ function registerFormatListener(store) {
     let nextFormat = store.getState().format;
 
     if (nextFormat === Format.MARKDOWN) 
-      window.history.replaceState("", document.title, window.location.pathname+"#"+nextFormat);
+      window.history.replaceState("", document.title, window.location.pathname+"#"+nextFormat.toLowerCase());
     else if (nextFormat === Format.PLAINTEXT) {
       window.history.replaceState("", document.title, window.location.pathname);
 
