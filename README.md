@@ -37,12 +37,12 @@ You'll need node & npm. Then install dependencies with
 To build and launch a dev server:
 
     npm start
-    npm run server
+    npm run serve
 
 To build and launch the production server:
 
     npm run build:prod
-    npm run server:prod
+    npm run serve:prod
 
 
 
